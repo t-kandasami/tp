@@ -9,7 +9,7 @@ public class AddCourseCommand implements Command {
     private final String input;
 
     /**
-     * Create a new AddCourseCommand with the user's input
+     * Creates a new AddCourseCommand with the user's input
      *
      * @param input The user input to add new course
      */
@@ -34,7 +34,7 @@ public class AddCourseCommand implements Command {
     }
 
     /**
-     * Indicate whether this command should exit the application
+     * Indicates whether this command should exit the application
      *
      * @return false, as adding course does not exit the application
      */
