@@ -21,7 +21,10 @@ public class UserInterface {
      * @return The trimmed user input command
      */
     public String readCommand() {
-        return INPUT_SCANNER.nextLine().trim();
+        if(INPUT_SCANNER.hasNextLine()) {
+            return INPUT_SCANNER.nextLine().trim();
+        }
+        return null;
     }
 
     /**

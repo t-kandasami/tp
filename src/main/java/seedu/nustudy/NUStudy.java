@@ -22,6 +22,10 @@ public class NUStudy {
         while (!isExit) {
             String userInput = ui.readCommand();
 
+            if (userInput == null) {
+                break;
+            }
+
             if (userInput.isEmpty()) {
                 continue;
             }
