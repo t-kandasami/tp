@@ -5,21 +5,21 @@ package seedu.nustudy.course;
  */
 public class Course {
 
-    /**
-     * The name of the course
-     */
-    private final String courseName;
+	/**
+	 * The name of the course
+	 */
+	private final String courseName;
 	private int loggedHours;
 
-    /**
-     * Creates a new Course with the specific name
-     *
-     * @param courseName The name of the course
-     */
-    public Course(String courseName) {
-        this.courseName = courseName;
+	/**
+	 * Creates a new Course with the specific name
+	 *
+	 * @param courseName The name of the course
+	 */
+	public Course(String courseName) {
+		this.courseName = courseName;
 		this.loggedHours = 0;
-    }
+	}
 
 	/**
 	 * Returns the number of study hours logged for this course at call time.
@@ -37,13 +37,13 @@ public class Course {
 		this.loggedHours = 0;
 	}
 
-    /**
-     * Returns a string representation of the course
-     *
-     * @return The course name
-     */
-    @Override
-    public String toString() {
-        return courseName + " (" + loggedHours + "h logged)";
-    }
+	/**
+	 * Returns a string representation of the course
+	 *
+	 * @return The course name
+	 */
+	@Override
+	public String toString() {
+		return courseName + " (" + loggedHours + "h logged)";
+	}
 }

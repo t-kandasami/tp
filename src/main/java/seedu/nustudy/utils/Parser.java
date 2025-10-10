@@ -6,20 +6,20 @@ import seedu.nustudy.command.ResetCourseHoursCommand;
 import seedu.nustudy.exceptions.NUStudyCommandException;
 
 public class Parser {
-    /**
-     * Returns a Command parsed from user's input
-     *
-     * @param input The user-inputted command string
-     * @return A Command object that can execute the user's request
-     * @throws NUStudyCommandException If the command is invalid
-     */
-    public static Command parseCommand(String input)
-            throws NUStudyCommandException {
-        String[] words = input.split("\\s+", 2);
-        String command = words[0].toLowerCase();
-        String arguments = words.length > 1 ? words[1] : "";
+	/**
+	 * Returns a Command parsed from user's input
+	 *
+	 * @param input The user-inputted command string
+	 * @return A Command object that can execute the user's request
+	 * @throws NUStudyCommandException If the command is invalid
+	 */
+	public static Command parseCommand(String input)
+			throws NUStudyCommandException {
+		String[] words = input.split("\\s+", 2);
+		String command = words[0].toLowerCase();
+		String arguments = words.length > 1 ? words[1] : "";
 
-        switch (command) {
+		switch (command) {
 		case "add":
 			return new AddCourseCommand(arguments);
 		case "reset":
@@ -27,5 +27,5 @@ public class Parser {
 		default:
 			throw new NUStudyCommandException("Wrong command");
 		}
-    }
+	}
 }

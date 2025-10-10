@@ -23,6 +23,7 @@ public class ResetCourseHoursCommand implements Command {
 	 * Runs the reset command and checks the input. User confirmation upon reset is done.
 	 * If input is "all", logged hours for all courses are reset.
 	 * Else, logged hours for the specified course are reset.
+	 *
 	 * @param courses The {@code CourseManager} instance containing all courses.
 	 * @throws NUStudyException If the specified course is non-existent
 	 */

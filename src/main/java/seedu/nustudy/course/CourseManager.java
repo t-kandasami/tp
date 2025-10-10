@@ -6,16 +6,16 @@ import java.util.ArrayList;
  * A list to manage all  courses in the application
  */
 public class CourseManager {
-    private final ArrayList<Course> courses = new ArrayList<>();
+	private final ArrayList<Course> courses = new ArrayList<>();
 
-    /**
-     * Adds a course to the list
-     *
-     * @param course The course to add
-     */
-    public void add(Course course) {
-        courses.add(course);
-    }
+	/**
+	 * Adds a course to the list
+	 *
+	 * @param course The course to add
+	 */
+	public void add(Course course) {
+		courses.add(course);
+	}
 
 	/**
 	 * Returns the list of all courses currently logged by NUStudy
@@ -33,7 +33,7 @@ public class CourseManager {
 	 * @return The {@code Course} object if found, else {@code null}.
 	 */
 	public Course findCourse(String courseName) {
-		for (Course c: courses) {
+		for (Course c : courses) {
 			if (c.toString().startsWith(courseName)) {
 				return c;
 			}
