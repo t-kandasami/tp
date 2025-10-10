@@ -9,7 +9,7 @@ public class UserInterface {
     private static final Scanner INPUT_SCANNER = new Scanner(System.in);
 
     /**
-     * Print a partition line for visual separation
+     * Prints a partition line for visual separation
      */
     public static void printLineBreak() {
         System.out.println(LINE_BREAK);
@@ -20,15 +20,18 @@ public class UserInterface {
      *
      * @return The trimmed user input command
      */
-    public String readCommand() {
+    public static String readInput() {
         if (INPUT_SCANNER.hasNextLine()) {
-            return INPUT_SCANNER.nextLine().trim();
+            String line = INPUT_SCANNER.nextLine().trim();
+            if (!line.isEmpty()) {
+                return line;
+            }
         }
         return null;
     }
 
     /**
-     * Print a success message when a course is added
+     * Prints a success message when a course is added
      *
      * @param course The course that was added
      */

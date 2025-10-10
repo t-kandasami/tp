@@ -5,6 +5,9 @@ import seedu.nustudy.exceptions.NUStudyException;
 import seedu.nustudy.ui.UserInterface;
 
 public class ListCourseCommand implements Command {
+    public ListCourseCommand(String arguments) {
+    }
+
     /**
      * Create a new ListCourseCommand with the user's input in the provided course list
      *

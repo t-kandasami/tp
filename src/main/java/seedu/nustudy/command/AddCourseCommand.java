@@ -9,7 +9,7 @@ public class AddCourseCommand implements Command {
     private final String input;
 
     /**
-     * Create a new AddCourseCommand with the user's input
+     * Creates a new AddCourseCommand with the user's input
      *
      * @param input The user input to add new course
      */
@@ -23,8 +23,7 @@ public class AddCourseCommand implements Command {
      * @param courses The course list to work with
      * @throws NUStudyException If user's input is invalid
      */
-    public void execute(CourseManager courses)
-            throws NUStudyException {
+    public void execute(CourseManager courses) throws NUStudyException {
         if (input.isEmpty()) {
             throw new NUStudyException("Input a course name");
         }
@@ -34,7 +33,7 @@ public class AddCourseCommand implements Command {
     }
 
     /**
-     * Indicate whether this command should exit the application
+     * Indicates whether this command should exit the application
      *
      * @return false, as adding course does not exit the application
      */
