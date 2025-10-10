@@ -14,7 +14,7 @@ public class DeleteCourseCommand implements Command {
 
 
     public void execute(CourseManager courses) throws NUStudyException {
-        if(input.isEmpty()) {
+        if (input.isEmpty()) {
             throw new NUStudyException("Please enter a course name that you want to delete");
         }
         Course courseToDelete = courses.findCourse(input);

@@ -16,7 +16,7 @@ public class CourseManager {
     public void add(Course course) {
         courses.add(course);
     }
-    
+
     /**
      * Delete a course from the list
      *
@@ -34,7 +34,7 @@ public class CourseManager {
     public ArrayList<Course> getCourses() {
         return courses;
     }
-    
+
     /**
      * Finds and returns a course with name starting with the given string.
      *
