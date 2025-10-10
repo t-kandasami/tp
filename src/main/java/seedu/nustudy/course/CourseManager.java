@@ -1,7 +1,5 @@
 package seedu.nustudy.course;
 
-import seedu.nustudy.exceptions.NUStudyException;
-
 import java.util.ArrayList;
 
 /**
