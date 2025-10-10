@@ -35,4 +35,8 @@ public class UserInterface {
     public static void printCourseAdded(Course course) {
         System.out.println(course + " added");
     }
+
+    public static void printCourseDeleted(Course course) {
+        System.out.println(course + " deleted");
+    }
 }
