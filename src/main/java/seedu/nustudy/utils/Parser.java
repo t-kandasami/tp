@@ -2,6 +2,7 @@ package seedu.nustudy.utils;
 
 import seedu.nustudy.command.AddCourseCommand;
 import seedu.nustudy.command.Command;
+import seedu.nustudy.command.ListCourseCommand;
 import seedu.nustudy.exceptions.NUStudyCommandException;
 
 public class Parser {
@@ -20,6 +21,7 @@ public class Parser {
 
         return switch (command) {
         case "add" -> new AddCourseCommand(arguments);
+        case "list" -> new ListCourseCommand();
         default -> throw new NUStudyCommandException("Wrong command");
         };
     }

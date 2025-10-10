@@ -16,4 +16,13 @@ public class CourseManager {
     public void add(Course course) {
         courses.add(course);
     }
+
+    /**
+     * Get the list of courses
+     *
+     * @return ArrayList of courses
+     */
+    public ArrayList<Course> getCourses() {
+        return courses;
+    }
 }
