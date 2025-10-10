@@ -2,6 +2,7 @@ package seedu.nustudy.utils;
 
 import seedu.nustudy.command.AddCourseCommand;
 import seedu.nustudy.command.Command;
+import seedu.nustudy.command.DeleteCourseCommand;
 import seedu.nustudy.command.ListCourseCommand;
 import seedu.nustudy.command.ResetCourseHoursCommand;
 import seedu.nustudy.exceptions.NUStudyCommandException;
@@ -16,8 +17,7 @@ public class Parser {
      * @return A Command object that can execute the user's request
      * @throws NUStudyCommandException If the command is invalid
      */
-    public static Command parseCommand(String input)
-            throws NUStudyCommandException {
+    public static Command parseCommand(String input) throws NUStudyCommandException {
         String[] words = input.split("\\s+", 2);
         String command = words[0].toLowerCase();
         String arguments = words.length > 1 ? words[1] : "";
@@ -29,6 +29,8 @@ public class Parser {
             return new ListCourseCommand(arguments);
         case "reset":
             return new ResetCourseHoursCommand(arguments);
+        case "delete":
+            return new DeleteCourseCommand(arguments);
         default:
             throw new NUStudyCommandException("Wrong command");
         }

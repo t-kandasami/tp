@@ -16,6 +16,15 @@ public class CourseManager {
     public void add(Course course) {
         courses.add(course);
     }
+    
+    /**
+     * Delete a course from the list
+     *
+     * @param course The course to delete
+     */
+    public void delete(Course course) {
+        courses.remove(course);
+    }
 
     /**
      * Get the list of courses
@@ -25,7 +34,7 @@ public class CourseManager {
     public ArrayList<Course> getCourses() {
         return courses;
     }
-
+    
     /**
      * Finds and returns a course with name starting with the given string.
      *

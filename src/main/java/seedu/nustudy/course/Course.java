@@ -21,6 +21,8 @@ public class Course {
         this.loggedHours = 0;
     }
 
+
+
     /**
      * Returns the number of study hours logged for this course at call time.
      *

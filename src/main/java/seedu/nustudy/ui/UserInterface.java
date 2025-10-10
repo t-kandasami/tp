@@ -40,6 +40,15 @@ public class UserInterface {
     }
 
     /**
+     * Prints a success message when a course is deleted
+     *
+     * @param course The course that was deleted
+     */
+    public static void printCourseDeleted(Course course) {
+        System.out.println(course + " deleted");
+    }
+
+    /**
      * Print all courses in the course manager
      *
      * @param courses The course manager containing courses
