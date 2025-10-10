@@ -9,7 +9,7 @@ import seedu.nustudy.exceptions.NUStudyException;
 public interface Command {
 
     /**
-     * Execute the command
+     * Executes the command
      *
      * @param courses The course list to work with
      * @throws NUStudyException If command execution fails
@@ -17,7 +17,7 @@ public interface Command {
     void execute(CourseManager courses) throws NUStudyException;
 
     /**
-     * Return whether the command should exit the application
+     * Returns whether the command should exit the application
      *
      * @return true if application should exit, false otherwise
      */

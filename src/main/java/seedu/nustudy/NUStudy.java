@@ -20,7 +20,7 @@ public class NUStudy {
         boolean isExit = false;
 
         while (!isExit) {
-            String userInput = ui.readCommand();
+            String userInput = ui.readInput();
 
             if (userInput == null) {
                 break;

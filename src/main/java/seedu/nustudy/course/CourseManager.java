@@ -11,28 +11,14 @@ public class CourseManager {
     private final ArrayList<Course> courses = new ArrayList<>();
 
     /**
-     * Add a course to the list
+     * Adds a course to the list
      *
      * @param course The course to add
      */
     public void add(Course course) {
         courses.add(course);
     }
-
-    /**
-     * Find a course instance using the course name
-     * @param courseName The name of the course
-     * @return Course
-     */
-    public Course findCourse(String courseName) throws NUStudyException {
-        for (Course course : courses) {
-            if (course.toString().equalsIgnoreCase(courseName)) {
-                return course;
-            }
-        }
-        throw new NUStudyException("Course not found");
-    }
-
+    
     /**
      * Delete a course from the list
      *
@@ -40,5 +26,29 @@ public class CourseManager {
      */
     public void delete(Course course) {
         courses.remove(course);
+    }
+
+    /**
+     * Get the list of courses
+     *
+     * @return ArrayList of courses
+     */
+    public ArrayList<Course> getCourses() {
+        return courses;
+    }
+    
+    /**
+     * Finds and returns a course with name starting with the given string.
+     *
+     * @param courseName The prefix of the course being searched.
+     * @return The {@code Course} object if found, else {@code null}.
+     */
+    public Course findCourse(String courseName) {
+        for (Course c : courses) {
+            if (c.toString().startsWith(courseName)) {
+                return c;
+            }
+        }
+        return null;
     }
 }
