@@ -16,4 +16,19 @@ public class CourseManager {
     public void add(Course course) {
         courses.add(course);
     }
+
+    /**
+     * Find a course instance using the course name
+     * @param courseName The name of the course
+     * @return Course
+     */
+    public Course findCourse(String courseName) throws NUStudyException {
+        for (Course course : courses) {
+            if (course.toString().equalsIgnoreCase(courseName)) {
+                return course;
+            }
+        }
+        throw new NUStudyException("Course not found");
+    }
+
 }
