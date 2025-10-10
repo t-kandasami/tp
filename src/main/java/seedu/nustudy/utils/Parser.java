@@ -2,6 +2,7 @@ package seedu.nustudy.utils;
 
 import seedu.nustudy.command.AddCourseCommand;
 import seedu.nustudy.command.Command;
+import seedu.nustudy.command.ListCourseCommand;
 import seedu.nustudy.command.ResetCourseHoursCommand;
 import seedu.nustudy.exceptions.NUStudyCommandException;
 
@@ -24,6 +25,8 @@ public class Parser {
         switch (command) {
         case "add":
             return new AddCourseCommand(arguments);
+        case "list":
+            return new ListCourseCommand(arguments);
         case "reset":
             return new ResetCourseHoursCommand(arguments);
         default:

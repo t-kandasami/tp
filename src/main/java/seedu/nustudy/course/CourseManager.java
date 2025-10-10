@@ -18,9 +18,9 @@ public class CourseManager {
     }
 
     /**
-     * Returns the list of all courses currently logged by NUStudy
+     * Get the list of courses
      *
-     * @return An {@code ArrayList} of type {@code Course} with all Course objects.
+     * @return ArrayList of courses
      */
     public ArrayList<Course> getCourses() {
         return courses;

@@ -38,4 +38,21 @@ public class UserInterface {
     public static void printCourseAdded(Course course) {
         System.out.println(course + " added");
     }
+
+    /**
+     * Print all courses in the course manager
+     *
+     * @param courses The course manager containing courses
+     */
+    public static void printCourseList(seedu.nustudy.course.CourseManager courses) {
+        System.out.println("Courses:");
+        int idx = 1;
+        for (Course course : courses.getCourses()) {
+            System.out.println(idx + ". " + course);
+            idx++;
+        }
+        if (idx == 1) {
+            System.out.println("No courses added yet.");
+        }
+    }
 }
