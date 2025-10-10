@@ -8,18 +8,18 @@ import seedu.nustudy.exceptions.NUStudyException;
  */
 public interface Command {
 
-	/**
-	 * Executes the command
-	 *
-	 * @param courses The course list to work with
-	 * @throws NUStudyException If command execution fails
-	 */
-	void execute(CourseManager courses) throws NUStudyException;
+    /**
+     * Executes the command
+     *
+     * @param courses The course list to work with
+     * @throws NUStudyException If command execution fails
+     */
+    void execute(CourseManager courses) throws NUStudyException;
 
-	/**
-	 * Returns whether the command should exit the application
-	 *
-	 * @return true if application should exit, false otherwise
-	 */
-	boolean isExit();
+    /**
+     * Returns whether the command should exit the application
+     *
+     * @return true if application should exit, false otherwise
+     */
+    boolean isExit();
 }

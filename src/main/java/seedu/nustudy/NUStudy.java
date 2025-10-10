@@ -7,35 +7,35 @@ import seedu.nustudy.ui.UserInterface;
 import seedu.nustudy.utils.Parser;
 
 public class NUStudy {
-	private static final UserInterface ui = new UserInterface();
-	private static final CourseManager courseManager = new CourseManager();
+    private static final UserInterface ui = new UserInterface();
+    private static final CourseManager courseManager = new CourseManager();
 
-	/**
-	 * Main entry-point for the java.duke.Duke application.
-	 */
-	public static void main(String[] args) {
-		String logo = "NUStudy\n";
-		System.out.println("Hello from\n" + logo);
+    /**
+     * Main entry-point for the java.duke.Duke application.
+     */
+    public static void main(String[] args) {
+        String logo = "NUStudy\n";
+        System.out.println("Hello from\n" + logo);
 
-		boolean isExit = false;
+        boolean isExit = false;
 
-		while (!isExit) {
-			String userInput = ui.readInput();
+        while (!isExit) {
+            String userInput = ui.readInput();
 
-			if (userInput == null) {
-				break;
-			}
+            if (userInput == null) {
+                break;
+            }
 
-			if (userInput.isEmpty()) {
-				continue;
-			}
+            if (userInput.isEmpty()) {
+                continue;
+            }
 
-			try {
-				Command c = Parser.parseCommand(userInput);
-				c.execute(courseManager);
-			} catch (NUStudyException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-	}
+            try {
+                Command c = Parser.parseCommand(userInput);
+                c.execute(courseManager);
+            } catch (NUStudyException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
 }
