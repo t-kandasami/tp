@@ -1,5 +1,7 @@
 package seedu.nustudy.course;
 
+import seedu.nustudy.exceptions.NUStudyException;
+
 import java.util.ArrayList;
 
 /**
@@ -31,4 +33,12 @@ public class CourseManager {
         throw new NUStudyException("Course not found");
     }
 
+    /**
+     * Delete a course from the list
+     *
+     * @param course The course to delete
+     */
+    public void delete(Course course) {
+        courses.remove(course);
+    }
 }
