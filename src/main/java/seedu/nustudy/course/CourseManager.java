@@ -43,7 +43,7 @@ public class CourseManager {
      */
     public Course findCourse(String courseName) {
         for (Course c : courses) {
-            if (c.toString().startsWith(courseName)) {
+            if (c.getCourseName().equalsIgnoreCase(courseName)) {
                 return c;
             }
         }
