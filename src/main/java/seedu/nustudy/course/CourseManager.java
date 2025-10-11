@@ -16,7 +16,7 @@ public class CourseManager {
     public void add(Course course) {
         courses.add(course);
     }
-    
+
     /**
      * Delete a course from the list
      *
@@ -34,16 +34,17 @@ public class CourseManager {
     public ArrayList<Course> getCourses() {
         return courses;
     }
-    
+
     /**
-     * Finds and returns a course with name starting with the given string.
+     * Finds and returns the course whose name is equal to the given string,
+     * comparing names case-insensitively.
      *
-     * @param courseName The prefix of the course being searched.
+     * @param courseName The exact match of the course name being searched.
      * @return The {@code Course} object if found, else {@code null}.
      */
     public Course findCourse(String courseName) {
         for (Course c : courses) {
-            if (c.toString().startsWith(courseName)) {
+            if (c.getCourseName().equalsIgnoreCase(courseName)) {
                 return c;
             }
         }
