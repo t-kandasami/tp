@@ -5,6 +5,7 @@ import seedu.nustudy.course.CourseManager;
 import seedu.nustudy.exceptions.NUStudyCommandException;
 import seedu.nustudy.exceptions.NUStudyCourseAlreadyExistException;
 import seedu.nustudy.exceptions.NUStudyException;
+import seedu.nustudy.session.SessionManager;
 import seedu.nustudy.ui.UserInterface;
 
 public class AddCourseCommand implements Command {
@@ -26,7 +27,7 @@ public class AddCourseCommand implements Command {
      * @throws NUStudyCommandException If user's input is empty
      * @throws NUStudyCourseAlreadyExistException If user's input is already in the course list
      */
-    public void execute(CourseManager courses) throws NUStudyException {
+    public void execute(CourseManager courses, SessionManager sessions) throws NUStudyException {
         if (input.isEmpty()) {
             throw new NUStudyCommandException("Input a course name");
         }

@@ -3,6 +3,7 @@ package seedu.nustudy.command;
 import org.junit.jupiter.api.Test;
 import seedu.nustudy.course.CourseManager;
 import seedu.nustudy.exceptions.NUStudyNoSuchCourseException;
+import seedu.nustudy.session.SessionManager;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -14,7 +15,8 @@ class ResetCourseHoursCommandTest {
     void execute() {
         ResetCourseHoursCommand command = new ResetCourseHoursCommand("");
         CourseManager manager = new CourseManager();
-        assertDoesNotThrow(() -> command.execute(manager));
+        SessionManager sessionManager = new SessionManager();
+        assertDoesNotThrow(() -> command.execute(manager, sessionManager));
     }
 
     @Test
@@ -27,7 +29,8 @@ class ResetCourseHoursCommandTest {
     void checkNonExistentCourse() {
         ResetCourseHoursCommand command = new ResetCourseHoursCommand("NonExistentCourse");
         CourseManager manager = new CourseManager();
-        assertThrows(NUStudyNoSuchCourseException.class, () -> command.execute(manager));
+        SessionManager sessionManager = new SessionManager();
+        assertThrows(NUStudyNoSuchCourseException.class, () -> command.execute(manager, sessionManager));
     }
 
 

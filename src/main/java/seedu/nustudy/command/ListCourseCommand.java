@@ -2,6 +2,7 @@ package seedu.nustudy.command;
 
 import seedu.nustudy.course.CourseManager;
 import seedu.nustudy.exceptions.NUStudyException;
+import seedu.nustudy.session.SessionManager;
 import seedu.nustudy.ui.UserInterface;
 
 public class ListCourseCommand implements Command {
@@ -15,7 +16,7 @@ public class ListCourseCommand implements Command {
      * @throws NUStudyException If listing fails (not expected here)
      */
     @Override
-    public void execute(CourseManager courses) throws NUStudyException {
+    public void execute(CourseManager courses, SessionManager sessions) throws NUStudyException {
         UserInterface.printCourseList(courses);
     }
 
