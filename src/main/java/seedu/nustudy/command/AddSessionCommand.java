@@ -10,10 +10,22 @@ import seedu.nustudy.ui.UserInterface;
 public class AddSessionCommand implements Command {
     private final String input;
 
+    /**
+     * Creates a new AddSessionCommand with the user's input
+     *
+     * @param input The user input to add new course
+     */
     public AddSessionCommand(String input) {
         this.input = input;
     }
 
+    /**
+     * Adds the new session into the provided session list
+     *
+     * @param courses  The course list to work with
+     * @param sessions The session list to work with
+     * @throws NUStudyException If user's input is invalid
+     */
     @Override
     public void execute(CourseManager courses, SessionManager sessions) throws NUStudyException {
         String[] arguments = input.split("\\s+");
@@ -31,6 +43,11 @@ public class AddSessionCommand implements Command {
         UserInterface.printStudySessionAdded(course, hours);
     }
 
+    /**
+     * Indicates whether this command should exit the application
+     *
+     * @return false, as adding course does not exit the application
+     */
     @Override
     public boolean isExit() {
         return false;
