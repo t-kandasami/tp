@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import seedu.nustudy.course.CourseManager;
 import seedu.nustudy.exceptions.NUStudyException;
+import seedu.nustudy.session.SessionManager;
 
 class ExitCommandTest {
 
@@ -14,8 +15,8 @@ class ExitCommandTest {
     void execute() {
         ExitCommand cmd = new ExitCommand();
         CourseManager manager = new CourseManager();
-        assertDoesNotThrow(() -> cmd.execute(manager));
-
+        SessionManager sessionManager = new SessionManager();
+        assertDoesNotThrow(() -> cmd.execute(manager, sessionManager));
         NUStudyException ex = new NUStudyException("Test exception");
         assertEquals("Test exception", ex.getMessage());
     }

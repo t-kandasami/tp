@@ -3,6 +3,7 @@ package seedu.nustudy.command;
 import org.junit.jupiter.api.Test;
 import seedu.nustudy.course.Course;
 import seedu.nustudy.course.CourseManager;
+import seedu.nustudy.exceptions.NUStudyException;
 import seedu.nustudy.exceptions.NUStudyNoSuchCourseException;
 import seedu.nustudy.session.SessionManager;
 
@@ -43,7 +44,7 @@ class AddSessionCommandTest {
         SessionManager sessionManager = new SessionManager();
         courseManager.add(course);
         AddSessionCommand command = new AddSessionCommand("CS2100 two");
-        assertThrows(NumberFormatException.class,
+        assertThrows(NUStudyException.class,
                 () -> command.execute(courseManager, sessionManager));
     }
 
