@@ -1,1 +1,5 @@
 add CS2113
+list
+add CS2113 3
+add MA1511 3
+delete CS2113
