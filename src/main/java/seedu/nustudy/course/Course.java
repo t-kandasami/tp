@@ -21,7 +21,14 @@ public class Course {
         this.loggedHours = 0;
     }
 
-
+    /**
+     * Returns the number of study hours logged for this course at call time.
+     *
+     * @return The number of logged study hours.
+     */
+    public String getCourseName() {
+        return courseName;
+    }
 
     /**
      * Returns the number of study hours logged for this course at call time.
