@@ -5,13 +5,13 @@ import seedu.nustudy.ui.UserInterface;
 public class ConfirmationHandler {
 
     /**
-     * Handles user confirmation prompts by persistently asking for a single 'y' or 'n' input.
+     * Handles user first confirmation prompts by persistently asking for a single 'y' or 'n' input.
      * Handles lower (y/n) or upper case (Y/N) inputs and trims whitespace.
      *
      * @param message The confirmation prompt to display for the user.
      * @return true if 'y' is parsed, else false if 'n' is parsed.
      */
-    public static boolean getConfirmation(String message) {
+    public static boolean firstLevelConfirmation(String message) {
         System.out.println(message + " (y/n)");
 
         while (true) {
@@ -29,6 +29,26 @@ public class ConfirmationHandler {
             default:
                 System.out.println("Please only type 'y' or 'n': ");
             }
+        }
+    }
+
+    /**
+     * Handles user second confirmation prompts by asking for a strict matching input with required safeword.
+     *
+     * @param safeword The safeword in all uppercase required for second confirmation.
+     * @param action The objective of double confirmation.
+     * @return true if {@code safeword} is parsed, else false.
+     */
+    public static boolean secondLevelConfirmation(String safeword, String action) {
+        System.out.println("Please type \"" + safeword.toUpperCase() + "\" to double confirm " + action);
+        String input = UserInterface.readInput();
+
+        if (input.equals(safeword.toUpperCase())) {
+            System.out.println("Confirmation successful");
+            return true;
+        } else {
+            System.out.println("Incorrect input, reset cancelled");
+            return false;
         }
     }
 }
