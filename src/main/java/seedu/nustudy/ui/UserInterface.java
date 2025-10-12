@@ -64,4 +64,14 @@ public class UserInterface {
             System.out.println("No courses added yet.");
         }
     }
+
+    /**
+     * Prints a success message when a course study session is added
+     *
+     * @param course The course that was added
+     * @param hours  The hours that was spent of a study session
+     */
+    public static void printStudySessionAdded(Course course, int hours) {
+        System.out.println("Study Session Added: " + course.getCourseName() + " " + hours + " Hours");
+    }
 }

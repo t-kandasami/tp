@@ -4,6 +4,7 @@ import seedu.nustudy.course.Course;
 import seedu.nustudy.course.CourseManager;
 import seedu.nustudy.exceptions.NUStudyException;
 import seedu.nustudy.exceptions.NUStudyNoSuchCourseException;
+import seedu.nustudy.session.SessionManager;
 import seedu.nustudy.utils.ConfirmationHandler;
 
 /**
@@ -28,7 +29,7 @@ public class ResetCourseHoursCommand implements Command {
      * @throws NUStudyException If the specified course is non-existent
      */
     @Override
-    public void execute(CourseManager courses) throws NUStudyException {
+    public void execute(CourseManager courses, SessionManager sessions) throws NUStudyException {
 
         if (input.isEmpty()) {
             System.out.println("Specify a course name or type 'reset all'");
