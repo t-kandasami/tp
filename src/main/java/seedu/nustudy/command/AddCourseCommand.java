@@ -3,6 +3,7 @@ package seedu.nustudy.command;
 import seedu.nustudy.course.Course;
 import seedu.nustudy.course.CourseManager;
 import seedu.nustudy.exceptions.NUStudyException;
+import seedu.nustudy.session.SessionManager;
 import seedu.nustudy.ui.UserInterface;
 
 public class AddCourseCommand implements Command {
@@ -23,7 +24,7 @@ public class AddCourseCommand implements Command {
      * @param courses The course list to work with
      * @throws NUStudyException If user's input is invalid
      */
-    public void execute(CourseManager courses) throws NUStudyException {
+    public void execute(CourseManager courses, SessionManager sessions) throws NUStudyException {
         if (input.isEmpty()) {
             throw new NUStudyException("Input a course name");
         }
