@@ -33,6 +33,9 @@ public class NUStudy {
             try {
                 Command c = Parser.parseCommand(userInput);
                 c.execute(courseManager);
+                if (c.isExit()) {
+                    isExit = true;
+                }
             } catch (NUStudyException e) {
                 System.out.println(e.getMessage());
             }
