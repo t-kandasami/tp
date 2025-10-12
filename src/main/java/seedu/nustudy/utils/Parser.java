@@ -3,6 +3,7 @@ package seedu.nustudy.utils;
 import seedu.nustudy.command.AddCourseCommand;
 import seedu.nustudy.command.Command;
 import seedu.nustudy.command.DeleteCourseCommand;
+import seedu.nustudy.command.ExitCommand;
 import seedu.nustudy.command.ListCourseCommand;
 import seedu.nustudy.command.ResetCourseHoursCommand;
 import seedu.nustudy.exceptions.NUStudyCommandException;
@@ -31,6 +32,8 @@ public class Parser {
             return new ResetCourseHoursCommand(arguments);
         case "delete":
             return new DeleteCourseCommand(arguments);
+        case "exit":
+            return new ExitCommand();
         default:
             throw new NUStudyCommandException("Wrong command");
         }
