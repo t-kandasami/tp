@@ -30,4 +30,3 @@ public class ListCourseCommand implements Command {
         return false;
     }
 }
-

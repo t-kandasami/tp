@@ -26,6 +26,7 @@ public class AddSessionCommand implements Command {
      * @param sessions The session list to work with
      * @throws NUStudyException If user's input is invalid
      */
+
     @Override
     public void execute(CourseManager courses, SessionManager sessions) throws NUStudyException {
         String[] arguments = input.split("\\s+");

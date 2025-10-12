@@ -22,9 +22,9 @@ public class Course {
     }
 
     /**
-     * Returns the number of study hours logged for this course at call time.
+     * Returns the name of the course
      *
-     * @return The number of logged study hours.
+     * @return the name of the course
      */
     public String getCourseName() {
         return courseName;
