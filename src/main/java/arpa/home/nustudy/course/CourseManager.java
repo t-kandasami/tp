@@ -14,7 +14,7 @@ public class CourseManager {
      * @param course The course to add
      */
     public void add(final Course course) {
-        this.courses.add(course);
+        courses.add(course);
     }
 
     /**
@@ -23,7 +23,7 @@ public class CourseManager {
      * @param course The course to delete
      */
     public void delete(final Course course) {
-        this.courses.remove(course);
+        courses.remove(course);
     }
 
     /**
@@ -32,22 +32,23 @@ public class CourseManager {
      * @return ArrayList of courses
      */
     public ArrayList<Course> getCourses() {
-        return this.courses;
+        return courses;
     }
 
     /**
-     * Finds and returns the course whose name is equal to the given string,
-     * comparing names case-insensitively.
+     * Finds and returns the course whose name is equal to the given string, comparing names case-insensitively.
      *
      * @param courseName The exact match of the course name being searched.
+     *
      * @return The {@code Course} object if found, else {@code null}.
      */
     public Course findCourse(final String courseName) {
-        for (final Course c : this.courses) {
+        for (final Course c : courses) {
             if (c.getCourseName().equalsIgnoreCase(courseName)) {
                 return c;
             }
         }
+
         return null;
     }
 }

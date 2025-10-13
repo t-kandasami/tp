@@ -24,17 +24,22 @@ public class AddCourseCommand implements Command {
      * Adds the new course into the provided course list
      *
      * @param courses The course list to work with
+     *
      * @throws NUStudyCommandException            If user's input is empty
      * @throws NUStudyCourseAlreadyExistException If user's input is already in the course list
      */
+    @Override
     public void execute(final CourseManager courses, final SessionManager sessions) throws NUStudyException {
-        if (this.input.isEmpty()) {
+        if (input.isEmpty()) {
             throw new NUStudyCommandException("Input a course name");
         }
-        if (courses.findCourse(this.input) != null) {
+
+        if (courses.findCourse(input) != null) {
             throw new NUStudyCourseAlreadyExistException("Course already exists");
         }
-        final Course course = new Course(this.input);
+
+        final Course course = new Course(input);
+
         courses.add(course);
         UserInterface.printCourseAdded(course);
     }

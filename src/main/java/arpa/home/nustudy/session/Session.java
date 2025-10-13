@@ -8,6 +8,7 @@ import arpa.home.nustudy.course.Course;
 public class Session {
     /**
      * The object of the course
+     * <p>
      * The loggedHours for each session
      */
     private final int loggedHours;
@@ -31,6 +32,6 @@ public class Session {
      */
     @Override
     public String toString() {
-        return "You have studied for " + this.loggedHours + "hours" + "for " + this.course.getCourseName();
+        return "You have studied for " + loggedHours + "hours" + "for " + course.getCourseName();
     }
 }

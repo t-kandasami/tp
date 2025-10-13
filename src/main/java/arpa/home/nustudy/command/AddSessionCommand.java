@@ -24,23 +24,28 @@ public class AddSessionCommand implements Command {
      *
      * @param courses  The course list to work with
      * @param sessions The session list to work with
+     *
      * @throws NUStudyException If user's input is invalid
      */
 
     @Override
     public void execute(final CourseManager courses, final SessionManager sessions) throws NUStudyException {
-        final String[] arguments = this.input.split("\\s+");
+        final String[] arguments = input.split("\\s+");
         final String courseName = arguments[0];
         final Course course = courses.findCourse(courseName);
+
         if (course == null) {
             throw new NUStudyNoSuchCourseException("Course with name " + courseName + " does not exist");
         }
+
         final int hours;
+
         try {
             hours = Integer.parseInt(arguments[1]);
         } catch (final NumberFormatException e) {
             throw new NUStudyException("Hours must be an integer");
         }
+
         UserInterface.printStudySessionAdded(course, hours);
     }
 

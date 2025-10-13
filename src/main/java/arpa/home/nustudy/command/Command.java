@@ -8,11 +8,11 @@ import arpa.home.nustudy.session.SessionManager;
  * Interface for all commands in the application.
  */
 public interface Command {
-
     /**
      * Executes the command
      *
      * @param courses The course list to work with
+     *
      * @throws NUStudyException If command execution fails
      */
     void execute(CourseManager courses, SessionManager sessions) throws NUStudyException;

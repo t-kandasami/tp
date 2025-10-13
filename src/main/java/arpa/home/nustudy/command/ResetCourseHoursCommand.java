@@ -8,15 +8,18 @@ import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.utils.ConfirmationHandler;
 
 /**
- * Creates a new ResetCourseHoursCommand with the specified user input.
- * A specific course or all courses can be reset depending on the input.
- * <p>
- *
- * @ param input The specified course name or "all" provided by the user.
+ * Creates a new ResetCourseHoursCommand with the specified user input. A specific course or all courses can be reset
+ * depending on the input.
  */
 public class ResetCourseHoursCommand implements Command {
     private final String input;
 
+    /**
+     * Creates a new ResetCourseHoursCommand with the specified user input. A specific course or all courses can be
+     * reset depending on the input.
+     *
+     * @param input The specified course name or "all" provided by the user.
+     */
     public ResetCourseHoursCommand(final String input) {
         this.input = input.trim();
     }
@@ -27,14 +30,12 @@ public class ResetCourseHoursCommand implements Command {
      * @param courses The {@code CourseManager} instance.
      */
     private static void resetAllCourseHandler(final CourseManager courses) {
-        if (ResetCourseHoursCommand.doubleConfirmationWrapper(
-                "Are you sure you want to reset hours for ALL courses?",
-                "RESET ALL",
+        if (doubleConfirmationWrapper("Are you sure you want to reset hours for ALL courses?", "RESET ALL",
                 "reset all courses")) {
             return;
         }
 
-        ResetCourseHoursCommand.resetAllCourses(courses);
+        resetAllCourses(courses);
         System.out.println("Logged hours for all courses have been reset");
     }
 
@@ -44,10 +45,12 @@ public class ResetCourseHoursCommand implements Command {
      * @param prompt      The message prompt for first confirmation.
      * @param safeword    The strict safeword required for reset.
      * @param resetAction The reset action upon confirmation.
+     *
      * @return {@code true} if reset is cancelled, else {@code false}.
      */
-    private static boolean doubleConfirmationWrapper(final String prompt, final String safeword, final String resetAction) {
-        final boolean confirmed = ResetCourseHoursCommand.doubleConfirmation(prompt, safeword, resetAction);
+    private static boolean doubleConfirmationWrapper(final String prompt, final String safeword,
+            final String resetAction) {
+        final boolean confirmed = doubleConfirmation(prompt, safeword, resetAction);
 
         if (!confirmed) {
             System.out.println("Reset cancelled");
@@ -62,10 +65,12 @@ public class ResetCourseHoursCommand implements Command {
      * @param prompt      The message prompt for first confirmation.
      * @param safeword    The strict safeword required for reset.
      * @param resetAction The reset action upon confirmation.
+     *
      * @return {@code true} if reset is cancelled, else {@code false}.
      */
     private static boolean doubleConfirmation(final String prompt, final String safeword, final String resetAction) {
         final boolean firstConfirmation = ConfirmationHandler.firstLevelConfirmation(prompt);
+
         if (!firstConfirmation) {
             return false;
         }
@@ -85,43 +90,51 @@ public class ResetCourseHoursCommand implements Command {
     }
 
     /**
-     * Runs the reset command and checks the input. User confirmation upon reset is done.
-     * If input is "all", logged hours for all courses are reset.
-     * Else, logged hours for the specified course are reset.
+     * Runs the reset command and checks the input. User confirmation upon reset is done. If input is "all", logged
+     * hours for all courses are reset. Else, logged hours for the specified course are reset.
      *
      * @param courses The {@code CourseManager} instance containing all courses.
+     *
      * @throws NUStudyException If the specified course is non-existent
      */
     @Override
     public void execute(final CourseManager courses, final SessionManager sessions) throws NUStudyException {
-
-        if (this.input.isEmpty()) {
+        if (input.isEmpty()) {
             System.out.println("Specify a course name or type 'reset all'");
             return;
         }
 
         if ("all".equalsIgnoreCase(input)) {
-            ResetCourseHoursCommand.resetAllCourseHandler(courses);
+            resetAllCourseHandler(courses);
             return;
         }
 
-        this.resetParticularCourseHandler(courses);
+        resetParticularCourseHandler(courses);
+    }
+
+    /**
+     * Indicates whether this command should exit the application
+     *
+     * @return false, as adding course does not exit the application
+     */
+    @Override
+    public boolean isExit() {
+        return false;
     }
 
     /**
      * Handles resetting of provided course upon double confirmation.
      *
      * @param courses The {@code CourseManager} instance.
+     *
      * @throws NUStudyNoSuchCourseException If the provided course is non-existent.
      */
     private void resetParticularCourseHandler(final CourseManager courses) throws NUStudyNoSuchCourseException {
-        final Course target = courses.findCourse(this.input);
-        this.checkNonExistentCourse(target);
+        final Course target = courses.findCourse(input);
 
-        if (ResetCourseHoursCommand.doubleConfirmationWrapper(
-                "Are you sure of resetting hours for ",
-                "RESET",
-                "reset hours for " + target)) {
+        checkNonExistentCourse(target);
+
+        if (doubleConfirmationWrapper("Are you sure of resetting hours for ", "RESET", "reset hours for " + target)) {
             return;
         }
 
@@ -133,21 +146,12 @@ public class ResetCourseHoursCommand implements Command {
      * Confirms that the provided course exists.
      *
      * @param target The course subject to verify.
+     *
      * @throws NUStudyNoSuchCourseException If course reference queried is {@code null}.
      */
     private void checkNonExistentCourse(final Course target) throws NUStudyNoSuchCourseException {
         if (target == null) {
-            throw new NUStudyNoSuchCourseException(this.input + " not found");
+            throw new NUStudyNoSuchCourseException(input + " not found");
         }
-    }
-
-    /**
-     * Indicates whether this command should exit the application
-     *
-     * @return false, as adding course does not exit the application
-     */
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

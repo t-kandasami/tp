@@ -15,14 +15,14 @@ public class App {
     /**
      * Main entry-point for the java.duke.Duke application.
      */
-    public static void main(String[] args) {
-        String logo = "App\n";
+    public static void main(final String[] args) {
+        final String logo = "NUStudy\n";
         System.out.println("Hello from\n" + logo);
 
-        boolean isExit = false;
+        final boolean isExit = false;
 
         while (!isExit) {
-            String userInput = UserInterface.readInput();
+            final String userInput = UserInterface.readInput();
 
             if (userInput == null) {
                 break;
@@ -34,7 +34,7 @@ public class App {
 
             try {
                 final Command c = Parser.parseCommand(userInput);
-                c.execute(App.courseManager, App.sessionManager);
+                c.execute(courseManager, sessionManager);
             } catch (final NUStudyException e) {
                 System.out.println(e.getMessage());
             }

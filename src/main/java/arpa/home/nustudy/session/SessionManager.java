@@ -1,8 +1,8 @@
 package arpa.home.nustudy.session;
 
-import arpa.home.nustudy.course.Course;
-
 import java.util.ArrayList;
+
+import arpa.home.nustudy.course.Course;
 
 public class SessionManager {
     private final ArrayList<Session> sessions = new ArrayList<>();
@@ -14,6 +14,6 @@ public class SessionManager {
      * @param loggedHours The amount of hours spent for a study session
      */
     public void add(final Course course, final int loggedHours) {
-        this.sessions.add(new Session(course, loggedHours));
+        sessions.add(new Session(course, loggedHours));
     }
 }

@@ -14,14 +14,18 @@ public class DeleteCourseCommand implements Command {
         this.input = input;
     }
 
+    @Override
     public void execute(final CourseManager courses, final SessionManager sessions) throws NUStudyException {
-        if (this.input.isEmpty()) {
+        if (input.isEmpty()) {
             throw new NUStudyException("Please enter a course name that you want to delete");
         }
-        final Course courseToDelete = courses.findCourse(this.input);
+
+        final Course courseToDelete = courses.findCourse(input);
+
         if (courseToDelete == null) {
             throw new NUStudyNoSuchCourseException("Course does not exist");
         }
+
         courses.delete(courseToDelete);
         UserInterface.printCourseDeleted(courseToDelete);
     }

@@ -1,9 +1,9 @@
 package arpa.home.nustudy.ui;
 
-import arpa.home.nustudy.course.Course;
-
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
+
+import arpa.home.nustudy.course.Course;
 
 public class UserInterface {
     private static final String LINE_BREAK = "____________________________________________________________";
@@ -13,7 +13,7 @@ public class UserInterface {
      * Prints a partition line for visual separation
      */
     public static void printLineBreak() {
-        System.out.println(UserInterface.LINE_BREAK);
+        System.out.println(LINE_BREAK);
     }
 
     /**
@@ -22,12 +22,14 @@ public class UserInterface {
      * @return The trimmed user input command
      */
     public static String readInput() {
-        if (UserInterface.INPUT_SCANNER.hasNextLine()) {
-            final String line = UserInterface.INPUT_SCANNER.nextLine().trim();
+        if (INPUT_SCANNER.hasNextLine()) {
+            final String line = INPUT_SCANNER.nextLine().trim();
+
             if (!line.isEmpty()) {
                 return line;
             }
         }
+
         return null;
     }
 
@@ -56,11 +58,14 @@ public class UserInterface {
      */
     public static void printCourseList(final arpa.home.nustudy.course.CourseManager courses) {
         System.out.println("Courses:");
+
         int idx = 1;
+
         for (final Course course : courses.getCourses()) {
             System.out.println(idx + ". " + course);
             idx++;
         }
+
         if (idx == 1) {
             System.out.println("No courses added yet.");
         }

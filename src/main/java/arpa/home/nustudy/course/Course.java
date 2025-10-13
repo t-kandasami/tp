@@ -4,7 +4,6 @@ package arpa.home.nustudy.course;
  * Represents a course identified by its name
  */
 public class Course {
-
     /**
      * The name of the course
      */
@@ -18,7 +17,7 @@ public class Course {
      */
     public Course(final String courseName) {
         this.courseName = courseName;
-        this.loggedHours = 0;
+        loggedHours = 0;
     }
 
     /**
@@ -27,7 +26,7 @@ public class Course {
      * @return the name of the course
      */
     public String getCourseName() {
-        return this.courseName;
+        return courseName;
     }
 
     /**
@@ -36,14 +35,14 @@ public class Course {
      * @return The number of logged study hours.
      */
     public int getLoggedHours() {
-        return this.loggedHours;
+        return loggedHours;
     }
 
     /**
      * Resets the logged study hours for current course to zero.
      */
     public void resetHours() {
-        this.loggedHours = 0;
+        loggedHours = 0;
     }
 
     /**
@@ -53,6 +52,6 @@ public class Course {
      */
     @Override
     public String toString() {
-        return this.courseName + " (" + this.loggedHours + "h logged)";
+        return courseName + " (" + loggedHours + "h logged)";
     }
 }
