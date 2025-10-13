@@ -1,0 +1,78 @@
+package arpa.home.nustudy.ui;
+
+import arpa.home.nustudy.course.Course;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+
+public class UserInterface {
+    private static final String LINE_BREAK = "____________________________________________________________";
+    private static final Scanner INPUT_SCANNER = new Scanner(System.in, StandardCharsets.UTF_8);
+
+    /**
+     * Prints a partition line for visual separation
+     */
+    public static void printLineBreak() {
+        System.out.println(UserInterface.LINE_BREAK);
+    }
+
+    /**
+     * Returns the user's command.
+     *
+     * @return The trimmed user input command
+     */
+    public static String readInput() {
+        if (UserInterface.INPUT_SCANNER.hasNextLine()) {
+            final String line = UserInterface.INPUT_SCANNER.nextLine().trim();
+            if (!line.isEmpty()) {
+                return line;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Prints a success message when a course is added
+     *
+     * @param course The course that was added
+     */
+    public static void printCourseAdded(final Course course) {
+        System.out.println(course + " added");
+    }
+
+    /**
+     * Prints a success message when a course is deleted
+     *
+     * @param course The course that was deleted
+     */
+    public static void printCourseDeleted(final Course course) {
+        System.out.println(course + " deleted");
+    }
+
+    /**
+     * Print all courses in the course manager
+     *
+     * @param courses The course manager containing courses
+     */
+    public static void printCourseList(final arpa.home.nustudy.course.CourseManager courses) {
+        System.out.println("Courses:");
+        int idx = 1;
+        for (final Course course : courses.getCourses()) {
+            System.out.println(idx + ". " + course);
+            idx++;
+        }
+        if (idx == 1) {
+            System.out.println("No courses added yet.");
+        }
+    }
+
+    /**
+     * Prints a success message when a course study session is added
+     *
+     * @param course The course that was added
+     * @param hours  The hours that was spent of a study session
+     */
+    public static void printStudySessionAdded(final Course course, final int hours) {
+        System.out.println("Study Session Added: " + course.getCourseName() + " " + hours + " Hours");
+    }
+}
