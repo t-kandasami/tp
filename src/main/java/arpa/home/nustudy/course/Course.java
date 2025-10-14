@@ -52,6 +52,6 @@ public class Course {
      */
     @Override
     public String toString() {
-        return courseName + " (" + loggedHours + "h logged)";
+        return courseName;
     }
 }
