@@ -59,8 +59,9 @@ public enum Parser {
      */
     private static Command parseAddCommand(final String arguments) throws NUStudyCommandException {
         if (arguments.isEmpty()) {
-            throw new NUStudyCommandException(
-                    "Add command requires arguments. Usage: add <course> OR add <course> <hours>");
+            throw new NUStudyCommandException("""
+                    Add command requires arguments.
+                    Usage: add <course> OR add <course> <hours>""");
         }
 
         final String[] parts = arguments.split("\\s+");
@@ -70,8 +71,9 @@ public enum Parser {
         } else if (parts.length >= 2) {  // If there are two or more words, treat as course + session
             return new AddSessionCommand(arguments);
         } else {
-            throw new NUStudyCommandException(
-                    "Invalid add command format. Usage: add <course> OR add <course> <hours>");
+            throw new NUStudyCommandException("""
+                    Invalid add command format.
+                    Usage: add <course> OR add <course> <hours>""");
         }
     }
 
@@ -92,8 +94,8 @@ public enum Parser {
             return new ListCourseHoursPerSessionCommand(arguments);
         } else {
             throw new NUStudyCommandException("""
-                    Invalid load command format.
-                    Usage: load OR load <course>""");
+                    Invalid list command format.
+                    Usage: list OR list <course>""");
         }
     }
 }
