@@ -5,7 +5,12 @@ Good Job! I have added CS2113
 List of courses:
 1. CS2113
 
-Good Job! You have studied 3 hours for CS2113
+Good Job! You have studied 2 hours for CS2113
+
+Course with name MA1511 does not exist
+
+List of study sessions
+1. CS2113 - 2 hours
 
 Course with name MA1511 does not exist
 

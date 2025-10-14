@@ -46,6 +46,7 @@ public class AddSessionCommand implements Command {
             throw new NUStudyException("Hours must be an integer");
         }
 
+        sessions.add(course, hours);
         UserInterface.printStudySessionAdded(course, hours);
     }
 
