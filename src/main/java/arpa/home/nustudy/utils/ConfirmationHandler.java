@@ -2,9 +2,7 @@ package arpa.home.nustudy.utils;
 
 import arpa.home.nustudy.ui.UserInterface;
 
-public enum ConfirmationHandler {
-    ;
-
+public class ConfirmationHandler {
     /**
      * Handles user first confirmation prompts by persistently asking for a single 'y' or 'n' input. Handles lower (y/n)
      * or upper case (Y/N) inputs and trims whitespace.
