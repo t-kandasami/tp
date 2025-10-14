@@ -80,4 +80,26 @@ public class UserInterface {
     public static void printStudySessionAdded(final Course course, final int hours) {
         System.out.println("Study Session Added: " + course.getCourseName() + " " + hours + " Hours");
     }
+
+    /**
+     * Print all session hours for a specific course in the course manager
+     * @param course The course to print session hours for
+     * @param hours List of session hours for the course
+     */
+    public static void printCourseHoursPerSession(final Course course, final Iterable<Integer> hours) {
+        System.out.println("List of study sessions");
+
+        int idx = 1;
+
+        for (final int perSessionHours : hours) {
+            System.out.printf("%d. %s - %d hours", idx, course, perSessionHours);
+            System.out.println();
+            idx++;
+        }
+
+        if (idx == 1) {
+            System.out.printf("No sessions for course %s", course);
+            System.out.println();
+        }
+    }
 }

@@ -6,6 +6,7 @@ import arpa.home.nustudy.command.Command;
 import arpa.home.nustudy.command.DeleteCourseCommand;
 import arpa.home.nustudy.command.ExitCommand;
 import arpa.home.nustudy.command.ListCourseCommand;
+import arpa.home.nustudy.command.ListCourseHoursPerSessionCommand;
 import arpa.home.nustudy.command.ResetCourseHoursCommand;
 import arpa.home.nustudy.exceptions.NUStudyCommandException;
 
@@ -35,7 +36,7 @@ public enum Parser {
         case "add":
             return parseAddCommand(arguments);
         case "list":
-            return new ListCourseCommand();
+            return parseListCommand(arguments);
         case "reset":
             return new ResetCourseHoursCommand(arguments);
         case "delete":
@@ -71,6 +72,28 @@ public enum Parser {
         } else {
             throw new NUStudyCommandException(
                     "Invalid add command format. " + "Usage: add <course> OR add <course> <session>");
+        }
+    }
+
+    /**
+     * Parse list commands to determine whether to list courses or course hours per session
+     * @param arguments The arguments following the "list" command
+     * @return Either {@link ListCourseCommand} or {@link ListCourseHoursPerSessionCommand}
+     * @throws NUStudyCommandException If the arguments are invalid
+     */
+    private static Command parseListCommand(final String arguments) throws NUStudyCommandException {
+        if (arguments.isEmpty()) {
+            return new ListCourseCommand();
+        }
+
+        final String[] parts = arguments.split("\\s+");
+
+        if (parts.length == 1) {  // If there's exactly one word, it's a course
+            return new ListCourseHoursPerSessionCommand(arguments);
+        } else {
+            throw new NUStudyCommandException("""
+                    Invalid load command format.
+                    Usage: load OR load <course>""");
         }
     }
 }
