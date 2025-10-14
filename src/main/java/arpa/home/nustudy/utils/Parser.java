@@ -92,8 +92,8 @@ public enum Parser {
             return new ListCourseHoursPerSessionCommand(arguments);
         } else {
             throw new NUStudyCommandException("""
-                    Invalid load command format.
-                    Usage: load OR load <course>""");
+                    Invalid list command format.
+                    Usage: list OR list <course>""");
         }
     }
 }
