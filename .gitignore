@@ -197,30 +197,6 @@ Temporary Items
 .apdisk
 
 
-# <https://github.com/github/gitignore/blob/main/Gradle.gitignore>
-.gradle
-**/build/
-!**/src/**/build/
-
-# Ignore Gradle GUI config
-gradle-app.setting
-
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
-
-# Avoid ignore Gradle wrappper properties
-!gradle-wrapper.properties
-
-# Cache of project
-.gradletasknamecache
-
-# Eclipse Gradle plugin generated files
-# Eclipse Core
-.project
-# JDT-specific (Eclipse Java Development Tools)
-.classpath
-
-
 # <https://github.com/github/gitignore/blob/main/Java.gitignore>
 # Compiled class file
 *.class
@@ -248,8 +224,36 @@ hs_err_pid*
 replay_pid*
 
 
+# <https://github.com/github/gitignore/blob/main/Gradle.gitignore>
+.gradle
+**/build/
+!**/src/**/build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Avoid ignore Gradle wrappper properties
+!gradle-wrapper.properties
+
+# Cache of project
+.gradletasknamecache
+
+# Eclipse Gradle plugin generated files
+# Eclipse Core
+.project
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
+
+
 # Custom project specific files
 # <https://github.com/nus-cs2113-AY2526S1/tp/blob/master/.gitignore>
 /text-ui-test/ACTUAL.TXT
 /text-ui-test/EXPECTED-UNIX.TXT
 /data
+
+
+# Ignore project JDK settings, since everyone have a different JDK distribution installed
+.idea/misc.xml
