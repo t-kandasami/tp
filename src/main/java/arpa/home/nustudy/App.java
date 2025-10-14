@@ -16,8 +16,7 @@ public class App {
      * Main entry-point for the java.duke.Duke application.
      */
     public static void main(final String[] args) {
-        final String logo = "NUStudy\n";
-        System.out.println("Hello from\n" + logo);
+        System.out.println("Hello from NUStudy");
 
         final boolean isExit = false;
 
