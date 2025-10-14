@@ -59,7 +59,7 @@ public enum Parser {
     private static Command parseAddCommand(final String arguments) throws NUStudyCommandException {
         if (arguments.isEmpty()) {
             throw new NUStudyCommandException(
-                    "Add command requires arguments. " + "Usage: add <course> OR add <course> <session>");
+                    "Add command requires arguments. Usage: add <course> OR add <course> <hours>");
         }
 
         final String[] parts = arguments.split("\\s+");
@@ -70,7 +70,7 @@ public enum Parser {
             return new AddSessionCommand(arguments);
         } else {
             throw new NUStudyCommandException(
-                    "Invalid add command format. " + "Usage: add <course> OR add <course> <session>");
+                    "Invalid add command format. Usage: add <course> OR add <course> <hours>");
         }
     }
 }
