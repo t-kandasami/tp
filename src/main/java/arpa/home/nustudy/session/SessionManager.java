@@ -1,6 +1,7 @@
 package arpa.home.nustudy.session;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import arpa.home.nustudy.course.Course;
 
@@ -34,5 +35,32 @@ public class SessionManager {
         }
 
         return res;
+    }
+
+    /**
+     * Clears all study sessions regardless of course from session list of type {@code ArrayList<Session>}.
+     * Be careful when using this method, action cannot be undone.
+     */
+    public void clearAllSessions() {
+        sessions.clear();
+    }
+
+    /**
+     * Removes all study sessions related to a specific course named.
+     * An iterator is used through the the sessions list of type {@code ArrayList<Session>} and deletes
+     * every session to the associated {@code Course} matched.
+     *
+     * @param course The {@code Course} to whose sessions are to be removed.
+     */
+    public void removeAllSessionsForCourse(final Course course) {
+        final Iterator<Session> iterator = sessions.iterator();
+
+        while (iterator.hasNext()) {
+            Session nextSession =  iterator.next();
+            Course nextCourse = nextSession.getCourse();
+            if (nextCourse.equals(course)) {
+                iterator.remove();
+            }
+        }
     }
 }
