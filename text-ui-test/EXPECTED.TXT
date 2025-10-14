@@ -1,9 +1,12 @@
 Hello from
 NUStudy
 
-CS2113 (0h logged) added
+CS2113 added
 Courses:
-1. CS2113 (0h logged)
-Study Session Added: CS2113 3 Hours
+1. CS2113
+Study Session Added: CS2113 2 Hours
 Course with name MA1511 does not exist
-CS2113 (0h logged) deleted
+List of study sessions
+1. CS2113 - 2 hours
+Course with name MA1511 does not exist
+CS2113 deleted
