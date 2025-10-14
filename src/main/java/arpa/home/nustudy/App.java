@@ -19,9 +19,9 @@ public class App {
         final String logo = "NUStudy\n";
         System.out.println("Hello from\n" + logo);
 
-        final boolean isExit = false;
+        boolean isExit = false;
 
-        while (!isExit) {
+        do {
             final String userInput = UserInterface.readInput();
 
             if (userInput == null) {
@@ -35,9 +35,13 @@ public class App {
             try {
                 final Command c = Parser.parseCommand(userInput);
                 c.execute(courseManager, sessionManager);
+
+                if (c.isExit()) {
+                    isExit = true;
+                }
             } catch (final NUStudyException e) {
                 System.out.println(e.getMessage());
             }
-        }
+        } while (!isExit);
     }
 }
