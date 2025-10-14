@@ -1,12 +1,18 @@
-Hello from
-NUStudy
+Hello from NUStudy
 
-CS2113 added
-Courses:
+Good Job! I have added CS2113
+
+List of courses:
 1. CS2113
-Study Session Added: CS2113 2 Hours
+
+Good Job! You have studied 2 hours for CS2113
+
 Course with name MA1511 does not exist
+
 List of study sessions
 1. CS2113 - 2 hours
+
 Course with name MA1511 does not exist
-CS2113 deleted
+
+NOTE: We have deleted CS2113 from Course Book
+

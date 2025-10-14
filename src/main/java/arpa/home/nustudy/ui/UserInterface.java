@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 import arpa.home.nustudy.course.Course;
+import arpa.home.nustudy.course.CourseManager;
 
 public class UserInterface {
     private static final String LINE_BREAK = "____________________________________________________________";
@@ -22,6 +23,8 @@ public class UserInterface {
      * @return The trimmed user input command
      */
     public static String readInput() {
+        System.out.println();
+
         if (INPUT_SCANNER.hasNextLine()) {
             final String line = INPUT_SCANNER.nextLine().trim();
 
@@ -39,7 +42,8 @@ public class UserInterface {
      * @param course The course that was added
      */
     public static void printCourseAdded(final Course course) {
-        System.out.println(course + " added");
+        System.out.printf("Good Job! I have added %s", course);
+        System.out.println();
     }
 
     /**
@@ -48,7 +52,8 @@ public class UserInterface {
      * @param course The course that was deleted
      */
     public static void printCourseDeleted(final Course course) {
-        System.out.println(course + " deleted");
+        System.out.printf("NOTE: We have deleted %s from Course Book", course);
+        System.out.println();
     }
 
     /**
@@ -56,13 +61,14 @@ public class UserInterface {
      *
      * @param courses The course manager containing courses
      */
-    public static void printCourseList(final arpa.home.nustudy.course.CourseManager courses) {
-        System.out.println("Courses:");
+    public static void printCourseList(final CourseManager courses) {
+        System.out.println("List of courses:");
 
         int idx = 1;
 
         for (final Course course : courses.getCourses()) {
-            System.out.println(idx + ". " + course);
+            System.out.printf("%d. %s", idx, course);
+            System.out.println();
             idx++;
         }
 
@@ -78,7 +84,8 @@ public class UserInterface {
      * @param hours  The hours that was spent of a study session
      */
     public static void printStudySessionAdded(final Course course, final int hours) {
-        System.out.println("Study Session Added: " + course.getCourseName() + " " + hours + " Hours");
+        System.out.printf("Good Job! You have studied %d hours for %s", hours, course.getCourseName());
+        System.out.println();
     }
 
     /**
