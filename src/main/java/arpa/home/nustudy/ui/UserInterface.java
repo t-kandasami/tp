@@ -87,4 +87,26 @@ public class UserInterface {
         System.out.printf("Good Job! You have studied %d hours for %s", hours, course.getCourseName());
         System.out.println();
     }
+
+    /**
+     * Print all session hours for a specific course in the course manager
+     * @param course The course to print session hours for
+     * @param hours List of session hours for the course
+     */
+    public static void printCourseHoursPerSession(final Course course, final Iterable<Integer> hours) {
+        System.out.println("List of study sessions");
+
+        int idx = 1;
+
+        for (final int perSessionHours : hours) {
+            System.out.printf("%d. %s - %d hours", idx, course, perSessionHours);
+            System.out.println();
+            idx++;
+        }
+
+        if (idx == 1) {
+            System.out.printf("No sessions for course %s", course);
+            System.out.println();
+        }
+    }
 }
