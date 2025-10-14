@@ -37,6 +37,7 @@ public class Session {
 
     /**
      * Get logged hours for this session
+     *
      * @return Logged hours for this session
      */
     public int getLoggedHours() {
@@ -45,6 +46,7 @@ public class Session {
 
     /**
      * Get course for this session
+     *
      * @return Course for this session
      */
     public Course getCourse() {

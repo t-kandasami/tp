@@ -90,8 +90,9 @@ public class UserInterface {
 
     /**
      * Print all session hours for a specific course in the course manager
+     *
      * @param course The course to print session hours for
-     * @param hours List of session hours for the course
+     * @param hours  List of session hours for the course
      */
     public static void printCourseHoursPerSession(final Course course, final Iterable<Integer> hours) {
         System.out.println("List of study sessions");

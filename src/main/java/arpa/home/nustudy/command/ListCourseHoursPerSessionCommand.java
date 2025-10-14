@@ -18,6 +18,7 @@ public class ListCourseHoursPerSessionCommand implements Command {
 
     /**
      * List course hours per session
+     *
      * @param input Command input after the "list" command
      */
     public ListCourseHoursPerSessionCommand(final String input) {
@@ -26,8 +27,10 @@ public class ListCourseHoursPerSessionCommand implements Command {
 
     /**
      * Execute the command to list course hours per session
-     * @param courses The course list to work with
+     *
+     * @param courses  The course list to work with
      * @param sessions The session manager to work with
+     *
      * @throws NUStudyException If the command input after the "list" command is invalid
      */
     @Override
@@ -47,6 +50,7 @@ public class ListCourseHoursPerSessionCommand implements Command {
 
     /**
      * Get if the command should cause the program to terminate
+     *
      * @return If the command should cause the program to terminate
      */
     @Override
