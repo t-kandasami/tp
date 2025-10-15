@@ -8,7 +8,6 @@ public class Course {
      * The name of the course
      */
     private final String courseName;
-    private int loggedHours;
 
     /**
      * Creates a new Course with the specific name
@@ -17,7 +16,6 @@ public class Course {
      */
     public Course(final String courseName) {
         this.courseName = courseName;
-        loggedHours = 0;
     }
 
     /**
@@ -27,22 +25,6 @@ public class Course {
      */
     public String getCourseName() {
         return courseName;
-    }
-
-    /**
-     * Returns the number of study hours logged for this course at call time.
-     *
-     * @return The number of logged study hours.
-     */
-    public int getLoggedHours() {
-        return loggedHours;
-    }
-
-    /**
-     * Resets the logged study hours for current course to zero.
-     */
-    public void resetHours() {
-        loggedHours = 0;
     }
 
     /**

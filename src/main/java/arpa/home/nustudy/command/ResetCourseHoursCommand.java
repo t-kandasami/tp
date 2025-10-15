@@ -25,17 +25,17 @@ public class ResetCourseHoursCommand implements Command {
     }
 
     /**
-     * Handles resetting of all courses upon double confirmation.
+     * Handles resetting of all course sessions upon double confirmation.
      *
-     * @param courses The {@code CourseManager} instance.
+     * @param sessions The {@code SessionManager} instance.
      */
-    private static void resetAllCourseHandler(final CourseManager courses) {
+    private static void resetAllCourseHandler(final SessionManager sessions) {
         if (doubleConfirmationWrapper("Are you sure you want to reset hours for ALL courses?", "RESET ALL",
                 "reset all courses")) {
             return;
         }
 
-        resetAllCourses(courses);
+        resetAllCourses(sessions);
         System.out.println("Logged hours for all courses have been reset");
     }
 
@@ -79,14 +79,12 @@ public class ResetCourseHoursCommand implements Command {
     }
 
     /**
-     * Resets logged hours for all courses.
+     * Resets logged hours for all course sessions.
      *
-     * @param courses The {@code CourseManager} with all courses to reset.
+     * @param sessions The {@code SessionManager} instance.
      */
-    private static void resetAllCourses(final CourseManager courses) {
-        for (final Course c : courses.getCourses()) {
-            c.resetHours();
-        }
+    private static void resetAllCourses(final SessionManager sessions) {
+        sessions.clearAllSessions();
     }
 
     /**
@@ -105,11 +103,11 @@ public class ResetCourseHoursCommand implements Command {
         }
 
         if ("all".equalsIgnoreCase(input)) {
-            resetAllCourseHandler(courses);
+            resetAllCourseHandler(sessions);
             return;
         }
 
-        resetParticularCourseHandler(courses);
+        resetParticularCourseHandler(courses, sessions);
     }
 
     /**
@@ -123,13 +121,14 @@ public class ResetCourseHoursCommand implements Command {
     }
 
     /**
-     * Handles resetting of provided course upon double confirmation.
+     * Handles resetting of sessions for provided course upon double confirmation.
      *
      * @param courses The {@code CourseManager} instance.
      *
      * @throws NUStudyNoSuchCourseException If the provided course is non-existent.
      */
-    private void resetParticularCourseHandler(final CourseManager courses) throws NUStudyNoSuchCourseException {
+    private void resetParticularCourseHandler(final CourseManager courses, final SessionManager sessions)
+            throws NUStudyNoSuchCourseException {
         final Course target = courses.findCourse(input);
 
         checkNonExistentCourse(target);
@@ -138,7 +137,7 @@ public class ResetCourseHoursCommand implements Command {
             return;
         }
 
-        target.resetHours();
+        sessions.removeAllSessionsForCourse(target);
         System.out.println("Logged hours for " + target + " have been reset");
     }
 

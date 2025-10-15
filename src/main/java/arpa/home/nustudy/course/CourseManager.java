@@ -48,7 +48,6 @@ public class CourseManager {
                 return c;
             }
         }
-
         return null;
     }
 }
