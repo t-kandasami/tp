@@ -42,13 +42,14 @@ public class DeleteCourseCommand implements Command {
                 + "match input";
         courses.delete(courseToDelete);
 
-        assert courses.findCourse(input) == null : "Course was successfully deleted";
         if (courses.findCourse(input) == null) {
             logger.log(Level.WARNING, "Successfully deleted course: {0}", courseToDelete.getCourseName());
         } else {
             logger.log(Level.SEVERE, "Course deletion failed: {0}", courseToDelete.getCourseName());
             throw new NUStudyException("Course deletion failed");
         }
+
+        assert courses.findCourse(input) == null : "Course was successfully deleted";
 
         UserInterface.printCourseDeleted(courseToDelete);
     }
