@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 import arpa.home.nustudy.course.Course;
 
-public class SessionManager {
+public class SessionManager implements Iterable<Session> {
     private final ArrayList<Session> sessions = new ArrayList<>();
 
     /**
@@ -47,7 +47,7 @@ public class SessionManager {
 
     /**
      * Removes all study sessions related to a specific course named.
-     * An iterator is used through the the sessions list of type {@code ArrayList<Session>} and deletes
+     * An iterator is used through the sessions list of type {@code ArrayList<Session>} and deletes
      * every session to the associated {@code Course} matched.
      *
      * @param course The {@code Course} to whose sessions are to be removed.
@@ -62,5 +62,15 @@ public class SessionManager {
                 iterator.remove();
             }
         }
+    }
+
+    /**
+     * Returns an iterator for the session in the list.
+     *
+     * @return An iterator over the sessions
+     */
+    @Override
+    public Iterator<Session> iterator() {
+        return sessions.iterator();
     }
 }
