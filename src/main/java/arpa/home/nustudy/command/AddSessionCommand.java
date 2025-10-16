@@ -1,5 +1,8 @@
 package arpa.home.nustudy.command;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import arpa.home.nustudy.course.Course;
 import arpa.home.nustudy.course.CourseManager;
 import arpa.home.nustudy.exceptions.NUStudyException;
@@ -8,6 +11,7 @@ import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.ui.UserInterface;
 
 public class AddSessionCommand implements Command {
+    private static final Logger logger = Logger.getLogger(AddSessionCommand.class.getName());
     private final String input;
 
     /**
@@ -17,6 +21,7 @@ public class AddSessionCommand implements Command {
      */
     public AddSessionCommand(final String input) {
         this.input = input;
+        logger.log(Level.FINE, "AddSessionCommand created with input: {0}", input);
     }
 
     /**
@@ -30,23 +35,39 @@ public class AddSessionCommand implements Command {
 
     @Override
     public void execute(final CourseManager courses, final SessionManager sessions) throws NUStudyException {
-        final String[] arguments = input.split("\\s+");
-        final String courseName = arguments[0];
-        final Course course = courses.findCourse(courseName);
+        logger.log(Level.INFO, "Executing AddSessionCommand with input: {0}", input);
 
+        assert courses != null : "CourseManager cannot be null";
+        assert sessions != null : "SessionManager cannot be null";
+        assert input != null : "Input cannot be null";
+
+        final String[] arguments = input.split("\\s+");
+        logger.log(Level.FINE, "Split input arguments: {0}", (Object) arguments);
+
+        assert arguments.length == 2 : "Input must contain course name and hours separated by space";
+
+        final String courseName = arguments[0];
+        assert courseName != null && !courseName.isEmpty() : "Course name cannot be null or empty";
+
+        final Course course = courses.findCourse(courseName);
         if (course == null) {
-            throw new NUStudyNoSuchCourseException("Course with name " + courseName + " does not exist");
+            logger.log(Level.WARNING, "Course not found: {0}", courseName);
+            throw new NUStudyNoSuchCourseException("Course with the name " + courseName + " does not exist");
         }
 
         final int hours;
-
         try {
             hours = Integer.parseInt(arguments[1]);
+            logger.log(Level.FINE, "Parsed hours: {0}", hours);
         } catch (final NumberFormatException e) {
+            logger.log(Level.WARNING, "Invalid hours format: {0}", arguments[1]);
             throw new NUStudyException("Hours must be an integer");
         }
 
         sessions.add(course, hours);
+        assert sessions.sessionExists(course, hours) : "Session was created successfully";
+        logger.log(Level.INFO, "AddSessionCommand executed with input: {0}", input);
+
         UserInterface.printStudySessionAdded(course, hours);
     }
 
