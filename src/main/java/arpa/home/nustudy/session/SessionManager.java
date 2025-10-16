@@ -56,7 +56,7 @@ public class SessionManager implements Iterable<Session> {
         final Iterator<Session> iterator = sessions.iterator();
 
         while (iterator.hasNext()) {
-            Session nextSession =  iterator.next();
+            Session nextSession = iterator.next();
             Course nextCourse = nextSession.getCourse();
             if (nextCourse.equals(course)) {
                 iterator.remove();
@@ -72,5 +72,14 @@ public class SessionManager implements Iterable<Session> {
     @Override
     public Iterator<Session> iterator() {
         return sessions.iterator();
+    }
+
+    /**
+     * Returns an {@code Integer} on the number of sessions in the {@code ArrayList<Session>}.
+     *
+     * @return An integer on the size of {@code sessions}.
+     */
+    public int getSessionCount() {
+        return sessions.size();
     }
 }

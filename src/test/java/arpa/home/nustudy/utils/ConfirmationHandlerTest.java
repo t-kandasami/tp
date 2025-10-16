@@ -51,3 +51,4 @@ class ConfirmationHandlerTest {
         return input.equals(safeword.toUpperCase());
     }
 }
+

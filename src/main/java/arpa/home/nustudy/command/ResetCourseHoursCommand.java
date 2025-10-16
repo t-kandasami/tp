@@ -1,17 +1,22 @@
 package arpa.home.nustudy.command;
 
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
 import arpa.home.nustudy.course.Course;
 import arpa.home.nustudy.course.CourseManager;
 import arpa.home.nustudy.exceptions.NUStudyException;
 import arpa.home.nustudy.exceptions.NUStudyNoSuchCourseException;
 import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.utils.ConfirmationHandler;
+import arpa.home.nustudy.utils.Storage;
 
 /**
  * Creates a new ResetCourseHoursCommand with the specified user input. A specific course or all courses can be reset
  * depending on the input.
  */
 public class ResetCourseHoursCommand implements Command {
+    private static final Logger logger = Logger.getLogger(Storage.class.getName());
     private final String input;
 
     /**
@@ -36,7 +41,7 @@ public class ResetCourseHoursCommand implements Command {
         }
 
         resetAllCourses(sessions);
-        System.out.println("Logged hours for all courses have been reset");
+        logger.log(Level.SEVERE, "Logged hours for all courses have been reset");
     }
 
     /**
@@ -53,7 +58,7 @@ public class ResetCourseHoursCommand implements Command {
         final boolean confirmed = doubleConfirmation(prompt, safeword, resetAction);
 
         if (!confirmed) {
-            System.out.println("Reset cancelled");
+            logger.log(Level.INFO, "Reset cancelled");
             return true;
         }
         return false;
@@ -84,7 +89,10 @@ public class ResetCourseHoursCommand implements Command {
      * @param sessions The {@code SessionManager} instance.
      */
     private static void resetAllCourses(final SessionManager sessions) {
+        assert sessions != null : "SessionManager instance cannot be null";
         sessions.clearAllSessions();
+        final int clearedCount = sessions.getSessionCount();
+        assert clearedCount == 0 : "All sessions should have been cleared by now";
     }
 
     /**
@@ -97,8 +105,11 @@ public class ResetCourseHoursCommand implements Command {
      */
     @Override
     public void execute(final CourseManager courses, final SessionManager sessions) throws NUStudyException {
+        assert courses != null : "CourseManager instance cannot be null";
+        assert sessions != null : "SessionManager instance cannot be null";
+
         if (input.isEmpty()) {
-            System.out.println("Specify a course name or type 'reset all'");
+            logger.log(Level.INFO, "Specify a course name or type 'reset all'");
             return;
         }
 
@@ -129,6 +140,9 @@ public class ResetCourseHoursCommand implements Command {
      */
     private void resetParticularCourseHandler(final CourseManager courses, final SessionManager sessions)
             throws NUStudyNoSuchCourseException {
+        assert courses != null : "CourseManager instance cannot be null";
+        assert sessions != null : "SessionManager instance cannot be null";
+
         final Course target = courses.findCourse(input);
 
         checkNonExistentCourse(target);
@@ -138,7 +152,7 @@ public class ResetCourseHoursCommand implements Command {
         }
 
         sessions.removeAllSessionsForCourse(target);
-        System.out.println("Logged hours for " + target + " have been reset");
+        logger.log(Level.SEVERE, "Logged hours for " + target + " have been reset");
     }
 
     /**
