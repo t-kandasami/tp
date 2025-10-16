@@ -52,4 +52,14 @@ public class Session {
     public Course getCourse() {
         return course;
     }
+
+    /**
+     * Returns a string representation be stored in data file.
+     * The format is "S|Course_Name|Logged_Hours"
+     *
+     * @return A string format in the formate "S|Course_Name|Logged_Hours"
+     */
+    public String toStorageString() {
+        return "S|" + this.course.getCourseName() + "|" + this.loggedHours;
+    }
 }

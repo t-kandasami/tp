@@ -36,4 +36,14 @@ public class Course {
     public String toString() {
         return courseName;
     }
+
+    /**
+     * Returns a string representation be stored in data file.
+     * The format is "C|Course_Name"
+     *
+     * @return A string format in the formate "C|Course_Name"
+     */
+    public String toStorageString() {
+        return "C|" + this.courseName;
+    }
 }

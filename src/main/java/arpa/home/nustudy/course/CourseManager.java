@@ -1,11 +1,12 @@
 package arpa.home.nustudy.course;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * A list to manage all  courses in the application
  */
-public class CourseManager {
+public class CourseManager implements Iterable<Course> {
     private final ArrayList<Course> courses = new ArrayList<>();
 
     /**
@@ -50,4 +51,15 @@ public class CourseManager {
         }
         return null;
     }
+
+    /**
+     * Returns an iterator for the course in the list.
+     *
+     * @return An iterator over the courses
+     */
+    @Override
+    public Iterator<Course> iterator() {
+        return courses.iterator();
+    }
+
 }

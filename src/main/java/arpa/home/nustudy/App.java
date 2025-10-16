@@ -6,11 +6,15 @@ import arpa.home.nustudy.exceptions.NUStudyException;
 import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.ui.UserInterface;
 import arpa.home.nustudy.utils.Parser;
+import arpa.home.nustudy.utils.Storage;
 
 public class App {
     private static final UserInterface ui = new UserInterface();
     private static final CourseManager courseManager = new CourseManager();
     private static final SessionManager sessionManager = new SessionManager();
+    private static final String FILEPATH = "./data/NUStudy.txt";
+    private static final Storage storage = new Storage(FILEPATH);
+
 
     /**
      * Main entry-point for the java.duke.Duke application.
@@ -37,6 +41,7 @@ public class App {
 
                 if (c.isExit()) {
                     isExit = true;
+                    storage.save(courseManager, sessionManager);
                 }
             } catch (final NUStudyException e) {
                 System.out.println(e.getMessage());
