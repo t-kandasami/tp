@@ -18,6 +18,15 @@ public class SessionManager implements Iterable<Session> {
         sessions.add(new Session(course, loggedHours));
     }
 
+    public boolean sessionExists (final Course course, final int loggedHours) {
+        for (Session session : sessions) {
+            if (session.getCourse().equals(course) && session.getLoggedHours() == loggedHours) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Get a list of all logged hours for a specific course
      * @param course The course to get all logged hours of
