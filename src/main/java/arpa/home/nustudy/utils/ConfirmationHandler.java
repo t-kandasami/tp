@@ -1,8 +1,12 @@
 package arpa.home.nustudy.utils;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import arpa.home.nustudy.ui.UserInterface;
 
 public class ConfirmationHandler {
+    private static final Logger logger = Logger.getLogger(ConfirmationHandler.class.getName());
     /**
      * Handles user first confirmation prompts by persistently asking for a single 'y' or 'n' input. Handles lower (y/n)
      * or upper case (Y/N) inputs and trims whitespace.
@@ -12,13 +16,14 @@ public class ConfirmationHandler {
      * @return true if 'y' is parsed, else false if 'n' is parsed.
      */
     public static boolean firstLevelConfirmation(final String message) {
-        System.out.println(message + " (y/n)");
+        logger.log(Level.INFO, message + " (y/n)");
+        System.out.println();
 
         while (true) {
             final String input = UserInterface.readInput().trim().toLowerCase();
 
             if (input.isEmpty()) {
-                System.out.println("Please type 'y' or 'n': ");
+                logger.log(Level.INFO, "Please type 'y' or 'n': ");
                 continue;
             }
 
@@ -28,7 +33,7 @@ public class ConfirmationHandler {
             case "n":
                 return false;
             default:
-                System.out.println("Please only type 'y' or 'n': ");
+                logger.log(Level.INFO, "Please only type 'y' or 'n': ");
             }
         }
     }
@@ -42,15 +47,15 @@ public class ConfirmationHandler {
      * @return true if {@code safeword} is parsed, else false.
      */
     public static boolean secondLevelConfirmation(final String safeword, final String action) {
-        System.out.println("Please type \"" + safeword.toUpperCase() + "\" to double confirm " + action);
+        logger.log(Level.INFO, "Please type \"" + safeword.toUpperCase() + "\" to double confirm " + action);
 
         final String input = UserInterface.readInput();
 
         if (input.equals(safeword.toUpperCase())) {
-            System.out.println("Confirmation successful");
+            logger.log(Level.INFO, "Confirmation successful");
             return true;
         } else {
-            System.out.println("Incorrect input, reset cancelled");
+            logger.log(Level.INFO, "Incorrect input, reset cancelled");
             return false;
         }
     }
