@@ -81,7 +81,7 @@ public class Storage {
                     + dataFile.getAbsolutePath());
 
         } catch (IOException e) {
-            System.err.println("Error saving file: " + e.getMessage());
+            logger.log(Level.SEVERE, "Unable to save courses: ");
         }
     }
 }
