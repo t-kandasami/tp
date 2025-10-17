@@ -1,5 +1,7 @@
 package arpa.home.nustudy;
 
+import java.io.FileNotFoundException;
+
 import arpa.home.nustudy.command.Command;
 import arpa.home.nustudy.course.CourseManager;
 import arpa.home.nustudy.exceptions.NUStudyException;
@@ -19,10 +21,12 @@ public class App {
     /**
      * Main entry-point for the java.duke.Duke application.
      */
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws FileNotFoundException {
         System.out.println("Hello from NUStudy");
 
         boolean isExit = false;
+
+        storage.load(courseManager, sessionManager);
 
         do {
             final String userInput = UserInterface.readInput();
