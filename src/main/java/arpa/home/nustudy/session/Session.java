@@ -1,6 +1,7 @@
 package arpa.home.nustudy.session;
 
 import arpa.home.nustudy.course.Course;
+import arpa.home.nustudy.exceptions.NUStudyException;
 
 /**
  * Represents a course identified by its name
@@ -61,5 +62,36 @@ public class Session {
      */
     public String toStorageString() {
         return "S|" + this.course.getCourseName() + "|" + this.loggedHours;
+    }
+
+    /**
+     * Converts a stored session in the format {@code "S|COURSE_NAME|LOGGED_HOURS"} back into
+     * an {@code Object[]} with the course name and logged session hours for loading.
+     *
+     * @param storageString The stored session string from the data file.
+     * @return An {@code Object[]} where {@code Object[0]} is the course name and {@code Object[1]}
+     *     is the logged session hours.
+     * @throws NUStudyException If required format (empty segments between "|") is wrong.
+     */
+    public static Object[] fromStorageString(String storageString) throws NUStudyException {
+        String[] parts = storageString.split("\\|");
+
+        if (!parts[0].equals("S")) {
+            throw new NUStudyException("Invalid course type: " + storageString);
+        }
+        if (parts.length != 3) {
+            throw new NUStudyException("Invalid session hours format: " + storageString);
+        }
+        if (parts[1].isEmpty()) {
+            throw new NUStudyException("Course name cannot be empty: " + storageString);
+        }
+        if (parts[2].isEmpty()) {
+            throw new NUStudyException("Session hours cannot be empty: " + storageString);
+        }
+
+        String courseName = parts[1];
+        int hours = Integer.parseInt(parts[2]);
+
+        return new Object[]{courseName, hours};
     }
 }
