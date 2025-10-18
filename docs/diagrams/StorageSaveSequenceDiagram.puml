@@ -1,7 +1,7 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
-participant ":NUStudy" as Main
+participant ":App" as Main
 participant ":Storage" as Storage
 participant ":File" as File
 participant ":FileWriter" as FW
@@ -22,14 +22,14 @@ activate File
 File --> Storage: parent
 deactivate File
 
-alt parent != null AND !parent.exists()
+opt parent != null AND !parent.exists()
     Storage -> File: mkdirs()
     activate File
 
     File --> Storage: success/fail
     deactivate File
 
-    alt mkdirs fail
+    opt mkdirs fail
         Storage --> Main: return
         deactivate Storage
     end
