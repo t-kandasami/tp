@@ -1,0 +1,88 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+participant ":NUStudy" as Main
+participant ":Storage" as Storage
+participant ":File" as File
+participant ":FileWriter" as FW
+participant ":CourseManager" as CM
+participant ":Course" as Course
+participant ":SessionManager" as SM
+participant ":Session" as Session
+
+Main ->>Storage: save(courses, sessions)
+activate Storage
+
+Storage -> Storage: ensureParentDirectoryExists()
+activate Storage
+
+Storage -> File: getParentFile()
+activate File
+
+File --> Storage: parent
+deactivate File
+
+alt parent != null AND !parent.exists()
+    Storage -> File: mkdirs()
+    activate File
+
+    File --> Storage: success/fail
+    deactivate File
+
+    alt mkdirs fail
+        Storage --> Main: return
+        deactivate Storage
+    end
+
+end
+
+Storage -> Storage: saveData(courses, sessions)
+activate Storage
+
+Storage -> FW: new FileWriter(dataFile, false)
+activate FW
+
+loop for each course
+    Storage -> CM: iterator.next()
+    activate CM
+
+    CM --> Storage: course
+    deactivate CM
+
+    Storage -> Course: toStorageString()
+    activate Course
+
+    Course --> Storage: stringRepresentation
+    deactivate Course
+
+    Storage -> FW: write(stringRepresentation)
+    Storage -> FW: write(System.lineSeparator())
+end
+
+loop for each session
+    Storage -> SM: iterator.next()
+    activate SM
+
+    SM --> Storage: session
+    deactivate SM
+
+    Storage -> Session: toStorageString()
+    activate Session
+
+    Session --> Storage: stringRepresentation
+    deactivate Session
+
+    Storage -> FW: write(stringRepresentation)
+    Storage -> FW: write(System.lineSeparator())
+end
+
+Storage -> FW: close()
+deactivate FW
+
+deactivate Storage
+
+Storage --> Main: return
+deactivate Storage
+
+
+@enduml
