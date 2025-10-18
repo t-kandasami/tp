@@ -10,7 +10,7 @@ import arpa.home.nustudy.command.ListCourseHoursPerSessionCommand;
 import arpa.home.nustudy.command.ResetCourseHoursCommand;
 import arpa.home.nustudy.exceptions.NUStudyCommandException;
 
-public class Parser {
+public class CommandParser {
     private static ResetCourseHoursCommand resetCourseHoursCommand;
 
     /**
@@ -31,14 +31,20 @@ public class Parser {
         final String command = words[0].toLowerCase();
         final String arguments = words.length > 1 ? words[1].trim() : "";
 
-        return switch (command) {
-        case "add" -> parseAddCommand(arguments);
-        case "list" -> parseListCommand(arguments);
-        case "reset" -> new ResetCourseHoursCommand(arguments);
-        case "delete" -> new DeleteCourseCommand(arguments);
-        case "exit" -> new ExitCommand();
-        default -> throw new NUStudyCommandException("Wrong command");
-        };
+        switch (command) {
+        case "add":
+            return parseAddCommand(arguments);
+        case "list":
+            return parseListCommand(arguments);
+        case "reset":
+            return new ResetCourseHoursCommand(arguments);
+        case "delete":
+            return new DeleteCourseCommand(arguments);
+        case "exit":
+            return new ExitCommand();
+        default:
+            throw new NUStudyCommandException("Wrong command");
+        }
     }
 
     /**

@@ -7,7 +7,7 @@ List of courses:
 
 Good Job! You have studied 2 hours for CS2113
 
-Course with name MA1511 does not exist
+Course with the name MA1511 does not exist
 
 List of study sessions
 1. CS2113 - 2 hours

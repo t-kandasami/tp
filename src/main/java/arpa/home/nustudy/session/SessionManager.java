@@ -18,6 +18,15 @@ public class SessionManager implements Iterable<Session> {
         sessions.add(new Session(course, loggedHours));
     }
 
+    public boolean sessionExists (final Course course, final int loggedHours) {
+        for (Session session : sessions) {
+            if (session.getCourse().equals(course) && session.getLoggedHours() == loggedHours) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Get a list of all logged hours for a specific course
      * @param course The course to get all logged hours of
@@ -56,7 +65,7 @@ public class SessionManager implements Iterable<Session> {
         final Iterator<Session> iterator = sessions.iterator();
 
         while (iterator.hasNext()) {
-            Session nextSession =  iterator.next();
+            Session nextSession = iterator.next();
             Course nextCourse = nextSession.getCourse();
             if (nextCourse.equals(course)) {
                 iterator.remove();
@@ -72,5 +81,14 @@ public class SessionManager implements Iterable<Session> {
     @Override
     public Iterator<Session> iterator() {
         return sessions.iterator();
+    }
+
+    /**
+     * Returns an {@code Integer} on the number of sessions in the {@code ArrayList<Session>}.
+     *
+     * @return An integer on the size of {@code sessions}.
+     */
+    public int getSessionCount() {
+        return sessions.size();
     }
 }
