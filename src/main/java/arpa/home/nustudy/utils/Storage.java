@@ -119,26 +119,24 @@ public class Storage {
 
             try {
                 if (line.startsWith("C|")) {
-                    final Course course = Course.fromStorageString(line);
+                    final Course course = DataParser.parseCourse(line);
                     courses.add(course);
-                }
-                if (line.startsWith("S|")) {
-                    final Object[] courseAndSession = Session.fromStorageString(line);
-                    final String courseName = (String) courseAndSession[0];
-                    final Integer sessionHours = (Integer) courseAndSession[1];
+                } else if (line.startsWith("S|")) {
+                    final Session session = DataParser.parseSession(line);
+                    Course sessionCourse = session.getCourse();
 
                     Course matchingCourse = null;
                     for (Course c : courses) {
-                        if (c.getCourseName().equals(courseName)) {
+                        if (c.getCourseName().equals(sessionCourse.getCourseName())) {
                             matchingCourse = c;
                             break;
                         }
                     }
 
                     if (matchingCourse != null) {
-                        sessions.add(matchingCourse, sessionHours);
+                        sessions.add(matchingCourse, session.getLoggedHours());
                     } else {
-                        logger.log(Level.WARNING, "Session course is invalid: " + courseName);
+                        logger.log(Level.WARNING, "Session course is invalid: " + sessionCourse.getCourseName());
                     }
                 }
             } catch (NUStudyException e) {
@@ -155,7 +153,7 @@ public class Storage {
      * @param sessions The {@code SessionManager} instance to load in the loaded sessions with.
      * @throws FileNotFoundException
      */
-    public void load(CourseManager courses, SessionManager sessions) throws FileNotFoundException {
+    public void load(CourseManager courses, SessionManager sessions) {
         if (!ensureParentDirectoryExists()) {
             return;
         }
@@ -166,13 +164,10 @@ public class Storage {
             return;
         }
 
-        BufferedReader buffer = new BufferedReader(new FileReader(dataFile));
-
-        try (buffer) {
+        try (BufferedReader buffer = new BufferedReader(new FileReader(dataFile))) {
             logger.log(Level.INFO, "Loading data from: " + dataFile.getAbsolutePath());
             loadData(courses, sessions, buffer);
             logger.log(Level.INFO, "Successfully loaded all data from: " + dataFile.getAbsolutePath());
-
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Unable to load data from: " + dataFile.getAbsolutePath());
             logger.log(Level.INFO, "Error message: " + e.getMessage());

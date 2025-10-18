@@ -1,13 +1,11 @@
 package arpa.home.nustudy;
 
-import java.io.FileNotFoundException;
-
 import arpa.home.nustudy.command.Command;
 import arpa.home.nustudy.course.CourseManager;
 import arpa.home.nustudy.exceptions.NUStudyException;
 import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.ui.UserInterface;
-import arpa.home.nustudy.utils.Parser;
+import arpa.home.nustudy.utils.CommandParser;
 import arpa.home.nustudy.utils.Storage;
 
 public class App {
@@ -21,12 +19,13 @@ public class App {
     /**
      * Main entry-point for the java.duke.Duke application.
      */
-    public static void main(final String[] args) throws FileNotFoundException {
+    public static void main(final String[] args)  {
         System.out.println("Hello from NUStudy");
 
         boolean isExit = false;
 
         storage.load(courseManager, sessionManager);
+
 
         do {
             final String userInput = UserInterface.readInput();
@@ -40,7 +39,7 @@ public class App {
             }
 
             try {
-                final Command c = Parser.parseCommand(userInput);
+                final Command c = CommandParser.parseCommand(userInput);
                 c.execute(courseManager, sessionManager);
 
                 if (c.isExit()) {

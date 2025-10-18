@@ -10,7 +10,7 @@ import arpa.home.nustudy.command.ListCourseHoursPerSessionCommand;
 import arpa.home.nustudy.command.ResetCourseHoursCommand;
 import arpa.home.nustudy.exceptions.NUStudyCommandException;
 
-public class Parser {
+public class CommandParser {
     private static ResetCourseHoursCommand resetCourseHoursCommand;
 
     /**
@@ -58,8 +58,9 @@ public class Parser {
      */
     private static Command parseAddCommand(final String arguments) throws NUStudyCommandException {
         if (arguments.isEmpty()) {
-            throw new NUStudyCommandException("Add command requires arguments." +
-                    "Usage: add <course> OR add <course> <hours>");
+            throw new NUStudyCommandException("""
+                    Add command requires arguments.
+                    Usage: add <course> OR add <course> <hours>""");
         }
 
         final String[] parts = arguments.split("\\s+");
@@ -69,8 +70,9 @@ public class Parser {
         } else if (parts.length >= 2) {  // If there are two or more words, treat as course + session
             return new AddSessionCommand(arguments);
         } else {
-            throw new NUStudyCommandException("Invalid add command format." +
-                    "Usage: add <course> OR add <course> <hours>");
+            throw new NUStudyCommandException("""
+                    Invalid add command format.
+                    Usage: add <course> OR add <course> <hours>""");
         }
     }
 
@@ -93,8 +95,9 @@ public class Parser {
         if (parts.length == 1) {  // If there's exactly one word, it's a course
             return new ListCourseHoursPerSessionCommand(arguments);
         } else {
-            throw new NUStudyCommandException("invalid list command format." +
-                    "Usage: list OR list <course>");
+            throw new NUStudyCommandException("""
+                   Invalid list command format.
+                   Usage: list OR list <course>""");
         }
     }
 }
