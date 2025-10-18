@@ -84,6 +84,9 @@ public class Storage {
      * @param sessions The session list to save
      */
     public void save(CourseManager courses, SessionManager sessions) {
+        assert courses != null;
+        assert sessions != null;
+
         try {
             if (!ensureParentDirectoryExists()) {
                 return;
