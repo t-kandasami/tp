@@ -96,8 +96,8 @@ public class CommandParser {
             return new ListCourseHoursPerSessionCommand(arguments);
         } else {
             throw new NUStudyCommandException("""
-                   Invalid list command format.
-                   Usage: list OR list <course>""");
+                    Invalid list command format.
+                    Usage: list OR list <course>""");
         }
     }
 }

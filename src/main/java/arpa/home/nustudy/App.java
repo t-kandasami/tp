@@ -19,7 +19,7 @@ public class App {
     /**
      * Main entry-point for the java.duke.Duke application.
      */
-    public static void main(final String[] args)  {
+    public static void main(final String[] args) {
         System.out.println("Hello from NUStudy");
 
         boolean isExit = false;
