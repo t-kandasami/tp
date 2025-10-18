@@ -60,6 +60,6 @@ public class Session {
      * @return A string format in the formate "S|Course_Name|Logged_Hours"
      */
     public String toStorageString() {
-        return "S|" + this.course.getCourseName() + "|" + this.loggedHours;
+        return "S|" + course.getCourseName() + "|" + loggedHours;
     }
 }
