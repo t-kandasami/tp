@@ -10,6 +10,6 @@ class ParserTest {
     @Test
     void parseCommand() {
         final String input = "Hello";
-        assertThrows(NUStudyCommandException.class, () -> Parser.parseCommand(input));
+        assertThrows(NUStudyCommandException.class, () -> CommandParser.parseCommand(input));
     }
 }
