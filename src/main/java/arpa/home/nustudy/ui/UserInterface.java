@@ -23,17 +23,11 @@ public class UserInterface {
      * @return The trimmed user input command
      */
     public static String readInput() {
-        System.out.println();
-
-        if (INPUT_SCANNER.hasNextLine()) {
-            final String line = INPUT_SCANNER.nextLine().trim();
-
-            if (!line.isEmpty()) {
-                return line;
-            }
+        if (!INPUT_SCANNER.hasNextLine()) {
+            return null;
         }
 
-        return null;
+        return INPUT_SCANNER.nextLine().trim();
     }
 
     /**
