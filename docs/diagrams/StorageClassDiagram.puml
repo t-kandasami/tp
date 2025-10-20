@@ -1,0 +1,58 @@
+@startuml
+
+class Storage {
+    - dataFile : File
+    + Storage(String filepath)
+    + void save(CourseManager, SessionManager)
+    - void saveData(CourseManager, SessionManager)
+}
+
+class Course {
+    - courseName : String
+    + Course(String courseName)
+    + String getCourseName()
+    + String toString()
+    + String toStorageString()
+}
+
+class Session {
+    - loggedHours : int
+    + Session(Course, int)
+    + int getLoggedHours()
+    + Course getCourse()
+    + String toString()
+    + String toStorageString()
+}
+
+class CourseManager {
+    + void add(Course)
+    + void delete(Course)
+    + ArrayList<Course> getCourses()
+    + Course findCourse(String)
+    + Iterator<Course> iterator()
+}
+
+class SessionManager {
+    + void add(Course, int)
+    + ArrayList<Integer> getAllLoggedHoursForCourse(Course)
+    + void clearAllSessions()
+    + void removeAllSessionsForCourse(Course)
+    + Iterator<Session> iterator()
+}
+
+
+Storage ..> CourseManager : uses
+Storage ..> SessionManager : uses
+Storage ..> Course : uses toStorageString()
+Storage ..> Session : uses toStorageString()
+
+interface Iterable
+Iterable<|-- CourseManager
+Iterable <|-- SessionManager
+
+CourseManager "1" --> "*" Course : Contains
+SessionManager "1" --> "*" Session : Contains
+
+Session "*"-->"1" Course
+
+@enduml
