@@ -1,0 +1,53 @@
+@startuml
+'Reset Course Hours Flow Diagram
+
+skinparam ActivityStartColor #Gray
+skinparam ActivityEndColor #Gray
+skinparam ActivityDiamondBackgroundColor #Wheat
+skinparam Padding 1
+skinparam ParticipantPadding 1
+skinparam BoxPadding 1
+
+start
+
+:User enters reset command;
+
+if (Input empty?) then (yes)
+    :Prompt user to specify <course> or all;
+    stop
+endif
+
+if (Input is "all"?) then (yes)
+    :Set [target] = "all";
+    :Set [safeword] = "RESET ALL";
+
+else (Input is <course>)
+    :Find course in CourseManager;
+    if (<course> not found?) then (yes)
+        :Alert <course> non-existent;
+        stop
+    else (no)
+    :Set [target] = <course>;
+    :Set [safeword] = "RESET";
+    endif
+endif
+
+:Prompt user for 'y' or 'n' (first confirmation);
+
+if (Input is 'y'?) then (no)
+    :Alert cancelled reset;
+    stop
+else (yes)
+
+:Prompt user for exact [safeword];
+
+if (Input is exactly [safeword]?) then (no)
+    :Alert cancelled reset;
+    stop
+else (yes)
+
+:Clear [target] sessions;
+:Alert successful reset;
+
+stop
+@enduml
