@@ -1,0 +1,103 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+participant ":App" as App
+participant ":Storage" as Storage
+participant "dataFile:File" as File
+participant "BufferedReader" as BR
+participant ":DataParser" as Parser
+participant ":CourseManager" as CM
+participant ":SessionManager" as SM
+
+App ->> Storage: load(courses, sessions)
+activate Storage
+
+Storage -> Storage: ensureParentDirectoryExists()
+activate Storage
+
+Storage -> File: getParentFile()
+activate File
+
+File --> Storage: parent : File
+deactivate File
+
+opt parent != null && !parent.exists()
+    Storage -> File: mkdirs()
+    activate File
+
+    File --> Storage: result : boolean
+    deactivate File
+end
+
+Storage -> File: exists()
+activate File
+File --> Storage: result : boolean
+deactivate File
+
+opt file does not exist
+    note right of Storage: No previous storage,\nstarting with new dataset
+    Storage --> App
+    deactivate Storage
+end
+
+Storage -> BR**: new BufferedReader(FileReader(dataFile))
+activate BR
+
+loop while next line is not null
+Storage -> BR: readline()
+    BR --> Storage: line : String
+    alt line starts with "C|"
+        Storage -> Parser: parseCourse(line)
+        activate Parser
+        Parser -> Parser: validate format
+        activate Parser
+
+        note right: - Check "C" prefix\n- Ensure 2 segments\n- Name is not null
+        Parser --> Parser: result : boolean
+        deactivate Parser
+        Parser --> Storage: course : Course
+        deactivate Parser
+
+        Storage -> CM: add(course)
+        activate CM
+        CM --> Storage
+        deactivate CM
+
+    else line starts with "S|"
+        Storage -> Parser: parseSession(line)
+        activate Parser
+        Parser -> Parser: validate format
+        activate Parser
+        note right: - Check "S" prefix\n- Ensure 3 segments\n- Name is not null\n -Hours is type Integer
+
+        loop for Course c : courses
+        Storage -> CM: fetch course name with current session
+        activate CM
+        CM --> Storage: matchingCourse : Course
+        deactivate CM
+        end
+
+
+        opt matching course != null
+            Storage -> SM: add(matchingCourse, hours)
+            activate SM
+            SM --> Storage
+            deactivate SM
+        end
+
+        Parser --> Parser: result : boolean
+        deactivate Parser
+        Parser --> Storage: session : Session
+        deactivate Parser
+    end
+end
+
+Storage -> BR: close()
+deactivate BR
+Storage --> Storage
+deactivate Storage
+Storage --> App
+deactivate Storage
+
+
+@enduml

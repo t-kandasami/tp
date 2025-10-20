@@ -1,5 +1,5 @@
 @startuml
-'Reset Course Hours Flow Diagram
+'https://plantuml.com/activity-diagram-beta
 
 skinparam ActivityStartColor #Gray
 skinparam ActivityEndColor #Gray
@@ -15,7 +15,7 @@ start
 if (Input empty?) then (yes)
     :Prompt user to specify <course> or all;
     stop
-endif
+else (no)
 
 if (Input is "all"?) then (yes)
     :Set [target] = "all";
