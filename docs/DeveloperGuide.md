@@ -73,6 +73,63 @@ The following sequence diagram illustrates how data is stored to storage:
 
 ![Storage Save Sequence Diagram](diagrams/StorageSaveSequenceDiagram.png)
 
+<u>Load Operation</u>
+
+The following sequence diagram illustrates how data is loaded from storage:
+
+![Storage Load Sequence Diagram](diagrams/StorageLoadSequenceDiagram.png)
+
+How the `load` operation work:
+
+1. `ensureParentDirectoryexists()` checks for the parent file. An error message is logged and returns `false` if 
+   non-existent.
+2. If parent directory exists, storage file existence is checked. If `exists()` on the storage file returns false, 
+   empty dataset is initialised. Else, data is loaded in.
+3. Data is parsed in line by line using `nextLine()`. Lines with prefix `C|` are parsed as courses with `parseCourse
+(line)` while lines with prefix `S|` are parsed as sessions with `parseSession(line)`.
+4. Every line is validated in the format variables (prefix, number of segments, non-null values). For sessions, the 
+   referenced course must exist in the corresponding `CourseManager` instance.
+5. Warnings are logged for invalid lines - such lines are skipped.
+6. Only valid courses and sessions are added to the `CourseManager` and `SessionManager` instances respectively.
+
+### Reset Component ###
+
+<u> Overview </u>
+
+The Reset Functionality enables users to clear logged study hours for either all or a specified course. A **double 
+confirmation flow** is developed to prevent any unintended and thus, accidental deletions.
+
+<u> Implementation details </u>
+
+1. First Level Confirmation:
+- Users must confirm with `y` or `n` regardless of capitalisation. This prompt loops until valid input is received
+- If `n` is received, reset operation is cancelled
+2. Second Level Confirmation:
+- Users are to prompted to type the `safeword` - `RESET ALL` for all courses and `RESET` for a specific course
+- The `safeword` must strictly be equivalent, else reset operation is cancelled
+
+<u> Reset Workflow </u>
+
+The following activity diagram illustrates the complete reset workflow:
+
+![Reset Activity Diagram](diagrams/ResetFunctionDiagram.png)
+
+<u> Design Considerations </u>
+
+**Aspect: Confirmation mechanism**
+
+* **Alternative 1 (current choice)**: Dual-level confirmation with `safeword`
+  * Pros: By strictly requiring the user to clarify his/her final intent, this ensures maximum prevention in 
+    accidental deletion
+  * Cons: Slower user experience due to increased user interaction
+* **Alternative 2**: Single-level confirmation
+  * Pros: Quicker user experience, straightforward design
+  * Cons: Greater risk of accidental data wipe, especially for `reset all` usage
+* **Alternative 3**: Zero confirmation
+  * Pros: Quickest operation, minimal required user interaction
+  * Cons: Reckless design, leading to unacceptable risk of data wipe
+
+{*more aspects and alternatives to be added*}
 ## Product scope
 
 ### Target user profile
