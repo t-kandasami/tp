@@ -44,8 +44,9 @@ public class ListCourseHoursPerSessionCommand implements Command {
         }
 
         final ArrayList<Integer> courseHours = sessions.getAllLoggedHoursForCourse(course);
+        final ArrayList<String> courseDate = sessions.getAllDateStringsForCourse(course);
 
-        UserInterface.printCourseHoursPerSession(course, courseHours);
+        UserInterface.printCourseHoursPerSession(course, courseHours, courseDate);
     }
 
     /**
