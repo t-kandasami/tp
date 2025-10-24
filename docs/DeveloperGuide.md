@@ -168,6 +168,43 @@ This command does the following:
 The following activity diagram illustrates the complete removing course workflow:
 ![](diagrams/DeleteCourseCommandActivityDiagram.png)
 
+### List Course Component
+<u> Overview </u>
+
+`ListCourseCommand` is a concrete implementation of the `Command` interface that lists all courses managed by
+`CourseManager`. It performs basic sanity checks, logs its actions, and delegates the rendering of the course list to
+`UserInterface`.
+
+<u> Implementation Details </u>
+
+#### Package `arpa.home.nustudy.command`
+
+#### Class `public class ListCourseCommand implements Command`
+
+#### Dependencies
+| Component        | Responsibility                                           |
+| ---------------- | -------------------------------------------------------- |
+| `CourseManager`  | Provides the collection of courses to be listed.         |
+| `SessionManager` | Present for consistency with command signature.         |
+| `UserInterface`  | Renders the course list or an appropriate message.       |
+| `NUStudyException` | Thrown if listing fails (not expected in current impl). |
+| `Logger`         | Records info/fine level logs for tracing execution.      |
+
+<u> Workflow </u>
+
+The activity diagram below illustrates the ListCourseCommand.execute() flow:
+![](diagrams/ListCourseCommandActivityDiagram.png)
+
+Key steps:
+- Assert non-null arguments (both `courses` and `sessions`) to catch programming errors early.
+- Log the start of command execution at INFO level.
+- If the course list is empty, prompt the user with "No courses available" and stop.
+- Otherwise, invoke `UserInterface.printCourseList(courses)` to render the list.
+- Log completion at FINE level and return.
+
+Notes:
+- The assertions are defensive checks intended for development/testing (enabled with -ea). Production callers should ensure valid arguments.
+
 ## Product scope
 
 ### Target user profile
