@@ -137,7 +137,7 @@ public class Storage {
                     }
 
                     if (matchingCourse != null) {
-                        sessions.add(matchingCourse, session.getLoggedHours());
+                        sessions.add(matchingCourse, session.getLoggedHours(), session.getDate());
                     } else {
                         logger.log(Level.WARNING, "Session course is invalid: " + sessionCourse.getCourseName());
                     }
