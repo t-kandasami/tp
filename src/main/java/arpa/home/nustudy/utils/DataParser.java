@@ -1,5 +1,8 @@
 package arpa.home.nustudy.utils;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import arpa.home.nustudy.course.Course;
 import arpa.home.nustudy.exceptions.NUStudyException;
 import arpa.home.nustudy.session.Session;
@@ -11,7 +14,9 @@ public class DataParser {
      * a {@code Course} with the course name for loading.
      *
      * @param storageString The stored session string from the data file.
+     *
      * @return A {@code Course} which contains the course name.
+     *
      * @throws NUStudyException If required format (empty segments between "|") is wrong.
      */
     public static Course parseCourse(String storageString) throws NUStudyException {
@@ -45,7 +50,7 @@ public class DataParser {
         if (!parts[0].equals("S")) {
             throw new NUStudyException("Invalid course type: " + storageString);
         }
-        if (parts.length != 3) {
+        if (parts.length != 4) {
             throw new NUStudyException("Invalid session hours format: " + storageString);
         }
         if (parts[1].isEmpty()) {
@@ -54,11 +59,30 @@ public class DataParser {
         if (parts[2].isEmpty()) {
             throw new NUStudyException("Session hours cannot be empty: " + storageString);
         }
+        if (parts[3].trim().isEmpty()) {
+            throw new NUStudyException("Session date cannot be empty: " + storageString);
+        }
 
         String courseName = parts[1];
-        int hours = Integer.parseInt(parts[2]);
+        int hours;
+        LocalDate sessionDate;
+
+        try {
+            hours = Integer.parseInt(parts[2].trim());
+            if (hours < 0) {
+                throw new NUStudyException("Invalid session hours format: " + storageString
+                        + "\n Discarding data...");
+            }
+            sessionDate = LocalDate.parse(parts[3].trim());
+        } catch (NumberFormatException e) {
+            throw new NUStudyException("Fail to parse Study Hours: " + storageString
+                    + "\n Discarding data....");
+        } catch (DateTimeParseException e) {
+            throw new NUStudyException("Fail to parse Study Hours: " + storageString
+                    + "\n Discarding data....");
+        }
         Course course = new Course(courseName);
 
-        return new Session(course, hours);
+        return new Session(course, hours, sessionDate);
     }
 }
