@@ -88,7 +88,7 @@ public class UserInterface {
      *
      * @param course The course to print session hours for
      * @param hours  List of session hours for the course
-     * @param dates  List of seesion dates for the course
+     * @param dates  List of session dates for the course
      */
     public static void printCourseHoursPerSession(final Course course, final ArrayList<Integer> hours,
             final ArrayList<String> dates) {

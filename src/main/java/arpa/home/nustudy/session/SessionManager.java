@@ -49,6 +49,13 @@ public class SessionManager implements Iterable<Session> {
         return res;
     }
 
+    /**
+     * Get a list of all dates for a specific course.
+     *
+     * @param course The course to get all dates
+     *
+     * @return List of all dates
+     */
     public ArrayList<String> getAllDateStringsForCourse(final Course course) {
         final ArrayList<String> res = new ArrayList<>();
 

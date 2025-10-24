@@ -16,6 +16,12 @@ public class DateParser {
         "yyyy-MM-dd", "d/M/yyyy", "d-M-yyyy"
     };
 
+    /**
+     * Returns a LocalDate object parsed from a date string.
+     * @param date The date string to parse
+     * @return A LocalDate object representing the parsed date
+     * @throws WrongDateFormatException If the date format is not recognized
+     */
     public static LocalDate parseDate(String date) throws WrongDateFormatException {
         if (date == null || date.isEmpty()) {
             throw new WrongDateFormatException();
@@ -39,7 +45,7 @@ public class DateParser {
      *
      * @param date The LocalDate to format
      *
-     * @return A formatted date string in "MMM dd yyyy" format
+     * @return A formatted date string in "dd MMM yyyy" format
      */
     public static String formatDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
