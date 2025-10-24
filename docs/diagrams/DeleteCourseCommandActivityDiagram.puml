@@ -1,0 +1,37 @@
+@startuml
+title Activity Diagram for DeleteCourseCommand.execute()
+
+skinparam ActivityStartColor #Gray
+skinparam ActivityEndColor #Gray
+skinparam ActivityDiamondBackgroundColor #Wheat
+skinparam Padding 1
+skinparam ParticipantPadding 1
+skinparam BoxPadding 1
+
+start
+
+if (input is empty?) then (yes)
+    :Prompt user to "Please enter a course name that you want to delete";
+    stop
+
+else (no)
+    :Find the Course from CourseManager;
+    :Store Course found into courseToDelete;
+endif
+
+if (courseToDelete == null?) then (yes)
+    :Prompt User that course does not exist;
+    stop
+else (no)
+    :Delete the course;
+endif
+
+if (Is the course deleted) then (yes)
+    :Developer Log INFO "Successfully deleted course";
+else (no)
+    :Prompt User that there was an error with the deletion as the
+     course still exists after deleting it from the CourseManager;
+    stop
+endif
+stop
+@enduml
