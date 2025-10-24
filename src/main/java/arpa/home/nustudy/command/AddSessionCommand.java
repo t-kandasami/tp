@@ -1,5 +1,9 @@
 package arpa.home.nustudy.command;
 
+import static arpa.home.nustudy.utils.DateParser.parseDate;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -7,6 +11,7 @@ import arpa.home.nustudy.course.Course;
 import arpa.home.nustudy.course.CourseManager;
 import arpa.home.nustudy.exceptions.NUStudyException;
 import arpa.home.nustudy.exceptions.NUStudyNoSuchCourseException;
+import arpa.home.nustudy.exceptions.WrongDateFormatException;
 import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.ui.UserInterface;
 
@@ -44,7 +49,7 @@ public class AddSessionCommand implements Command {
         final String[] arguments = input.split("\\s+");
         logger.log(Level.FINE, "Split input arguments: {0}", (Object) arguments);
 
-        assert arguments.length == 2 : "Input must contain course name and hours separated by space";
+        assert arguments.length >= 2 : "Input must contain course name and hours separated by space";
 
         final String courseName = arguments[0];
         assert courseName != null && !courseName.isEmpty() : "Course name cannot be null or empty";
@@ -64,7 +69,19 @@ public class AddSessionCommand implements Command {
             throw new NUStudyException("Hours must be an integer");
         }
 
-        sessions.add(course, hours);
+        final LocalDate date;
+        if (arguments.length == 3) {
+            try {
+                date = parseDate(arguments[2]);
+            } catch (final DateTimeParseException e) {
+                throw new WrongDateFormatException();
+            }
+        } else {
+            date = LocalDate.now();
+            logger.log(Level.FINE, "No date provided; defaulting to today: {0}", date);
+        }
+
+        sessions.add(course, hours, date);
         assert sessions.sessionExists(course, hours) : "Session was created successfully";
         logger.log(Level.INFO, "AddSessionCommand executed with input: {0}", input);
 
