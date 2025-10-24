@@ -1,0 +1,34 @@
+@startuml
+title Activity Diagram for ListCourseCommand.execute()
+
+skinparam ActivityStartColor #Gray
+skinparam ActivityEndColor #Gray
+skinparam ActivityDiamondBackgroundColor #Wheat
+skinparam Padding 1
+skinparam ParticipantPadding 1
+skinparam BoxPadding 1
+
+start
+
+if (courses is null?) then (yes)
+    :AssertionError: courses is null;
+    stop
+else (no)
+    if (sessions is null?) then (yes)
+        :AssertionError: sessions is null;
+        stop
+    else (no)
+        :Developer Log INFO "Executing ListCourseCommand";
+    endif
+endif
+
+if (Is course list empty?) then (yes)
+    :Prompt User "No courses available";
+    stop
+else (no)
+    :Call UserInterface.printCourseList(courses);
+endif
+
+:Developer Log FINE "Finished ListCourseCommand";
+stop
+@enduml
