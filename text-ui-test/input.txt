@@ -1,7 +1,7 @@
 add CS2113
 list
-add CS2113 2
-add MA1511 3
+add CS2113 2 25-10-2025
+add MA1511 3 25-10-2025
 list CS2113
 list MA1511
 delete CS2113
