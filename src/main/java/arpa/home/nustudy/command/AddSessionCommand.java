@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import arpa.home.nustudy.course.Course;
 import arpa.home.nustudy.course.CourseManager;
+import arpa.home.nustudy.exceptions.FutureDateException;
 import arpa.home.nustudy.exceptions.NUStudyException;
 import arpa.home.nustudy.exceptions.NUStudyNoSuchCourseException;
 import arpa.home.nustudy.exceptions.WrongDateFormatException;
@@ -35,7 +36,10 @@ public class AddSessionCommand implements Command {
      * @param courses  The course list to work with
      * @param sessions The session list to work with
      *
-     * @throws NUStudyException If user's input is invalid
+     * @throws NUStudyNoSuchCourseException If the specified course does not exist
+     * @throws NUStudyException             If hours is not a valid integer
+     * @throws WrongDateFormatException     If the date format is invalid
+     * @throws FutureDateException          If the date is in the future
      */
 
     @Override
@@ -71,10 +75,9 @@ public class AddSessionCommand implements Command {
 
         final LocalDate date;
         if (arguments.length == 3) {
-            try {
-                date = parseDate(arguments[2]);
-            } catch (final DateTimeParseException e) {
-                throw new WrongDateFormatException();
+            date = parseDate(arguments[2]);
+            if (date.isAfter(LocalDate.now())) {
+                throw new FutureDateException();
             }
         } else {
             date = LocalDate.now();
