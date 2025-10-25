@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -42,12 +43,12 @@ class StorageTest {
         courseManager.add(new Course("MA1508E"));
         courseManager.add(new Course("CG2111A"));
 
-        sessionManager.add(courseManager.getCourses().get(0), 5);
-        sessionManager.add(courseManager.getCourses().get(0), 10);
-        sessionManager.add(courseManager.getCourses().get(1), 3);
-        sessionManager.add(courseManager.getCourses().get(1), 5);
-        sessionManager.add(courseManager.getCourses().get(2), 3);
-        sessionManager.add(courseManager.getCourses().get(2), 1);
+        sessionManager.add(courseManager.getCourses().get(0), 5, LocalDate.parse("2025-10-25"));
+        sessionManager.add(courseManager.getCourses().get(0), 10, LocalDate.parse("2025-10-25"));
+        sessionManager.add(courseManager.getCourses().get(1), 3, LocalDate.parse("2025-10-25"));
+        sessionManager.add(courseManager.getCourses().get(1), 5, LocalDate.parse("2025-10-25"));
+        sessionManager.add(courseManager.getCourses().get(2), 3, LocalDate.parse("2025-10-25"));
+        sessionManager.add(courseManager.getCourses().get(2), 1, LocalDate.parse("2025-10-25"));
 
         storage.save(courseManager, sessionManager);
 
@@ -58,12 +59,18 @@ class StorageTest {
         assertEquals("C|MA1508E", lines.get(1), "Expect: C|MA1508E\n Actual:" + lines.get(1));
         assertEquals("C|CG2111A", lines.get(2), "Expect: C|CG2111A\n Actual:" + lines.get(2));
 
-        assertEquals("S|CS2113|5", lines.get(3), "Expect: S|CS2113|5\n Actual:" + lines.get(3));
-        assertEquals("S|CS2113|10", lines.get(4), "Expect: S|CS2113|10\n Actual:" + lines.get(4));
-        assertEquals("S|MA1508E|3", lines.get(5), "Expect: S|MA1508E|3\n Actual:" + lines.get(5));
-        assertEquals("S|MA1508E|5", lines.get(6), "Expect: S|MA1508E|5\n Actual:" + lines.get(6));
-        assertEquals("S|CG2111A|3", lines.get(7), "Expect: S|CG2111A|3\n Actual:" + lines.get(7));
-        assertEquals("S|CG2111A|1", lines.get(8), "Expect: S|CG2111A|1\n Actual:" + lines.get(8));
+        assertEquals("S|CS2113|5|2025-10-25", lines.get(3), "Expect: S|CS2113|5|2025-10-25\n Actual:"
+                + lines.get(3));
+        assertEquals("S|CS2113|10|2025-10-25", lines.get(4), "Expect: S|CS2113|10|2025-10-25\n Actual:"
+                + lines.get(4));
+        assertEquals("S|MA1508E|3|2025-10-25", lines.get(5), "Expect: S|MA1508E|3|2025-10-25\n Actual:"
+                + lines.get(5));
+        assertEquals("S|MA1508E|5|2025-10-25", lines.get(6), "Expect: S|MA1508E|5|2025-10-25\n Actual:"
+                + lines.get(6));
+        assertEquals("S|CG2111A|3|2025-10-25", lines.get(7), "Expect: S|CG2111A|3|2025-10-25\n Actual:"
+                + lines.get(7));
+        assertEquals("S|CG2111A|1|2025-10-25", lines.get(8), "Expect: S|CG2111A|1|2025-10-25\n Actual:"
+                + lines.get(8));
 
     }
 
@@ -79,13 +86,14 @@ class StorageTest {
     @Test
     void save_fileAlreadyExists_overwritesFile() throws IOException {
         courseManager.add(new Course("CS2113"));
-        sessionManager.add(courseManager.getCourses().get(0), 5);
+        sessionManager.add(courseManager.getCourses().get(0), 5, LocalDate.parse("2025-10-25"));
         storage.save(courseManager, sessionManager);
 
         final List<String> firstSave = Files.readAllLines(Paths.get(testFilePath));
         assertEquals(2, firstSave.size(), "Expect: 2");
         assertEquals("C|CS2113", firstSave.get(0), "Expect: C|CS2113\n Actual:" + firstSave.get(0));
-        assertEquals("S|CS2113|5", firstSave.get(1), "Expect: S|CS2113|5\n Actual:" + firstSave.get(1));
+        assertEquals("S|CS2113|5|2025-10-25", firstSave.get(1),
+                "Expect: S|CS2113|5|2025-10-25\n Actual:" + firstSave.get(1));
 
         courseManager.add(new Course("MA1508E"));
         storage.save(courseManager, sessionManager);
@@ -93,6 +101,7 @@ class StorageTest {
         assertEquals(3, secondSave.size(), "Expect: 3");
         assertEquals("C|CS2113", secondSave.get(0), "Expect: C|CS2113\n Actual:" + secondSave.get(0));
         assertEquals("C|MA1508E", secondSave.get(1), "Expect: C|MA1508E\n Actual:" + secondSave.get(0));
-        assertEquals("S|CS2113|5", secondSave.get(2), "Expect: S|CS2113|5\n Actual:" + secondSave.get(1));
+        assertEquals("S|CS2113|5|2025-10-25", secondSave.get(2),
+                "Expect: S|CS2113|5|2025-10-25\n Actual:" + secondSave.get(1));
     }
 }

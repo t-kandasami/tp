@@ -67,7 +67,8 @@ public class CommandParser {
 
         if (parts.length == 1) {  // If there's exactly one word, it's a course
             return new AddCourseCommand(arguments);
-        } else if (parts.length >= 2) {  // If there are two or more words, treat as course + session
+        } else if (parts.length == 2 || parts.length == 3) {  // If there are two or more words, treat as course +
+            // session or course + session + Date
             return new AddSessionCommand(arguments);
         } else {
             throw new NUStudyCommandException("""

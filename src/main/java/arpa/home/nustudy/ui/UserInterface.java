@@ -1,6 +1,7 @@
 package arpa.home.nustudy.ui;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import arpa.home.nustudy.course.Course;
@@ -87,14 +88,16 @@ public class UserInterface {
      *
      * @param course The course to print session hours for
      * @param hours  List of session hours for the course
+     * @param dates  List of session dates for the course
      */
-    public static void printCourseHoursPerSession(final Course course, final Iterable<Integer> hours) {
+    public static void printCourseHoursPerSession(final Course course, final ArrayList<Integer> hours,
+            final ArrayList<String> dates) {
         System.out.println("List of study sessions");
 
         int idx = 1;
 
-        for (final int perSessionHours : hours) {
-            System.out.printf("%d. %s - %d hours", idx, course, perSessionHours);
+        for (int i = 0; i < hours.size() && i < dates.size(); i++) {
+            System.out.printf("%d. %s - %d hours at %s", idx, course, hours.get(i), dates.get(i));
             System.out.println();
             idx++;
         }
