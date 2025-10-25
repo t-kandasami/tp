@@ -32,7 +32,15 @@ Good Job! I have added CS2113
 
 Add a course study session to the course book
 
-Format: `add <course code> <study duration (in hours)>`
+Format: `add <course code> <study duration (in hours)> <Date (optional)>`
+
+**Note:** If date is not provided, today's date will be used.
+
+Supported date formats:
+
+- `yyyy-MM-dd` (e.g., 2025-10-25)
+- `d/M/yyyy` (e.g., 25/10/2025)
+- `d-M-yyyy` (e.g., 25-10-2025)
 
 Example: `add CS2113 5`
 
@@ -69,9 +77,29 @@ Expected output:
 
 ```
 List of Study Sessions
-1. CS2113 - 3 hours
-2. CS2113 - 1 hours
-3. CS2113 - 4 hours
+1. CS2113 - 3 hours at 25 Oct 2025
+2. CS2113 - 1 hours at 25 Oct 2025
+3. CS2113 - 4 hours at 25 Oct 2025
+```
+
+### Edit study sessions for a course
+
+Edit the study session's date or study duration
+
+Format: `edit <course code> <session index> <new study duration | new date>`
+
+Supported date formats:
+
+- `yyyy-MM-dd` (e.g., 2025-10-25)
+- `d/M/yyyy` (e.g., 25/10/2025)
+- `d-M-yyyy` (e.g., 25-10-2025)
+
+Example: `edit CS2113 1 23/10/2025`
+
+Expected output
+
+```
+Session Date change to 23 Oct 2025
 ```
 
 ### Delete a course
