@@ -4,6 +4,7 @@ import arpa.home.nustudy.command.AddCourseCommand;
 import arpa.home.nustudy.command.AddSessionCommand;
 import arpa.home.nustudy.command.Command;
 import arpa.home.nustudy.command.DeleteCourseCommand;
+import arpa.home.nustudy.command.EditSessionCommand;
 import arpa.home.nustudy.command.ExitCommand;
 import arpa.home.nustudy.command.ListCourseCommand;
 import arpa.home.nustudy.command.ListCourseHoursPerSessionCommand;
@@ -38,6 +39,8 @@ public class CommandParser {
             return parseListCommand(arguments);
         case "reset":
             return new ResetCourseHoursCommand(arguments);
+        case "edit":
+            return parseEditCommand(arguments);
         case "delete":
             return new DeleteCourseCommand(arguments);
         case "exit":
@@ -100,5 +103,30 @@ public class CommandParser {
                     Invalid list command format.
                     Usage: list OR list <course>""");
         }
+    }
+
+    /**
+     * Parse edit commands to determine whether to edit course or session
+     *
+     * @param arguments The arguments following the "edit" command
+     *
+     * @return {@link EditSessionCommand}
+     *
+     * @throws NUStudyCommandException If the arguments are invalid
+     */
+    private static Command parseEditCommand(final String arguments) throws NUStudyCommandException {
+        if (arguments.isEmpty()) {
+            throw new NUStudyCommandException("Invalid command");
+        }
+
+        final String[] parts = arguments.split("\\s+");
+        if (parts.length <= 1) {
+            throw new NUStudyCommandException("Invalid command");
+        } else if (parts.length == 2) {
+            throw new NUStudyCommandException("Command not yet implemented");
+        } else if (parts.length == 3) {
+            return new EditSessionCommand(arguments);
+        }
+        throw new NUStudyCommandException("Invalid command");
     }
 }
