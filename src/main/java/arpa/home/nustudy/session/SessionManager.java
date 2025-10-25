@@ -113,4 +113,21 @@ public class SessionManager implements Iterable<Session> {
     public int getSessionCount() {
         return sessions.size();
     }
+
+    /**
+     * Get a list of all sessions for a specific course.
+     *
+     * @param course The course to get all dates
+     *
+     * @return List of all sessions
+     */
+    public ArrayList<Session> getAllSessionsForCourse(Course course) {
+        final ArrayList<Session> res = new ArrayList<>();
+        for (Session session : sessions) {
+            if (session.getCourse().equals(course)) {
+                res.add(session);
+            }
+        }
+        return res;
+    }
 }
