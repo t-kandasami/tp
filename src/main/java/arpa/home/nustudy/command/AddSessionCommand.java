@@ -3,7 +3,6 @@ package arpa.home.nustudy.command;
 import static arpa.home.nustudy.utils.DateParser.parseDate;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
