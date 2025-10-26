@@ -1,11 +1,13 @@
 package arpa.home.nustudy.ui;
 
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import arpa.home.nustudy.course.Course;
 import arpa.home.nustudy.course.CourseManager;
+import arpa.home.nustudy.utils.DateParser;
 
 public class UserInterface {
     private static final String LINE_BREAK = "____________________________________________________________";
@@ -106,5 +108,9 @@ public class UserInterface {
             System.out.printf("No sessions for course %s", course);
             System.out.println();
         }
+    }
+
+    public static void printEditSessionDateSuccess(LocalDate date) {
+        System.out.println("Session Date change to " + DateParser.formatDate(date));
     }
 }

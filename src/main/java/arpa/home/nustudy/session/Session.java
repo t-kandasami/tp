@@ -18,7 +18,7 @@ public class Session {
      */
     private final int loggedHours;
     private final Course course;
-    private final LocalDate date;
+    private LocalDate date;
 
     /**
      * Creates a new Course with the specific name
@@ -86,5 +86,9 @@ public class Session {
      */
     public String getDateString() {
         return formatDate(this.date);
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }
