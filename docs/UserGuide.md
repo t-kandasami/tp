@@ -4,6 +4,21 @@
 
 NUStudy is a desktop app for managing study hours, optimised for use via a command-line interface (CLI).
 
+## Content Log
+* [Quick Start](#quick-start)
+* [Features](#features)
+    * [Add a course](#add-a-course)
+    * [Add a study session with hours](#add-a-study-session-with-hours)
+    * [List all added courses](#list-all-added-courses)
+    * [List study sessions for a course](#list-study-sessions-for-a-course)
+    * [Edit study sessions for a course](#edit-study-sessions-for-a-course)
+    * [Edit a courseName](#edit-a-coursename-)
+    * [Reset hours for a course](#reset-hours-for-a-course)
+    * [Delete a course](#delete-a-course)
+    * [Delete a session by index](#delete-a-session-by-index-delete)
+    * [Delete a session by date](#delete-a-session-by-date-delete-)
+    * [Exit NUStudy](#exit-nustudy)
+    * 
 ## Quick start
 
 1. Ensure that you have Java Runtime Environment (JRE) 17 or above installed in your computer
@@ -116,6 +131,39 @@ Expected output:
 NOTE: Successfully renamed course cs2113 to ma1511
 ```
 
+### Reset hours for a course
+
+Reset session hours for a specified course or all courses in the course book.
+Double confirmation flow is implemented to prevent accidental deletion.
+At second confirmation, if required safeword does not match user's input, reset operation cancels.
+
+Format: `reset <course>` or `reset all`
+
+Example: `reset CS2113`
+
+Example output (_`>` indicates user input_):
+```
+Are you sure of resetting hours for CS2113 (y/n)?
+> y
+Please type "RESET" to double confirm reset hours for CS2113
+> RESET
+Confirmation successful
+Logged hours for CS2113 have been reset
+```
+
+Example: `reset all`
+
+Example output (_`>` indicates user input_):
+```
+Are you sure you want to reset hours for ALL courses? (y/n)
+> y
+Please type "RESET ALL" to double confirm reset hours for CS2113
+> RESET ALL
+Confirmation successful
+Logged hours for all courses have been reset
+```
+
+
 ### Delete a course
 
 Delete the specific course in the course book
@@ -130,6 +178,41 @@ Expected output:
 NOTE: We have deleted CS2113 from Course Book
 ```
 
+### Delete a session by index: `delete`
+
+Delete the specified session of a specified course in the course book.
+
+Format: `delete <course code> <index>`
+
+Example:
+- Type `list CS2113` to view listed courses for `CS2113` and choose index `2` to delete.
+- Type `delete CS2113 2` to delete index `2` of `CS2113`'s sessions.
+
+Expected output:
+```
+Session 2 was successsfuly deleted for CS2113
+Deleted session: 2 - 5 hours on 26 Oct 2025
+```
+### Delete a session by date: `delete` 
+
+Delete the sessions from a specified date for all courses in the course book.
+
+Format: `delete <date>`
+
+Supported date formats:
+
+- `yyyy-MM-dd` (e.g., 2025-10-25)
+- `d/M/yyyy` (e.g., 25/10/2025)
+- `d-M-yyyy` (e.g., 25-10-2025)
+
+Example:
+- Type `list <course>` to view listed courses for any course and choose date to delete sessions from.
+- Type `delete 26/10/2025` to delete all sessions from al courses logged on 26 Oct 2025.
+
+Expected Output:
+```
+Successfully deleted 3 session(s) on 26 Oct 2025.
+```
 ### Exit NUStudy
 
 Exit the NUStudy program
