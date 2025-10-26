@@ -44,6 +44,9 @@ activate Storage
 Storage -> FW**: new FileWriter(dataFile, false)
 activate FW
 
+FW --> Storage
+deactivate FW
+
 loop for each course
     Storage -> CM: iterator.next()
     activate CM
@@ -58,7 +61,12 @@ loop for each course
     deactivate Course
 
     Storage -> FW: write(stringRepresentation)
+    activate FW
+    deactivate FW
+
     Storage -> FW: write(System.lineSeparator())
+    activate FW
+    deactivate FW
 end
 
 loop for each session
@@ -75,11 +83,15 @@ loop for each session
     deactivate Session
 
     Storage -> FW: write(stringRepresentation)
+    activate FW
+    deactivate FW
     Storage -> FW: write(System.lineSeparator())
+    activate FW
+    deactivate FW
 end
 
 Storage -> FW: close()
-deactivate FW
+destroy FW
 
 Storage --> Storage
 deactivate Storage
