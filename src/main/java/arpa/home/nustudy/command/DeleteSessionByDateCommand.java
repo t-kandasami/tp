@@ -7,10 +7,10 @@ import arpa.home.nustudy.exceptions.NUStudyException;
 import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.utils.DateParser;
 
-public class DeleteByDateCommand implements Command {
+public class DeleteSessionByDateCommand implements Command {
     private final String dateString;
 
-    public DeleteByDateCommand(final String dateString) {
+    public DeleteSessionByDateCommand(final String dateString) {
         this.dateString = dateString;
     }
 

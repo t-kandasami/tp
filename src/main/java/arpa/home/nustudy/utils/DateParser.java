@@ -51,4 +51,13 @@ public class DateParser {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
         return date.format(formatter);
     }
+
+    public static boolean isValidDate(String date) {
+        try {
+            parseDate(date);
+            return true;
+        } catch ( WrongDateFormatException e) {
+            return false;
+        }
+    }
 }
