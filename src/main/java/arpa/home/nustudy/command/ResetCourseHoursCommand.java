@@ -41,7 +41,7 @@ public class ResetCourseHoursCommand implements Command {
 
         resetAllCourses(sessions);
         logger.log(Level.SEVERE, "Logged hours for all courses have been reset");
-        System.out.print("Logged hours for all courses have been reset");
+        System.out.println("Logged hours for all courses have been reset");
     }
 
     /**
@@ -59,7 +59,7 @@ public class ResetCourseHoursCommand implements Command {
 
         if (!confirmed) {
             logger.log(Level.INFO, "Reset cancelled");
-            System.out.print("Reset cancelled");
+            System.out.println("Reset cancelled");
             return true;
         }
         return false;
@@ -156,7 +156,7 @@ public class ResetCourseHoursCommand implements Command {
 
         sessions.removeAllSessionsForCourse(target);
         logger.log(Level.SEVERE, "Logged hours for " + target + " have been reset");
-        System.out.print("Logged hours for " + target + " have been reset");
+        System.out.println("Logged hours for " + target + " have been reset");
     }
 
     /**
