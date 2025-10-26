@@ -3,7 +3,9 @@ package arpa.home.nustudy.utils;
 import arpa.home.nustudy.command.AddCourseCommand;
 import arpa.home.nustudy.command.AddSessionCommand;
 import arpa.home.nustudy.command.Command;
+import arpa.home.nustudy.command.DeleteSessionByDateCommand;
 import arpa.home.nustudy.command.DeleteCourseCommand;
+import arpa.home.nustudy.command.DeleteSessionCommand;
 import arpa.home.nustudy.command.EditSessionCommand;
 import arpa.home.nustudy.command.ExitCommand;
 import arpa.home.nustudy.command.ListCourseCommand;
@@ -42,7 +44,7 @@ public class CommandParser {
         case "edit":
             return parseEditCommand(arguments);
         case "delete":
-            return new DeleteCourseCommand(arguments);
+            return parseDeleteCommand(arguments);
         case "exit":
             return new ExitCommand();
         default:
@@ -128,5 +130,38 @@ public class CommandParser {
             return new EditSessionCommand(arguments);
         }
         throw new NUStudyCommandException("Invalid command");
+    }
+
+    /**
+     * Parses the delete command arguments for deleting courses or sessions.
+     *
+     * @param arguments The command arguments to parse for deleting.
+     * @return A {@DeleteByDateCommand} instance if a valid date is provided,
+     *          a {@DeleteCourseCommand} instance if only a course name is provided,
+     *          or a {@DeleteSessionCommand} instance if a course name and index are provided.
+     * @throws NUStudyCommandException If the command format is invalid.
+     */
+    private static Command parseDeleteCommand(final String arguments) throws NUStudyCommandException {
+        if (arguments.isEmpty()) {
+            throw new NUStudyCommandException("""
+                    Invalid delete command format.
+                    Usage: delete <date> OR delete <course> <index>""");
+        }
+
+        final String[] parts = arguments.split("\\s+");
+
+        if (parts.length == 1) {
+            if (DateParser.isValidDate(parts[0])) {
+                return new DeleteSessionByDateCommand(parts[0]);
+            } else {
+                return new DeleteCourseCommand(parts[0]);
+            }
+        } else if (parts.length == 2) {
+            return new DeleteSessionCommand(parts[0], parts[1]);
+        } else {
+            throw new NUStudyCommandException("""
+                    Invalid delete command format.
+                    Usage: delete <course> <index> OR delete <date>""");
+        }
     }
 }

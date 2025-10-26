@@ -26,7 +26,6 @@ public class App {
 
         storage.load(courseManager, sessionManager);
 
-
         do {
             final String userInput = UserInterface.readInput();
 
