@@ -10,11 +10,11 @@ import arpa.home.nustudy.exceptions.NUStudyNoSuchCourseException;
 import arpa.home.nustudy.session.Session;
 import arpa.home.nustudy.session.SessionManager;
 
-public class DeleteSessionCommand implements Command {
+public class DeleteSessionByIndexCommand implements Command {
     private final String courseName;
     private final String indexString;
 
-    public DeleteSessionCommand(final String courseName, final String indexString) {
+    public DeleteSessionByIndexCommand(final String courseName, final String indexString) {
         this.courseName = courseName;
         this.indexString = indexString;
     }
@@ -58,7 +58,7 @@ public class DeleteSessionCommand implements Command {
             sessions.removeSession(sessionToDelete);
             System.out.println("Session " + index + " was successfully deleted for " + courseName);
             System.out.println("Deleted session: " + courseName + " - " +
-                    sessionToDelete.getLoggedHours() + " hours at " + sessionToDelete.getDateString());
+                    sessionToDelete.getLoggedHours() + " hours on " + sessionToDelete.getDateString());
         } catch (final IndexOutOfBoundsException ex) {
             throw new NUStudyException("Invalid index entered.");
         }

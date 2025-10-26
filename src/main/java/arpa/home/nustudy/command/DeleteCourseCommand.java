@@ -59,7 +59,6 @@ public class DeleteCourseCommand implements Command {
             throw new NUStudyNoSuchCourseException("Course does not exist");
         }
 
-        UserInterface.printCourseDeletedConfirmation(courseToDelete);
         final boolean confirmation =
                 ConfirmationHandler.firstLevelConfirmation(
                         "Are you sure you want to delete " + courseToDelete);

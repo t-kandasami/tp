@@ -104,4 +104,44 @@ class StorageTest {
         assertEquals("S|CS2113|5|2025-10-25", secondSave.get(2),
                 "Expect: S|CS2113|5|2025-10-25\n Actual:" + secondSave.get(1));
     }
+
+    @Test
+    void load_nonExistentFile_loadsNothing() {
+        storage.load(courseManager, sessionManager);
+
+        assertEquals(0, courseManager.getCourses().size());
+        assertEquals(0, sessionManager.getSessionCount());
+    }
+
+    @Test
+    void load_emptyFile_loadsNothing() throws IOException {
+        Files.createDirectories(Paths.get(testFilePath).getParent());
+        Files.createFile(Paths.get(testFilePath));
+
+        storage.load(courseManager, sessionManager);
+
+        assertEquals(0, courseManager.getCourses().size());
+        assertEquals(0, sessionManager.getSessionCount());
+    }
+
+    @Test
+    void load_validCoursesAndSessions_loadsSuccessfully() throws IOException {
+        courseManager.add(new Course("CS2113"));
+        courseManager.add(new Course("MA1508E"));
+        sessionManager.add(courseManager.getCourses().get(0), 5, LocalDate.parse("2025-10-25"));
+        sessionManager.add(courseManager.getCourses().get(1), 3, LocalDate.parse("2025-10-26"));
+        storage.save(courseManager, sessionManager);
+
+        // Initialises new managers for loading
+        CourseManager newCourseManager = new CourseManager();
+        SessionManager newSessionManager = new SessionManager();
+
+        storage.load(newCourseManager, newSessionManager);
+
+        assertEquals(2, newCourseManager.getCourses().size());
+        assertEquals(2, newSessionManager.getSessionCount());
+        assertEquals("CS2113", newCourseManager.getCourses().get(0).getCourseName());
+        assertEquals("MA1508E", newCourseManager.getCourses().get(1).getCourseName());
+    }
+
 }

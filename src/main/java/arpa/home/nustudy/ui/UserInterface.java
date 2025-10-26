@@ -71,7 +71,7 @@ public class UserInterface {
      * @param course The course that user wants to delete
      */
     public static void printCourseDeletedConfirmation(final Course course) {
-        System.out.print("Are you sure you want to delete " + course + " (y/n)?");
+        System.out.println("Are you sure you want to delete " + course + " (y/n)?");
     }
 
     /**

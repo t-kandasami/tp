@@ -6,7 +6,7 @@ import arpa.home.nustudy.command.Command;
 import arpa.home.nustudy.command.DeleteSessionByDateCommand;
 import arpa.home.nustudy.command.DeleteCourseCommand;
 import arpa.home.nustudy.command.EditCourseNameCommand;
-import arpa.home.nustudy.command.DeleteSessionCommand;
+import arpa.home.nustudy.command.DeleteSessionByIndexCommand;
 import arpa.home.nustudy.command.EditSessionCommand;
 import arpa.home.nustudy.command.ExitCommand;
 import arpa.home.nustudy.command.ListCourseCommand;
@@ -158,7 +158,7 @@ public class CommandParser {
                 return new DeleteCourseCommand(parts[0]);
             }
         } else if (parts.length == 2) {
-            return new DeleteSessionCommand(parts[0], parts[1]);
+            return new DeleteSessionByIndexCommand(parts[0], parts[1]);
         } else {
             throw new NUStudyCommandException("""
                     Invalid delete command format.

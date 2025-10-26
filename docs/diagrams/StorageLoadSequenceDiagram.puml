@@ -85,13 +85,12 @@ Storage -> BR: readline()
         Parser -> Session**: new Session(course, hours)
         activate Session
         Session --> Parser: session : Session
-        deactivate Session
+
 
         Parser --> Storage: session : Session
         deactivate Parser
-
         Storage -> Session: getCourse()
-        activate Session
+
         Session --> Storage: sessionCourse : Course
         deactivate Session
 
