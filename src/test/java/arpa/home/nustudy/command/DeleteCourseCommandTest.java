@@ -21,7 +21,6 @@ class DeleteCourseCommandTest {
     void setUp() {
         courseManager = new CourseManager();
         sessionManager = new SessionManager();
-        boolean confirmation = true;
     }
 
     @Test
