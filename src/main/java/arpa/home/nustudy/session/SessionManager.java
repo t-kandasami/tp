@@ -130,4 +130,34 @@ public class SessionManager implements Iterable<Session> {
         }
         return res;
     }
+
+    /**
+     * Removes a specified session from the session list.
+     *
+     * @param session The session to remove.
+     * @return {@true} if session is successfully removed, else {@false}.
+     */
+    public boolean removeSession(final Session session) {
+        return sessions.remove(session);
+    }
+
+    /**
+     * Removes all sessions for a specified date.
+     *
+     * @param date The specified date to remove all sessions for.
+     * @return The number of sessions successfully removed.
+     */
+    public int removeAllSessionsByDate(final LocalDate date) {
+        final Iterator<Session> iterator = sessions.iterator();
+        int removedCount = 0;
+
+        while (iterator.hasNext()) {
+            Session nextSession = iterator.next();
+            if (nextSession.getDate().equals(date)) {
+                iterator.remove();
+                removedCount++;
+            }
+        }
+        return removedCount;
+    }
 }
