@@ -1,7 +1,6 @@
 package arpa.home.nustudy.command;
 
 import java.util.regex.Pattern;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import arpa.home.nustudy.course.Course;
@@ -40,7 +39,14 @@ public class EditCourseNameCommand implements Command {
     }
 
     /**
-     * Executes the command to rename a course.
+     * Edits a specified course by changing its coursename.
+     *
+     * @param courses  The course list to work with
+     * @param sessions The session manager to work with
+     *
+     * @throws NUStudyCommandException       If the course names are empty
+     * @throws NUStudyNoSuchCourseException If the oldCourse does not exist
+     * @throws NUStudyCourseAlreadyExistException If the newCourse already exist
      */
     @Override
     public void execute(final CourseManager courses, final SessionManager sessions) throws NUStudyException {
