@@ -73,7 +73,7 @@ public class UserInterface {
     public static void printCourseDeletedConfirmation(final Course course) {
         System.out.println("Are you sure you want to delete " + course + " (y/n)?");
     }
-    
+
     /**
      * Prints a success message when a course name is changed
      *
