@@ -59,6 +59,7 @@ public class ResetCourseHoursCommand implements Command {
 
         if (!confirmed) {
             logger.log(Level.INFO, "Reset cancelled");
+            System.out.println();
             System.out.println("Reset cancelled");
             return true;
         }
@@ -149,13 +150,14 @@ public class ResetCourseHoursCommand implements Command {
 
         checkNonExistentCourse(target);
 
-        if (doubleConfirmationWrapper("Are you sure of resetting hours for " + target, "RESET",
+        if (doubleConfirmationWrapper("Are you sure of resetting hours for " + target + "?", "RESET",
                 "reset hours for " + target)) {
             return;
         }
 
         sessions.removeAllSessionsForCourse(target);
         logger.log(Level.SEVERE, "Logged hours for " + target + " have been reset");
+        System.out.println();
         System.out.println("Logged hours for " + target + " have been reset");
     }
 
