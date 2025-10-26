@@ -18,16 +18,14 @@ public class ConfirmationHandler {
      */
     public static boolean firstLevelConfirmation(final String message) {
         logger.log(Level.INFO, message + " (y/n)");
-        System.out.println();
-        System.out.println(message + " (y/n)");
+        System.out.print(message + " (y/n)");
 
         while (true) {
             final String input = UserInterface.readInput().trim().toLowerCase();
 
             if (input.isEmpty()) {
                 logger.log(Level.INFO, "Please type 'y' or 'n': ");
-                System.out.println();
-                System.out.println("Please type 'y' or 'n': ");
+                System.out.print("Please type 'y' or 'n': ");
                 continue;
             }
 
@@ -38,8 +36,7 @@ public class ConfirmationHandler {
                 return false;
             default:
                 logger.log(Level.INFO, "Please only type 'y' or 'n': ");
-                System.out.println();
-                System.out.println("Please only type 'y' or 'n': ");
+                System.out.print("Please only type 'y' or 'n': ");
             }
         }
     }
@@ -54,20 +51,17 @@ public class ConfirmationHandler {
      */
     public static boolean secondLevelConfirmation(final String safeword, final String action) {
         logger.log(Level.INFO, "Please type \"" + safeword.toUpperCase() + "\" to double confirm " + action);
-        System.out.println();
-        System.out.println("Please type \"" + safeword.toUpperCase() + "\" to double confirm " + action);
+        System.out.print("Please type \"" + safeword.toUpperCase() + "\" to double confirm " + action);
 
         final String input = UserInterface.readInput();
 
         if (input.equals(safeword.toUpperCase())) {
             logger.log(Level.INFO, "Confirmation successful");
-            System.out.println();
-            System.out.println("Confirmation successful");
+            System.out.print("Confirmation successful");
             return true;
         } else {
             logger.log(Level.INFO, "Incorrect input, reset cancelled");
-            System.out.println();
-            System.out.println("Incorrect input, reset cancelled");
+            System.out.print("Incorrect input, reset cancelled");
             return false;
         }
     }
