@@ -9,14 +9,13 @@ import arpa.home.nustudy.exceptions.NUStudyException;
 import arpa.home.nustudy.exceptions.NUStudyNoSuchCourseException;
 import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.utils.ConfirmationHandler;
-import arpa.home.nustudy.utils.Storage;
 
 /**
  * Creates a new ResetCourseHoursCommand with the specified user input. A specific course or all courses can be reset
  * depending on the input.
  */
 public class ResetCourseHoursCommand implements Command {
-    private static final Logger logger = Logger.getLogger(Storage.class.getName());
+    private static final Logger logger = Logger.getLogger(ResetCourseHoursCommand.class.getName());
     private final String input;
 
     /**
@@ -42,6 +41,7 @@ public class ResetCourseHoursCommand implements Command {
 
         resetAllCourses(sessions);
         logger.log(Level.SEVERE, "Logged hours for all courses have been reset");
+        System.out.println("Logged hours for all courses have been reset");
     }
 
     /**
@@ -59,6 +59,7 @@ public class ResetCourseHoursCommand implements Command {
 
         if (!confirmed) {
             logger.log(Level.INFO, "Reset cancelled");
+            System.out.println("Reset cancelled");
             return true;
         }
         return false;
@@ -110,6 +111,7 @@ public class ResetCourseHoursCommand implements Command {
 
         if (input.isEmpty()) {
             logger.log(Level.INFO, "Specify a course name or type 'reset all'");
+            System.out.println("Specify a course name or type 'reset all'");
             return;
         }
 
@@ -153,6 +155,7 @@ public class ResetCourseHoursCommand implements Command {
 
         sessions.removeAllSessionsForCourse(target);
         logger.log(Level.SEVERE, "Logged hours for " + target + " have been reset");
+        System.out.println("Logged hours for " + target + " have been reset");
     }
 
     /**
