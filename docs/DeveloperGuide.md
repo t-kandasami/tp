@@ -1,11 +1,76 @@
 # Developer Guide
 
+## Table of Contents
+
+- [Acknowledgements](#acknowledgements)
+- [Design & implementation](#design--implementation)
+  - [UI Component](#ui-component)
+  - [Parser Component](#parser-component)
+  - [Command Component](#command-component)
+  - [Course Component](#course-component)
+  - [Session Component](#session-component)
+  - [Storage Component](#storage-component)
+  - [Reset Component](#reset-component)
+- [Appendix](#appendix)
+  - [Product scope](#product-scope)
+    - [Target user profile](#target-user-profile)
+    - [Value proposition](#value-proposition)
+  - [User Stories](#user-stories)
+  - [Non-Functional Requirements](#non-functional-requirements)
+  - [Glossary](#glossary)
+- [Instructions for manual testing](#instructions-for-manual-testing)
+
 ## Acknowledgements
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the
-original source as well}
+NUStudy uses the following tools for development and testing:
+
+- [JUnit 5](https://junit.org/junit5/) - For unit testing
+- [Gradle](https://gradle.org/) - For build automation
+- [PlantUML](https://plantuml.com/) - For creating UML diagrams
 
 ## Design & implementation
+
+### UI Component
+
+### Parser Component
+
+### Command Component
+
+<u>Overview</u>
+
+The command component is centered on the `Command` interface which defines an execution contract for all commands.
+Each command implements this interface and provide its own specific execution logic. This ensures consistent
+behaviour across commands.
+
+<u>Implementation Details</u>
+
+The following diagram is the class diagram for `Command` and its subclasses.
+
+![Command Class Diagram](diagrams/CommandClassDiagram.png)
+
+The `Command` interface is implemented by the following command classes:
+
+- **Add Commands**: `AddCourseCommand`, `AddSessionCommand`
+- **Delete Commands**: `DeleteCourseCommand`, `DeleteSessionByDateCommand`, `DeleteSessionByIndexCommand`
+- **Edit Commands**: `EditCourseNameCommand`, `EditSessionCommand`
+- **List Commands**: `ListCourseCommand`, `ListCourseHoursPerSessionCommand`
+- **Other Commands**: `ResetCourseHoursCommand`, `ExitCommand`
+
+
+<u>Methods</u>
+
+The `Command` interface defines the following methods:
+
+- `execute(CourseManager courses, SessionManager sessions)`: Executes the specific command logic. Takes the course and
+  session managers as parameters to perform operations. Throws `NUStudyException` if execution fails.
+- `isExit()`: Returns a boolean indicating whether the command is an exit command.
+
+The following sections provide detailed examples of specific command implementations to illustrate how the `Command`
+interface is used in practice.
+
+### Course Component
+
+### Session Component
 
 ### Storage Component
 
@@ -205,28 +270,30 @@ Key steps:
 Notes:
 - The assertions are defensive checks intended for development/testing (enabled with -ea). Production callers should ensure valid arguments.
 
-## Product scope
+## Appendix
 
-### Target user profile
+### Product scope
+
+#### Target user profile
 
 {Describe the target user profile}
 
-### Value proposition
+#### Value proposition
 
 {Describe the value proposition: what problem does it solve?}
 
-## User Stories
+### User Stories
 
 | Version | As a ... | I want to ...             | So that I can ...                                           |
 |---------|----------|---------------------------|-------------------------------------------------------------|
 | v1.0    | new user | see usage instructions    | refer to them when I forget how to use the application      |
 | v2.0    | user     | find a to-do item by name | locate a to-do without having to go through the entire list |
 
-## Non-Functional Requirements
+### Non-Functional Requirements
 
 {Give non-functional requirements}
 
-## Glossary
+### Glossary
 
 * *glossary item* - Definition
 
