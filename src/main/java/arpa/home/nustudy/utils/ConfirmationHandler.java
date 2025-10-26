@@ -17,8 +17,8 @@ public class ConfirmationHandler {
      * @return true if 'y' is parsed, else false if 'n' is parsed.
      */
     public static boolean firstLevelConfirmation(final String message) {
-        logger.log(Level.INFO, message + " (y/n)");
-        System.out.println(message + " (y/n)");
+        logger.log(Level.INFO, message + " (y/n)?");
+        System.out.println(message + " (y/n)?");
 
         while (true) {
             final String input = UserInterface.readInput().trim().toLowerCase();
