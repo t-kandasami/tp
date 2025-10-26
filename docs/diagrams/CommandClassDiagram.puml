@@ -1,0 +1,100 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface Command {
+    + void execute(CourseManager, SessionManager)
+    + boolean isExit()
+}
+
+class AddCourseCommand {
+    - String input
+    + void execute(CourseManager, SessionManager)
+    + boolean isExit()
+}
+
+class AddSessionCommand {
+    - String input
+    + void execute(CourseManager, SessionManager)
+    + boolean isExit()
+}
+
+class DeleteCourseCommand {
+    - String input
+    + void execute(CourseManager, SessionManager)
+    + boolean isExit()
+}
+
+class DeleteSessionByDateCommand {
+    - String dateString
+    + void execute(CourseManager, SessionManager)
+    + boolean isExit()
+}
+
+class DeleteSessionByIndexCommand {
+    - String courseName
+    - String IndexString
+    + void execute(CourseManager, SessionManager)
+    + boolean isExit()
+}
+
+class EditCourseNameCommand {
+    - String oldCourseName
+    - String newCourseName
+    + void execute(CourseManager, SessionManager)
+    + boolean isExit()
+}
+
+class EditSessionCommand {
+    - String input
+    + void execute(CourseManager, SessionManager)
+    + boolean isExit()
+}
+
+class ExitCommand {
+    + void execute(CourseManager, SessionManager)
+    + boolean isExit()
+}
+
+class ListCourseCommand {
+    + void execute(CourseManager, SessionManager)
+    + boolean isExit()
+}
+
+class ListCourseHoursPerSessionCommand {
+    - String input
+    + void execute(CourseManager, SessionManager)
+    + boolean isExit()
+}
+
+class ResetCourseHoursCommand {
+    - String input
+    + void execute(CourseManager, SessionManager)
+    + boolean isExit()
+}
+
+AddCourseCommand -[hidden]down- AddSessionCommand
+AddSessionCommand -[hidden]down- DeleteCourseCommand
+DeleteCourseCommand -[hidden]down- DeleteSessionByDateCommand
+DeleteSessionByDateCommand -[hidden]down- DeleteSessionByIndexCommand
+DeleteSessionByIndexCommand -[hidden]down- EditCourseNameCommand
+
+EditSessionCommand -[hidden]down- ExitCommand
+ExitCommand -[hidden]down- ListCourseCommand
+ListCourseCommand -[hidden]down- ListCourseHoursPerSessionCommand
+ListCourseHoursPerSessionCommand -[hidden]down- ResetCourseHoursCommand
+
+AddCourseCommand .up.|> Command
+AddSessionCommand .up.|> Command
+DeleteCourseCommand .up.|> Command
+DeleteSessionByDateCommand .up.|> Command
+DeleteSessionByIndexCommand .up.|> Command
+EditCourseNameCommand .up.|> Command
+
+EditSessionCommand .up.|> Command
+ExitCommand .up.|> Command
+ListCourseCommand .up.|> Command
+ListCourseHoursPerSessionCommand .up.|> Command
+ResetCourseHoursCommand .up.|> Command
+
+
+@enduml
