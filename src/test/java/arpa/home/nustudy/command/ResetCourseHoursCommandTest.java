@@ -97,7 +97,7 @@ class ResetCourseHoursCommandTest {
     }
 
     @Test
-    void execute_validCourse_firstConfirmationNo_cancelsReset() {
+    void execute_validCourseFirstConfirmationNo_cancelsReset() {
         Course course = new Course("CS2100");
         courseManager.add(course);
         sessionManager.add(course, 15, LocalDate.now());
@@ -112,7 +112,7 @@ class ResetCourseHoursCommandTest {
     }
 
     @Test
-    void execute_validCourse_secondConfirmationMismatch_cancelsReset() {
+    void execute_validCourseSecondConfirmationMismatch_cancelsReset() {
         Course course = new Course("CS2100");
         courseManager.add(course);
         sessionManager.add(course, 15, LocalDate.now());
@@ -127,7 +127,7 @@ class ResetCourseHoursCommandTest {
     }
 
     @Test
-    void execute_validCourse_bothConfirmationYes_resetsSessions() {
+    void execute_validCourseBothConfirmationYes_resetsSessions() {
         Course course = new Course("CS2100");
         courseManager.add(course);
         sessionManager.add(course, 15, LocalDate.now());
@@ -139,11 +139,11 @@ class ResetCourseHoursCommandTest {
         final ResetCourseHoursCommand command = new ResetCourseHoursCommand("CS2100");
         assertDoesNotThrow(() -> command.execute(courseManager, sessionManager));
 
-                assertEquals(0, sessionManager.getAllSessionsForCourse(course).size());
+        assertEquals(0, sessionManager.getAllSessionsForCourse(course).size());
     }
 
     @Test
-    void execute_resetAll_firstConfirmationNo_cancelsReset() {
+    void execute_resetAllFirstConfirmationNo_cancelsReset() {
         Course course1 = new Course("CS2100");
         Course course2 = new Course("CS1010");
         courseManager.add(course1);
@@ -161,7 +161,7 @@ class ResetCourseHoursCommandTest {
     }
 
     @Test
-    void execute_resetAll_secondConfirmationWrong_cancelsReset() {
+    void execute_resetAllSecondConfirmationWrong_cancelsReset() {
         Course course1 = new Course("CS2100");
         Course course2 = new Course("CS1010");
         courseManager.add(course1);
@@ -179,7 +179,7 @@ class ResetCourseHoursCommandTest {
     }
 
     @Test
-    void execute_resetAll_secondConfirmationYes_resetsAllSessions() {
+    void execute_resetAllSecondConfirmationYes_resetsAllSessions() {
         Course course1 = new Course("CS2100");
         Course course2 = new Course("CS1010");
         courseManager.add(course1);
