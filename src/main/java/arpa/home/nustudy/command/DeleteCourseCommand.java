@@ -61,7 +61,7 @@ public class DeleteCourseCommand implements Command {
 
         final boolean confirmation =
                 ConfirmationHandler.firstLevelConfirmation(
-                        "Are you sure you want to delete " + courseToDelete);
+                        "Are you sure you want to delete " + courseToDelete + "?");
 
         if (!confirmation) {
             throw new NUStudyException(courseToDelete + " has not been deleted as per your request");
