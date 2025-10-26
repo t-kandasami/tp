@@ -149,7 +149,8 @@ public class ResetCourseHoursCommand implements Command {
 
         checkNonExistentCourse(target);
 
-        if (doubleConfirmationWrapper("Are you sure of resetting hours for ", "RESET", "reset hours for " + target)) {
+        if (doubleConfirmationWrapper("Are you sure of resetting hours for " + target, "RESET",
+                "reset hours for " + target)) {
             return;
         }
 
