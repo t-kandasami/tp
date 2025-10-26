@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,7 @@ import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.utils.DateParser;
 
 class EditSessionCommandTest {
+    private final DateTimeFormatter DMY = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private CourseManager courseManager;
     private SessionManager sessionManager;
@@ -85,7 +87,9 @@ class EditSessionCommandTest {
 
     @Test
     void execute_futureDate_throwsException() {
-        EditSessionCommand command = new EditSessionCommand("CS2113 1 26/10/2025");
+        LocalDate future = LocalDate.now().plusDays(3);
+        String dateStr = future.format(DMY);
+        EditSessionCommand command = new EditSessionCommand("CS2113 1 " + dateStr);
 
         assertThrows(FutureDateException.class, () -> {
             command.execute(courseManager, sessionManager);

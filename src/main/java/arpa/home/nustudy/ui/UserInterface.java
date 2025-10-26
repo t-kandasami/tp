@@ -66,6 +66,15 @@ public class UserInterface {
     }
 
     /**
+     * Prints a confirmation message for deleting a course
+     *
+     * @param course The course that user wants to delete
+     */
+    public static void printCourseDeletedConfirmation(final Course course) {
+        System.out.print("Are you sure you want to delete " + course + " (y/n)?");
+    }
+
+    /**
      * Print all courses in the course manager
      *
      * @param courses The course manager containing courses

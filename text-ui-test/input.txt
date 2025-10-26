@@ -5,3 +5,4 @@ add MA1511 3 25-10-2025
 list CS2113
 list MA1511
 delete CS2113
+y
