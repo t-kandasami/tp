@@ -102,6 +102,20 @@ Expected output
 Session Date change to 23 Oct 2025
 ```
 
+### Edit a courseName 
+
+Edit an old course name with a new course name. The old course has to be exist beforehand.  
+
+Format: `edit <old course name> <new course name>`
+
+Example: `edit CS2113 MA1511`
+
+Expected output:
+
+```
+NOTE: Successfully renamed course cs2113 to ma1511
+```
+
 ### Delete a course
 
 Delete the specific course in the course book

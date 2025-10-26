@@ -23,7 +23,7 @@ import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.utils.DateParser;
 
 class EditSessionCommandTest {
-    private final DateTimeFormatter DMY = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private final DateTimeFormatter dayMonthYear = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private CourseManager courseManager;
     private SessionManager sessionManager;
@@ -88,7 +88,7 @@ class EditSessionCommandTest {
     @Test
     void execute_futureDate_throwsException() {
         LocalDate future = LocalDate.now().plusDays(3);
-        String dateStr = future.format(DMY);
+        String dateStr = future.format(dayMonthYear);
         EditSessionCommand command = new EditSessionCommand("CS2113 1 " + dateStr);
 
         assertThrows(FutureDateException.class, () -> {

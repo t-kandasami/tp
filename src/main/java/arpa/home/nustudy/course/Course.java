@@ -7,7 +7,7 @@ public class Course {
     /**
      * The name of the course
      */
-    private final String courseName;
+    private String courseName;
 
     /**
      * Creates a new Course with the specific name
@@ -25,6 +25,14 @@ public class Course {
      */
     public String getCourseName() {
         return courseName;
+    }
+
+    /**
+     * Sets a new name for the course
+     * @param courseName
+     */
+    public void setCourseName(final String courseName) {
+        this.courseName = courseName;
     }
 
     /**

@@ -10,7 +10,6 @@ import arpa.home.nustudy.exceptions.NUStudyNoSuchCourseException;
 import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.ui.UserInterface;
 import arpa.home.nustudy.utils.ConfirmationHandler;
-import arpa.home.nustudy.utils.Storage;
 
 //@@author t-kandasami
 
@@ -18,9 +17,8 @@ import arpa.home.nustudy.utils.Storage;
  * Handles the deletion of a course from the CourseManager. Prompts user for confirmation before deleting the specified
  * course. Provides feedback through the UserInterface and logs actions.
  */
-
 public class DeleteCourseCommand implements Command {
-    private static final Logger logger = Logger.getLogger(Storage.class.getName());
+    private static final Logger logger = Logger.getLogger(DeleteCourseCommand.class.getName());
     private final String input;
 
     /**

@@ -5,6 +5,7 @@ import arpa.home.nustudy.command.AddSessionCommand;
 import arpa.home.nustudy.command.Command;
 import arpa.home.nustudy.command.DeleteSessionByDateCommand;
 import arpa.home.nustudy.command.DeleteCourseCommand;
+import arpa.home.nustudy.command.EditCourseNameCommand;
 import arpa.home.nustudy.command.DeleteSessionCommand;
 import arpa.home.nustudy.command.EditSessionCommand;
 import arpa.home.nustudy.command.ExitCommand;
@@ -125,7 +126,7 @@ public class CommandParser {
         if (parts.length <= 1) {
             throw new NUStudyCommandException("Invalid command");
         } else if (parts.length == 2) {
-            throw new NUStudyCommandException("Command not yet implemented");
+            return new EditCourseNameCommand(arguments);
         } else if (parts.length == 3) {
             return new EditSessionCommand(arguments);
         }
