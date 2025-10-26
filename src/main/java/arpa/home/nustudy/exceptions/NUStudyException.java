@@ -1,6 +1,7 @@
 package arpa.home.nustudy.exceptions;
 
 public class NUStudyException extends Exception {
+
     /**
      * Creates a new NUStudyException with the specific error message
      *

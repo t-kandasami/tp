@@ -11,7 +11,7 @@ import arpa.home.nustudy.utils.DateParser;
 
 public class UserInterface {
     private static final String LINE_BREAK = "____________________________________________________________";
-    private static final Scanner INPUT_SCANNER = new Scanner(System.in, StandardCharsets.UTF_8);
+    private static Scanner INPUT_SCANNER = new Scanner(System.in, StandardCharsets.UTF_8);
 
     /**
      * Prints a partition line for visual separation
@@ -31,6 +31,18 @@ public class UserInterface {
         }
 
         return INPUT_SCANNER.nextLine().trim();
+    }
+
+    /**
+     * Reinitialises scanner to read from current System.in stream.
+     * Method is used for JUnit testing purposes to allow the Scanner to recognise changes
+     * made to System.in by System.setIn().
+     */
+    public static void reinitialiseScanner() {
+        if (INPUT_SCANNER != null) {
+            INPUT_SCANNER.close();
+        }
+        INPUT_SCANNER = new Scanner(System.in);
     }
 
     /**

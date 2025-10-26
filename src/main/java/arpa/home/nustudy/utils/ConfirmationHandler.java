@@ -7,6 +7,7 @@ import arpa.home.nustudy.ui.UserInterface;
 
 public class ConfirmationHandler {
     private static final Logger logger = Logger.getLogger(ConfirmationHandler.class.getName());
+
     /**
      * Handles user first confirmation prompts by persistently asking for a single 'y' or 'n' input. Handles lower (y/n)
      * or upper case (Y/N) inputs and trims whitespace.
