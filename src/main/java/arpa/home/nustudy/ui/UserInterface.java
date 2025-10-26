@@ -63,6 +63,17 @@ public class UserInterface {
     }
 
     /**
+     * Prints a success message when a course name is changed
+     *
+     * @param oldCourseName The old coursename
+     * @param newCourseName The new coursename
+     */
+    public static void printCourseNameEdited(String oldCourseName, String newCourseName) {
+        System.out.printf("NOTE: Successfully renamed course %s to %s", oldCourseName,  newCourseName);
+        System.out.println();
+    }
+
+    /**
      * Print all courses in the course manager
      *
      * @param courses The course manager containing courses
