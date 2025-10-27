@@ -17,9 +17,9 @@ import arpa.home.nustudy.exceptions.NUStudyException;
 /**
  * Command to filter and display courses that have sessions on a specified date.
  * <p>
- * The command accepts a date argument in various supported formats (e.g., "2025-10-26", "26/10/2025").
- * It parses the date and iterates through all courses and their sessions to find matches.
- * Matched courses are displayed along with their original indices in the course list.
+ * The command accepts a date argument in various supported formats (e.g., "2025-10-26", "26/10/2025"). It parses the
+ * date and iterates through all courses and their sessions to find matches. Matched courses are displayed along with
+ * their original indices in the course list.
  */
 public class FilterByDateCommand implements Command {
     private static final Logger logger = Logger.getLogger(FilterByDateCommand.class.getName());
@@ -42,7 +42,8 @@ public class FilterByDateCommand implements Command {
      * Constructs a FilterByDateCommand with an optional session source for testing.
      *
      * @param arguments     the date string provided by the user
-     * @param sessionSource an iterable source of session-like objects for testing; if null, the SessionManager will be used
+     * @param sessionSource an iterable source of session-like objects for testing; if null, the SessionManager will be
+     *                      used
      *
      * @throws NUStudyCommandException if arguments is null or blank
      */
@@ -56,9 +57,8 @@ public class FilterByDateCommand implements Command {
     }
 
     /**
-     * Executes the filter by date command.
-     * It parses the provided date string and iterates through all courses and their sessions
-     * to find and display courses that have sessions on the specified date.
+     * Executes the filter by date command. It parses the provided date string and iterates through all courses and
+     * their sessions to find and display courses that have sessions on the specified date.
      *
      * @param courses  the CourseManager containing all courses
      * @param sessions the SessionManager containing all sessions
