@@ -13,7 +13,7 @@ import arpa.home.nustudy.exceptions.WrongDateFormatException;
 public class DateParser {
 
     private static final String[] DATE_PATTERNS = {
-            "yyyy-MM-dd", "d/M/yyyy", "d-M-yyyy"
+        "yyyy-MM-dd", "d/M/yyyy", "d-M-yyyy"
     };
 
     /**
