@@ -6,10 +6,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import arpa.home.nustudy.command.Command;
+import arpa.home.nustudy.command.EditCourseNameCommand;
 import arpa.home.nustudy.command.EditSessionCommand;
 import arpa.home.nustudy.exceptions.NUStudyCommandException;
 
 class CommandParserTest {
+    @Test
+    void parseCommand_editCommandWithTwoArgument_returnsEditCourseNameCommand()
+            throws NUStudyCommandException {
+        final Command command = CommandParser.parseCommand("edit CS2113 CS2103");
+        assertTrue(command instanceof EditCourseNameCommand,
+                "Should return EditCourseNameCommand for valid edit command");
+    }
 
     @Test
     void parseCommand_editCommandWithThreeArguments_returnsEditSessionCommand()

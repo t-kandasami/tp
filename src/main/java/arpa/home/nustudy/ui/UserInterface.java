@@ -146,6 +146,15 @@ public class UserInterface {
     }
 
     /**
+     * Print success message for editing a session hour for a course in the course manager
+     *
+     * @param newHours The new session hour changed for the course
+     */
+    public static void printEditSessionHoursSuccess(final int newHours) {
+        System.out.println("Session hours changed to " + newHours + " hours");
+    }
+
+    /**
      * Print filtered list of courses while preserving their original indices from the full list.
      *
      * @param courses         List of matched courses
