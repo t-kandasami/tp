@@ -1,0 +1,21 @@
+@startuml
+class Course {
+    - courseName : String
+    + Course(courseName: String)
+    + getCourseName() : String
+    + setCourseName(courseName: String) : void
+    + toString() : String
+    + toStorageString() : String
+}
+
+class CourseManager {
+    - courses : ArrayList<Course>
+    + add(course: Course) : void
+    + delete(course: Course) : void
+    + getCourses() : ArrayList<Course>
+    + findCourse(courseName: String) : Course
+    + iterator() : Iterator<Course>
+}
+
+CourseManager "1" --- "0..*" Course : manages >
+@enduml
