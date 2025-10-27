@@ -11,7 +11,15 @@ import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.ui.UserInterface;
 
 /**
- * Command to filter courses by name containing a specified keyword.
+ * Command to filter courses by a keyword in their name or string representation.
+ *
+ * Command format: {@code filter <keyword>}
+ *
+ * Behaviour:
+ * - Performs a case-insensitive substring match against each course's code and display name.
+ * - Preserves original 1-based indices from the full course list so printed numbers can be used with
+ *   index-based edit/delete commands.
+ * - Delegates printing to {@link arpa.home.nustudy.ui.UserInterface#printFilteredCourseList(ArrayList, ArrayList, String)}.
  */
 public class FilterByNameCommand implements Command {
     private static final Logger logger = Logger.getLogger(FilterByNameCommand.class.getName());
@@ -21,14 +29,13 @@ public class FilterByNameCommand implements Command {
      * Constructs a FilterByNameCommand with the specified keyword.
      *
      * @param arguments The keyword to filter courses by.
-     *
      * @throws NUStudyCommandException if the keyword is null/blank
      */
     public FilterByNameCommand(final String arguments) throws NUStudyCommandException {
         if (arguments == null || arguments.trim().isEmpty()) {
             throw new NUStudyCommandException("Filter keyword cannot be empty. Usage: filter <course>");
         }
-        keyword = arguments.trim();
+        this.keyword = arguments.trim();
     }
 
     /**
@@ -36,7 +43,6 @@ public class FilterByNameCommand implements Command {
      *
      * @param courses  The CourseManager containing all courses.
      * @param sessions The SessionManager (not used in this command).
-     *
      * @throws NUStudyException if an internal error occurs
      */
     @Override
