@@ -11,7 +11,7 @@ import arpa.home.nustudy.utils.DateParser;
 
 public class UserInterface {
     private static final String LINE_BREAK = "____________________________________________________________";
-    private static Scanner INPUT_SCANNER = new Scanner(System.in, StandardCharsets.UTF_8);
+    private static Scanner inputScanner = new Scanner(System.in, StandardCharsets.UTF_8);
 
     /**
      * Prints a partition line for visual separation
@@ -26,11 +26,11 @@ public class UserInterface {
      * @return The trimmed user input command
      */
     public static String readInput() {
-        if (!INPUT_SCANNER.hasNextLine()) {
+        if (!inputScanner.hasNextLine()) {
             return null;
         }
 
-        return INPUT_SCANNER.nextLine().trim();
+        return inputScanner.nextLine().trim();
     }
 
     /**
@@ -38,10 +38,10 @@ public class UserInterface {
      * the Scanner to recognise changes made to System.in by System.setIn().
      */
     public static void reinitialiseScanner() {
-        if (INPUT_SCANNER != null) {
-            INPUT_SCANNER.close();
+        if (inputScanner != null) {
+            inputScanner.close();
         }
-        INPUT_SCANNER = new Scanner(System.in);
+        inputScanner = new Scanner(System.in);
     }
 
     /**
@@ -143,6 +143,15 @@ public class UserInterface {
 
     public static void printEditSessionDateSuccess(LocalDate date) {
         System.out.println("Session Date change to " + DateParser.formatDate(date));
+    }
+
+    /**
+     * Print success message for editing a session hour for a course in the course manager
+     *
+     * @param newHours The new session hour changed for the course
+     */
+    public static void printEditSessionHoursSuccess(final int newHours) {
+        System.out.println("Session hours changed to " + newHours + " hours");
     }
 
     /**

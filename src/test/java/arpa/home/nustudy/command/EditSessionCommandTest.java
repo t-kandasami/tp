@@ -1,5 +1,6 @@
 package arpa.home.nustudy.command;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -103,6 +104,15 @@ class EditSessionCommandTest {
         assertThrows(NUStudyCommandException.class, () -> {
             command.execute(courseManager, sessionManager);
         }, "Should throw exception when date is invalid format");
+    }
+
+    @Test
+    void execute_validHours_success() {
+        final EditSessionCommand command = new EditSessionCommand("CS2113 2 2");
+
+        assertDoesNotThrow(() -> {
+            command.execute(courseManager, sessionManager);
+        }, "Course session hours for index 2 should be updated to 2 hours");
     }
 
     @Test
