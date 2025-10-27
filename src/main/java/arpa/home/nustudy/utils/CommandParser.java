@@ -14,6 +14,7 @@ import arpa.home.nustudy.command.ListCourseHoursPerSessionCommand;
 import arpa.home.nustudy.command.ResetCourseHoursCommand;
 import arpa.home.nustudy.command.FilterByNameCommand;
 import arpa.home.nustudy.command.FilterByDateCommand;
+import arpa.home.nustudy.command.FilterByNameAndDateCommand;
 import arpa.home.nustudy.exceptions.NUStudyCommandException;
 
 public class CommandParser {
@@ -202,15 +203,12 @@ public class CommandParser {
                 return new FilterByNameCommand(arguments);
             }
         } else if (parts.length == 2) {
-            // Combined filter (course + date) not implemented yet — give clear message.
+            // If second token is a valid date -> course + date filter
             if (DateParser.isValidDate(parts[1])) {
-                throw new NUStudyCommandException(
-                        "filter <course> <date> is not yet supported. "
-                                + "Use 'filter <course>' or 'filter <date>' for now.");
+                return new FilterByNameAndDateCommand(parts[0], parts[1]);
             } else {
                 throw new NUStudyCommandException(
-                        "Invalid filter command. Usage: filter "
-                                + "<course> OR filter <date> OR filter <course> <date>");
+                        "Invalid filter command. Usage: filter <course> OR filter <date> OR filter <course> <date>");
             }
         }
 

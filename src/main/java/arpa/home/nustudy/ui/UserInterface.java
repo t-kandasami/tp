@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import arpa.home.nustudy.course.Course;
 import arpa.home.nustudy.course.CourseManager;
+import arpa.home.nustudy.session.Session;
 import arpa.home.nustudy.utils.DateParser;
 
 public class UserInterface {
@@ -204,5 +205,33 @@ public class UserInterface {
         System.out.printf("Invalid date format: \"%s\". Supported formats: yyyy-MM-dd, d/M/yyyy, d-M-yyyy",
                 rawDate);
         System.out.println();
+    }
+
+    /**
+     * Print sessions for a specific course that occurred on the specified date.
+     *
+     * @param course                The course whose sessions are printed
+     * @param sessionsOnDate        Matched sessions for that course on the date
+     * @param originalSessionIndices Corresponding 1-based indices within the course's full session list
+     * @param date                  The date to display in the header
+     */
+    public static void printSessionsForCourseOnDate(final Course course, final ArrayList<Session> sessionsOnDate,
+            final ArrayList<Integer> originalSessionIndices, final LocalDate date) {
+        if (sessionsOnDate == null || sessionsOnDate.isEmpty()) {
+            System.out.printf("No sessions found for %s on %s", course, DateParser.formatDate(date));
+            System.out.println();
+            return;
+        }
+
+        System.out.printf("Sessions for %s on %s", course.getCourseName(), DateParser.formatDate(date));
+        System.out.println();
+
+        for (int i = 0; i < sessionsOnDate.size() && i < originalSessionIndices.size(); i++) {
+            final Session s = sessionsOnDate.get(i);
+            final int originalIndex = originalSessionIndices.get(i);
+            System.out.printf("%d. %s - %d hours at %s", originalIndex, course, s.getLoggedHours(),
+                    DateParser.formatDate(s.getDate()));
+            System.out.println();
+        }
     }
 }
