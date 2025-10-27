@@ -105,7 +105,83 @@ Key steps:
 Notes:
 - The assertions are defensive checks intended for development/testing (enabled with -ea). Production callers should ensure valid arguments.
 
+### Delete Course Command
+
+<u> Overview </u>
+
+`DeleteCourseCommand` is a concrete implementation of the `Command` interface in the NUStudy system. The primary
+function is to handle user requests to delete an existing course by its name from the courses `ArrayList` managed by
+the `CourseManager`.
+
+This command does the following:
+
+- Validate the user input
+- Searches for the specified course.
+- Removes it from the internal course list if found.
+- Performs consistency checks post-deletion.
+- Logs all major steps and errors for traceability.
+- Displays a confirmation message to the user.
+
+<u> Implementation Details </u>
+
+#### Package `arpa.home.nustudy.command`
+
+#### Class `public class DeleteCourseCommand implements Command`
+
+#### Dependencies
+
+| Component                      | Responsibility                                                            |
+|--------------------------------|---------------------------------------------------------------------------|
+| `CourseManager`                | Manages the list of existing courses, including lookup and deletion.      |
+| `SessionManager`               | Provided for command consistency, though not used directly in this class. |
+| `UserInterface`                | Displays confirmation messages to the user.                               |
+| `Storage`                      | Used as a reference for the logger name.                                  |
+| `NUStudyException`             | Thrown for invalid inputs or deletion failures.                           |
+| `NUStudyNoSuchCourseException` | Thrown when the specified course does not exist.                          |
+| `Logger`                       | Provides runtime logging for debug, info, and error tracking.             |
+
+<u> Workflow </u>
+
+The following activity diagram illustrates the complete removing course workflow:
+![](diagrams/DeleteCourseCommandActivityDiagram.png)
+
 ### Course Component
+
+<u>Overview</u>
+
+The Course Component is responsible for representing and managing course-related entities in the NUStudy Application.
+It consists of 2 main classes:
+
+1. `Course` - a Class that encapsulates all information about a Course.
+2. `CourseManager` - a Class that manipulates and maintains a collection of Course Objects.
+
+These 2 classes forms the layer for handling the entity of Course. It is responsible for the CRUD of the entity Course.
+
+<u>Implementation Details</u>
+
+The following diagram is the class diagram for `Course` and `CourseManger`
+
+![](diagrams/CourseClassDiagram.png)
+
+The `CourseManager` class acts as a controller or manager, handling a dynamic list of Course instances using an internal ArrayList.
+
+<u>Course Methods</u>
+
+The `Course` class defines the following methods
+* `Course(String courseName)`: Constructs a new Course with the given name.
+* `getCourseName()`: Retrieves the name attribute of a Course.
+* `setCourseName(String courseName)`: Updates the course name of a Course used for the edit feature.
+* `toString()`: Returns the course name as a readable string.
+* `toStorageString()`: Returns the course data formatted for file storage.
+
+<u>CourseManager Methods</u>
+
+The `CourseManager` class defines the following methods
+* `add(Course course)`: Adds a Course Object to the list.
+* `delete(Course course)`: Removes a Course Object from the list.
+* `getCourses()`: Retrieves all courses managed by this class.
+* `findCourse(String courseName)`: Searches for a course by name.
+* `iterator()`: Returns an iterator to traverse through all courses.
 
 ### Session Component
 
@@ -232,43 +308,6 @@ The following activity diagram illustrates the complete reset workflow:
   * Cons: Reckless design, leading to unacceptable risk of data wipe
 
 {*more aspects and alternatives to be added*}
-
-### Delete Course Component
-<u> Overview </u>
-
-`DeleteCourseCommand` is a concrete implementation of the `Command` interface in the NUStudy system. The primary 
-function is to handle user requests to delete an existing course by its name from the courses `ArrayList` managed by 
-the `CourseManager`. 
-
-This command does the following: 
-- Validate the user input 
-- Searches for the specified course. 
-- Removes it from the internal course list if found. 
-- Performs consistency checks post-deletion. 
-- Logs all major steps and errors for traceability. 
-- Displays a confirmation message to the user.
-
-<u> Implementation Details </u>
-
-#### Package `arpa.home.nustudy.command`
-
-#### Class `public class DeleteCourseCommand implements Command`
-
-#### Dependencies
-| Component                      | Responsibility                                                            |
-| ------------------------------ | ------------------------------------------------------------------------- |
-| `CourseManager`                | Manages the list of existing courses, including lookup and deletion.      |
-| `SessionManager`               | Provided for command consistency, though not used directly in this class. |
-| `UserInterface`                | Displays confirmation messages to the user.                               |
-| `Storage`                      | Used as a reference for the logger name.                                  |
-| `NUStudyException`             | Thrown for invalid inputs or deletion failures.                           |
-| `NUStudyNoSuchCourseException` | Thrown when the specified course does not exist.                          |
-| `Logger`                       | Provides runtime logging for debug, info, and error tracking.             |
-
-<u> Workflow </u>
-
-The following activity diagram illustrates the complete removing course workflow:
-![](diagrams/DeleteCourseCommandActivityDiagram.png)
 
 ## Appendix
 
