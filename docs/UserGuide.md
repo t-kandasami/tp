@@ -13,12 +13,16 @@ NUStudy is a desktop app for managing study hours, optimised for use via a comma
     * [List study sessions for a course](#list-study-sessions-for-a-course)
     * [Edit study sessions for a course](#edit-study-sessions-for-a-course)
     * [Edit a courseName](#edit-a-coursename-)
+    * [Filter by course name](#filter-by-course-name)
+    * [Filter by date](#filter-by-date)
+    * [Filter by course name and date](#filter-by-course-name-and-date)
     * [Reset hours for a course](#reset-hours-for-a-course)
     * [Delete a course](#delete-a-course)
     * [Delete a session by index](#delete-a-session-by-index-delete)
     * [Delete a session by date](#delete-a-session-by-date-delete-)
     * [Exit NUStudy](#exit-nustudy)
     * 
+
 ## Quick start
 
 1. Ensure that you have Java Runtime Environment (JRE) 17 or above installed in your computer
@@ -131,6 +135,7 @@ Expected output:
 NOTE: Successfully renamed course cs2113 to ma1511
 ```
 
+
 ### Reset hours for a course
 
 Reset session hours for a specified course or all courses in the course book.
@@ -213,6 +218,72 @@ Expected Output:
 ```
 Successfully deleted 3 session(s) on 26 Oct 2025.
 ```
+### Filter by course name
+
+Show all courses whose codes or names match the given course keyword.
+- Format: `filter <course>`
+- Output: Displays the matching courses only (no session details).
+
+Example: `filter ma1511`
+
+Expected output:
+```
+Filtered courses matching "ma1511"
+1. MA1511
+2. MA1511X
+```
+
+Behaviour notes
+- All filter forms are read-only and do not modify stored data.
+- Matching for course keywords is case-insensitive and uses substring matching.
+- If no matches are found, a clear empty-filter message is shown (e.g., `No courses matched "XYZ"`).
+
+### Filter by date
+
+Show all courses that have sessions on the specified date (useful to see which courses had activity that day).
+- Format: `filter <date>`
+- Supported date formats:
+  - `yyyy-MM-dd` (e.g., 2025-10-25)
+  - `d/M/yyyy` (e.g., 25/10/2025)
+  - `d-M-yyyy` (e.g., 25-10-2025)
+- Output: Displays the list of courses that have one or more sessions on that date.
+
+Example: `filter 23/10/2025`
+
+Expected output:
+```
+Courses with sessions on 23 Oct 2025
+1. CS2113
+2. MA1511
+3. CS1231
+```
+
+Behaviour notes
+- All filter forms are read-only and do not modify stored data.
+- Matching for course keywords is case-insensitive and uses substring matching.
+- If no matches are found, a clear empty-filter message is shown (e.g., `No sessions found on 23 Oct 2025`).
+
+### Filter by course name and date
+
+Show sessions for the specified course that occurred on the given date.
+- Format: `filter <course> <date>`
+- Supported date formats (same as above).
+- Output: Displays the sessions for that course on that date (session list/indices and hours).
+
+Example: `filter ma1511 23/10/2025`
+
+Expected output:
+```
+Sessions for MA1511 on 23 Oct 2025
+1. MA1511 - 3 hours at 23 Oct 2025
+2. MA1511 - 1 hours at 23 Oct 2025
+```
+
+Behaviour notes
+- All filter forms are read-only and do not modify stored data.
+- Matching for course keywords is case-insensitive and uses substring matching.
+- If no matches are found, a clear empty-filter message is shown (e.g., `No sessions found for MA1511 on 23 Oct 2025`).
+
 ### Exit NUStudy
 
 Exit the NUStudy program
@@ -232,4 +303,7 @@ Exiting App. Goodbye!
 * List all added courses: `list`
 * List study sessions for a course: `list CS2113`
 * Delete a course: `delete CS2113`
+* Filter by course name: `filter ma1511`
+* Filter by date: `filter 23/10/2025`
+* Filter by course name and date: `filter ma1511 23/10/2025`
 * Exit NUStudy: `exit`
