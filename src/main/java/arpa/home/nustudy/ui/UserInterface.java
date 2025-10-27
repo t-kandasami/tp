@@ -169,4 +169,40 @@ public class UserInterface {
             System.out.println();
         }
     }
+
+    /**
+     * Print list of courses that have sessions on the specified date.
+     *
+     * @param courses         Matched courses
+     * @param originalIndices Corresponding 1-based indices from the full course list
+     * @param date            The date to display in the header
+     */
+    public static void printCoursesWithSessionsOnDate(final ArrayList<Course> courses,
+            final ArrayList<Integer> originalIndices,
+            final LocalDate date) {
+        if (courses == null || courses.isEmpty()) {
+            System.out.printf("No sessions found on %s", DateParser.formatDate(date));
+            System.out.println();
+            return;
+        }
+
+        System.out.printf("Courses with sessions on %s", DateParser.formatDate(date));
+        System.out.println();
+
+        for (int i = 0; i < courses.size() && i < originalIndices.size(); i++) {
+            System.out.printf("%d. %s", originalIndices.get(i), courses.get(i));
+            System.out.println();
+        }
+    }
+
+    /**
+     * Print a user-friendly invalid-date message.
+     *
+     * @param rawDate the raw date string supplied by the user
+     */
+    public static void printInvalidDateFormat(final String rawDate) {
+        System.out.printf("Invalid date format: \"%s\". Supported formats: yyyy-MM-dd, d/M/yyyy, d-M-yyyy",
+                rawDate);
+        System.out.println();
+    }
 }

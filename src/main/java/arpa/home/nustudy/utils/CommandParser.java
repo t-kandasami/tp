@@ -13,6 +13,7 @@ import arpa.home.nustudy.command.ListCourseCommand;
 import arpa.home.nustudy.command.ListCourseHoursPerSessionCommand;
 import arpa.home.nustudy.command.ResetCourseHoursCommand;
 import arpa.home.nustudy.command.FilterByNameCommand;
+import arpa.home.nustudy.command.FilterByDateCommand;
 import arpa.home.nustudy.exceptions.NUStudyCommandException;
 
 public class CommandParser {
@@ -48,7 +49,7 @@ public class CommandParser {
         case "delete":
             return parseDeleteCommand(arguments);
         case "exit":
-            // Only accept bare "exit" with no extra arguments
+            // Only accept "exit" with no extra arguments
             if (!arguments.isEmpty()) {
                 throw new NUStudyCommandException("Invalid exit command format. Usage: exit");
             }
@@ -144,9 +145,11 @@ public class CommandParser {
      * Parses the delete command arguments for deleting courses or sessions.
      *
      * @param arguments The command arguments to parse for deleting.
-     * @return A {@DeleteByDateCommand} instance if a valid date is provided,
-     *          a {@DeleteCourseCommand} instance if only a course name is provided,
-     *          or a {@DeleteSessionCommand} instance if a course name and index are provided.
+     *
+     * @return A {@DeleteByDateCommand} instance if a valid date is provided, a {@DeleteCourseCommand} instance if only
+     *         a course name is provided, or a {@DeleteSessionCommand} instance if a course name and index are
+     *         provided.
+     *
      * @throws NUStudyCommandException If the command format is invalid.
      */
     private static Command parseDeleteCommand(final String arguments) throws NUStudyCommandException {
@@ -174,24 +177,43 @@ public class CommandParser {
     }
 
     /**
-     * Parse filter commands.
+     * Parses the filter command arguments for filtering courses by name or date.
      *
-     * Supported currently:
-     * - filter <courseKeyword>   -> FilterByNameCommand
+     * @param arguments The command arguments to parse for filtering.
      *
-     * (Other filter forms can be added later.)
+     * @return A {@link FilterByNameCommand} instance if a course name is provided, or a {@link FilterByDateCommand}
+     *         instance if a date is provided.
+     *
+     * @throws NUStudyCommandException If the command format is invalid.
      */
     private static Command parseFilterCommand(final String arguments) throws NUStudyCommandException {
         if (arguments.isEmpty()) {
-            throw new NUStudyCommandException("Invalid filter command. Usage: filter <course> OR filter <date> OR filter <course> <date>");
+            throw new NUStudyCommandException(
+                    "Invalid filter command. Usage: filter <course> OR filter <date> OR filter <course> <date>");
         }
 
         final String[] parts = arguments.split("\\s+");
-        if (parts.length == 1 && !DateParser.isValidDate(parts[0])) {
-            // single token that's not a date -> treat as course-name filter
-            return new FilterByNameCommand(arguments);
+        if (parts.length == 1) {
+            if (DateParser.isValidDate(parts[0])) {
+                // single token that is a valid date -> date-only filter
+                return new FilterByDateCommand(parts[0]);
+            } else {
+                // single token that's not a date -> treat as course-name filter
+                return new FilterByNameCommand(arguments);
+            }
+        } else if (parts.length == 2) {
+            // Combined filter (course + date) not implemented yet — give clear message.
+            if (DateParser.isValidDate(parts[1])) {
+                throw new NUStudyCommandException(
+                        "filter <course> <date> is not yet supported. "
+                                + "Use 'filter <course>' or 'filter <date>' for now.");
+            } else {
+                throw new NUStudyCommandException(
+                        "Invalid filter command. Usage: filter "
+                                + "<course> OR filter <date> OR filter <course> <date>");
+            }
         }
 
-        throw new NUStudyCommandException("Invalid filter command. Currently supported: filter <course>");
+        throw new NUStudyCommandException("Invalid filter command. Supported forms: filter <course> | filter <date>");
     }
 }
