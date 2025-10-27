@@ -10,6 +10,7 @@ import arpa.home.nustudy.course.CourseManager;
 import arpa.home.nustudy.exceptions.NUStudyException;
 import arpa.home.nustudy.session.SessionManager;
 
+//@@author Wrooi
 class ExitCommandTest {
     @Test
     void execute() {
@@ -31,3 +32,4 @@ class ExitCommandTest {
         assertTrue(cmd.isExit());
     }
 }
+//@@author

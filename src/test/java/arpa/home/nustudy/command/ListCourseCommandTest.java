@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Assumptions;
 import arpa.home.nustudy.course.CourseManager;
 import arpa.home.nustudy.session.SessionManager;
 
+//@@author Wrooi
 class ListCourseCommandTest {
     @Test
     void execute() {
@@ -47,3 +48,4 @@ class ListCourseCommandTest {
         assertThrows(AssertionError.class, () -> cmd.execute(courseManager, null));
     }
 }
+//@@author

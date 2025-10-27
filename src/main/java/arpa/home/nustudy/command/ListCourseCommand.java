@@ -9,6 +9,7 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+//@@author Wrooi
 public class ListCourseCommand implements Command {
     // Add a logger for this command
     private static final Logger logger = Logger.getLogger(ListCourseCommand.class.getName());
@@ -53,3 +54,4 @@ public class ListCourseCommand implements Command {
         return false;
     }
 }
+//@@author
