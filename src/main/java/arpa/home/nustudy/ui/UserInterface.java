@@ -202,6 +202,12 @@ public class UserInterface {
      * @param rawDate the raw date string supplied by the user
      */
     public static void printInvalidDateFormat(final String rawDate) {
+        // If the token is parseable but in the future, show a specific message.
+        if (DateParser.isFutureDate(rawDate)) {
+            System.out.printf("Invalid date: \"%s\" is in the future. Please provide today's or a past date.", rawDate);
+            System.out.println();
+            return;
+        }
         System.out.printf("Invalid date format: \"%s\". Supported formats: yyyy-MM-dd, d/M/yyyy, d-M-yyyy",
                 rawDate);
         System.out.println();
@@ -210,10 +216,10 @@ public class UserInterface {
     /**
      * Print sessions for a specific course that occurred on the specified date.
      *
-     * @param course                The course whose sessions are printed
-     * @param sessionsOnDate        Matched sessions for that course on the date
+     * @param course                 The course whose sessions are printed
+     * @param sessionsOnDate         Matched sessions for that course on the date
      * @param originalSessionIndices Corresponding 1-based indices within the course's full session list
-     * @param date                  The date to display in the header
+     * @param date                   The date to display in the header
      */
     public static void printSessionsForCourseOnDate(final Course course, final ArrayList<Session> sessionsOnDate,
             final ArrayList<Integer> originalSessionIndices, final LocalDate date) {

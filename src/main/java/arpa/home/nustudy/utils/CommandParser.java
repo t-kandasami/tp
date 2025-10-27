@@ -195,16 +195,21 @@ public class CommandParser {
 
         final String[] parts = arguments.split("\\s+");
         if (parts.length == 1) {
+            // If token is a valid date -> date-only filter
             if (DateParser.isValidDate(parts[0])) {
-                // single token that is a valid date -> date-only filter
                 return new FilterByDateCommand(parts[0]);
-            } else {
-                // single token that's not a date -> treat as course-name filter
-                return new FilterByNameCommand(arguments);
             }
+            // if token looks like a date (digits + / or -) but is invalid,
+            // treat it as a date filter so user sees an invalid-date message instead of a name-filter result.
+            if (looksLikeDate(parts[0])) {
+                return new FilterByDateCommand(parts[0]);
+            }
+            // single token that's not a date -> treat as course-name filter
+            return new FilterByNameCommand(arguments);
         } else if (parts.length == 2) {
             // If second token is a valid date -> course + date filter
-            if (DateParser.isValidDate(parts[1])) {
+            if (DateParser.isValidDate(parts[1]) || looksLikeDate(parts[1])) {
+                // route to combined filter so it can show invalid-date message if parse fails
                 return new FilterByNameAndDateCommand(parts[0], parts[1]);
             } else {
                 throw new NUStudyCommandException(
@@ -213,5 +218,21 @@ public class CommandParser {
         }
 
         throw new NUStudyCommandException("Invalid filter command. Supported forms: filter <course> | filter <date>");
+    }
+
+    /**
+     * Checks if a token resembles a date format (e.g., contains digits and date separators).
+     *
+     * @param token The token to check.
+     *
+     * @return true if the token looks like a date, false otherwise.
+     */
+    private static boolean looksLikeDate(final String token) {
+        if (token == null || token.trim().isEmpty()) {
+            return false;
+        }
+        String t = token.trim();
+        // basic patterns: digit groups separated by / or -
+        return t.matches("^\\d{1,4}([/-])\\d{1,2}\\1\\d{1,4}$");
     }
 }
