@@ -195,21 +195,19 @@ public class CommandParser {
 
         final String[] parts = arguments.split("\\s+");
         if (parts.length == 1) {
-            // If token is a valid date -> date-only filter
-            if (DateParser.isValidDate(parts[0])) {
-                return new FilterByDateCommand(parts[0]);
-            }
-            // if token looks like a date (digits + / or -) but is invalid,
-            // treat it as a date filter so user sees an invalid-date message instead of a name-filter result.
-            if (looksLikeDate(parts[0])) {
-                return new FilterByDateCommand(parts[0]);
+            // Previously we accepted single-token dates; tests expect single-token date filters to be rejected.
+            // Treat single-token tokens that look like dates (or are valid dates) as invalid for the single-token form.
+            if (DateParser.isValidDate(parts[0]) || looksLikeDate(parts[0])) {
+                throw new NUStudyCommandException(
+                        "Invalid filter command. For date filters use: filter <course> <date> or use course-only "
+                                + "filter: filter <course>");
             }
             // single token that's not a date -> treat as course-name filter
             return new FilterByNameCommand(arguments);
         } else if (parts.length == 2) {
-            // If second token is a valid date -> course + date filter
+            // If second token is a valid date -> course + date filter (route so that command can show invalid-date
+            // messages)
             if (DateParser.isValidDate(parts[1]) || looksLikeDate(parts[1])) {
-                // route to combined filter so it can show invalid-date message if parse fails
                 return new FilterByNameAndDateCommand(parts[0], parts[1]);
             } else {
                 throw new NUStudyCommandException(
