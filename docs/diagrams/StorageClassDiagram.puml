@@ -46,12 +46,14 @@ Storage ..> SessionManager : uses
 Storage ..> Course : uses toStorageString()
 Storage ..> Session : uses toStorageString()
 
-interface Iterable
-Iterable<|-- CourseManager
-Iterable <|-- SessionManager
+interface Iterable {
+    + Iterator iterator()
+}
+Iterable<|.. CourseManager
+Iterable <|.. SessionManager
 
-CourseManager "1" --> "*" Course : Contains
-SessionManager "1" --> "*" Session : Contains
+CourseManager "0..1" --> "*" Course : Contains
+SessionManager "0..1" --> "*" Session : Contains
 
 Session "*"-->"1" Course
 
