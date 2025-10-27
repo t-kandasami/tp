@@ -140,9 +140,11 @@ public class CommandParser {
      * Parses the delete command arguments for deleting courses or sessions.
      *
      * @param arguments The command arguments to parse for deleting.
-     * @return A {@DeleteByDateCommand} instance if a valid date is provided,
-     *          a {@DeleteCourseCommand} instance if only a course name is provided,
-     *          or a {@DeleteSessionCommand} instance if a course name and index are provided.
+     *
+     * @return A {@DeleteByDateCommand} instance if a valid date is provided, a {@DeleteCourseCommand} instance if only
+     *         a course name is provided, or a {@DeleteSessionCommand} instance if a course name and index are
+     *         provided.
+     *
      * @throws NUStudyCommandException If the command format is invalid.
      */
     private static Command parseDeleteCommand(final String arguments) throws NUStudyCommandException {
@@ -171,15 +173,11 @@ public class CommandParser {
 
     /**
      * Parse filter commands.
-     *
-     * Supported currently:
-     * - filter <courseKeyword>   -> FilterByNameCommand
-     *
-     * (Other filter forms can be added later.)
      */
     private static Command parseFilterCommand(final String arguments) throws NUStudyCommandException {
         if (arguments.isEmpty()) {
-            throw new NUStudyCommandException("Invalid filter command. Usage: filter <course> OR filter <date> OR filter <course> <date>");
+            throw new NUStudyCommandException(
+                    "Invalid filter command. Usage: filter <course> OR filter <date> OR filter <course> <date>");
         }
 
         final String[] parts = arguments.split("\\s+");
