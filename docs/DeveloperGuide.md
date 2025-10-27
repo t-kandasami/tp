@@ -105,6 +105,46 @@ Key steps:
 Notes:
 - The assertions are defensive checks intended for development/testing (enabled with -ea). Production callers should ensure valid arguments.
 
+### Delete Course Command
+
+<u> Overview </u>
+
+`DeleteCourseCommand` is a concrete implementation of the `Command` interface in the NUStudy system. The primary
+function is to handle user requests to delete an existing course by its name from the courses `ArrayList` managed by
+the `CourseManager`.
+
+This command does the following:
+
+- Validate the user input
+- Searches for the specified course.
+- Removes it from the internal course list if found.
+- Performs consistency checks post-deletion.
+- Logs all major steps and errors for traceability.
+- Displays a confirmation message to the user.
+
+<u> Implementation Details </u>
+
+#### Package `arpa.home.nustudy.command`
+
+#### Class `public class DeleteCourseCommand implements Command`
+
+#### Dependencies
+
+| Component                      | Responsibility                                                            |
+|--------------------------------|---------------------------------------------------------------------------|
+| `CourseManager`                | Manages the list of existing courses, including lookup and deletion.      |
+| `SessionManager`               | Provided for command consistency, though not used directly in this class. |
+| `UserInterface`                | Displays confirmation messages to the user.                               |
+| `Storage`                      | Used as a reference for the logger name.                                  |
+| `NUStudyException`             | Thrown for invalid inputs or deletion failures.                           |
+| `NUStudyNoSuchCourseException` | Thrown when the specified course does not exist.                          |
+| `Logger`                       | Provides runtime logging for debug, info, and error tracking.             |
+
+<u> Workflow </u>
+
+The following activity diagram illustrates the complete removing course workflow:
+![](diagrams/DeleteCourseCommandActivityDiagram.png)
+
 ### Course Component
 
 <u>Overview</u>
@@ -268,43 +308,6 @@ The following activity diagram illustrates the complete reset workflow:
   * Cons: Reckless design, leading to unacceptable risk of data wipe
 
 {*more aspects and alternatives to be added*}
-
-### Delete Course Component
-<u> Overview </u>
-
-`DeleteCourseCommand` is a concrete implementation of the `Command` interface in the NUStudy system. The primary 
-function is to handle user requests to delete an existing course by its name from the courses `ArrayList` managed by 
-the `CourseManager`. 
-
-This command does the following: 
-- Validate the user input 
-- Searches for the specified course. 
-- Removes it from the internal course list if found. 
-- Performs consistency checks post-deletion. 
-- Logs all major steps and errors for traceability. 
-- Displays a confirmation message to the user.
-
-<u> Implementation Details </u>
-
-#### Package `arpa.home.nustudy.command`
-
-#### Class `public class DeleteCourseCommand implements Command`
-
-#### Dependencies
-| Component                      | Responsibility                                                            |
-| ------------------------------ | ------------------------------------------------------------------------- |
-| `CourseManager`                | Manages the list of existing courses, including lookup and deletion.      |
-| `SessionManager`               | Provided for command consistency, though not used directly in this class. |
-| `UserInterface`                | Displays confirmation messages to the user.                               |
-| `Storage`                      | Used as a reference for the logger name.                                  |
-| `NUStudyException`             | Thrown for invalid inputs or deletion failures.                           |
-| `NUStudyNoSuchCourseException` | Thrown when the specified course does not exist.                          |
-| `Logger`                       | Provides runtime logging for debug, info, and error tracking.             |
-
-<u> Workflow </u>
-
-The following activity diagram illustrates the complete removing course workflow:
-![](diagrams/DeleteCourseCommandActivityDiagram.png)
 
 ## Appendix
 
