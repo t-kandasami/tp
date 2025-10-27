@@ -8,19 +8,26 @@ import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.ui.UserInterface;
 
 /**
- * Filters courses by a name keyword. Command format: filter <keyword>
- *
- * Behaviour:
- * - Case-insensitive substring match against course name / code representation.
- * - Prints matched courses keeping their original indices from the full course list.
+ * Command to filter courses by a keyword in their name or string representation.
  */
 public class FilterByNameCommand implements Command {
     private final String keyword;
 
+    /**
+     * Constructs a FilterByNameCommand with the specified keyword.
+     *
+     * @param arguments The keyword to filter courses by.
+     */
     public FilterByNameCommand(final String arguments) {
         this.keyword = arguments == null ? "" : arguments.trim();
     }
 
+    /**
+     * Executes the filter command on the provided CourseManager.
+     *
+     * @param courses  The CourseManager containing all courses.
+     * @param sessions The SessionManager (not used in this command).
+     */
     @Override
     public void execute(final CourseManager courses, final SessionManager sessions) {
         final ArrayList<Course> matched = new ArrayList<>();
@@ -43,6 +50,11 @@ public class FilterByNameCommand implements Command {
         UserInterface.printFilteredCourseList(matched, originalIndices, keyword);
     }
 
+    /**
+     * Indicates whether this command causes the application to exit.
+     *
+     * @return {@code false} for FilterByNameCommand since it does not exit the application
+     */
     @Override
     public boolean isExit() {
         return false;
