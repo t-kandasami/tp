@@ -34,9 +34,8 @@ public class UserInterface {
     }
 
     /**
-     * Reinitialises scanner to read from current System.in stream.
-     * Method is used for JUnit testing purposes to allow the Scanner to recognise changes
-     * made to System.in by System.setIn().
+     * Reinitialises scanner to read from current System.in stream. Method is used for JUnit testing purposes to allow
+     * the Scanner to recognise changes made to System.in by System.setIn().
      */
     public static void reinitialiseScanner() {
         if (INPUT_SCANNER != null) {
@@ -81,7 +80,7 @@ public class UserInterface {
      * @param newCourseName The new coursename
      */
     public static void printCourseNameEdited(String oldCourseName, String newCourseName) {
-        System.out.printf("NOTE: Successfully renamed course %s to %s", oldCourseName,  newCourseName);
+        System.out.printf("NOTE: Successfully renamed course %s to %s", oldCourseName, newCourseName);
         System.out.println();
     }
 
@@ -144,5 +143,30 @@ public class UserInterface {
 
     public static void printEditSessionDateSuccess(LocalDate date) {
         System.out.println("Session Date change to " + DateParser.formatDate(date));
+    }
+
+    /**
+     * Print filtered list of courses while preserving their original indices from the full list.
+     *
+     * @param courses         List of matched courses
+     * @param originalIndices Corresponding 1-based indices from the full course list
+     * @param keyword         The filter keyword (used in header / empty message)
+     */
+    public static void printFilteredCourseList(final ArrayList<Course> courses,
+            final ArrayList<Integer> originalIndices,
+            final String keyword) {
+        if (courses == null || courses.isEmpty()) {
+            System.out.printf("No courses matched \"%s\"", keyword);
+            System.out.println();
+            return;
+        }
+
+        System.out.printf("Filtered courses matching \"%s\"", keyword);
+        System.out.println();
+
+        for (int i = 0; i < courses.size() && i < originalIndices.size(); i++) {
+            System.out.printf("%d. %s", originalIndices.get(i), courses.get(i));
+            System.out.println();
+        }
     }
 }
