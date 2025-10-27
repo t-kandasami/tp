@@ -107,6 +107,42 @@ Notes:
 
 ### Course Component
 
+<u>Overview</u>
+
+The Course Component is responsible for representing and managing course-related entities in the NUStudy Application.
+It consists of 2 main classes:
+
+1. `Course` - a Class that encapsulates all information about a Course.
+2. `CourseManager` - a Class that manipulates and maintains a collection of Course Objects.
+
+These 2 classes forms the layer for handling the entity of Course. It is responsible for the CRUD of the entity Course.
+
+<u>Implementation Details</u>
+
+The following diagram is the class diagram for `Course` and `CourseManger`
+
+![](diagrams/CourseClassDiagram.png)
+
+The `CourseManager` class acts as a controller or manager, handling a dynamic list of Course instances using an internal ArrayList.
+
+<u>Course Methods</u>
+
+The `Course` class defines the following methods
+* `Course(String courseName)`: Constructs a new Course with the given name.
+* `getCourseName()`: Retrieves the name attribute of a Course.
+* `setCourseName(String courseName)`: Updates the course name of a Course used for the edit feature.
+* `toString()`: Returns the course name as a readable string.
+* `toStorageString()`: Returns the course data formatted for file storage.
+
+<u>CourseManager Methods</u>
+
+The `CourseManager` class defines the following methods
+* `add(Course course)`: Adds a Course Object to the list.
+* `delete(Course course)`: Removes a Course Object from the list.
+* `getCourses()`: Retrieves all courses managed by this class.
+* `findCourse(String courseName)`: Searches for a course by name.
+* `iterator()`: Returns an iterator to traverse through all courses.
+
 ### Session Component
 
 ### Storage Component
