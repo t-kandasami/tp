@@ -12,6 +12,7 @@ import arpa.home.nustudy.command.ExitCommand;
 import arpa.home.nustudy.command.ListCourseCommand;
 import arpa.home.nustudy.command.ListCourseHoursPerSessionCommand;
 import arpa.home.nustudy.command.ResetCourseHoursCommand;
+import arpa.home.nustudy.command.FilterByNameCommand;
 import arpa.home.nustudy.exceptions.NUStudyCommandException;
 
 public class CommandParser {
@@ -48,6 +49,8 @@ public class CommandParser {
             return parseDeleteCommand(arguments);
         case "exit":
             return new ExitCommand();
+        case "filter":
+            return parseFilterCommand(arguments);
         default:
             throw new NUStudyCommandException("Wrong command");
         }
@@ -164,5 +167,27 @@ public class CommandParser {
                     Invalid delete command format.
                     Usage: delete <course> <index> OR delete <date>""");
         }
+    }
+
+    /**
+     * Parse filter commands.
+     *
+     * Supported currently:
+     * - filter <courseKeyword>   -> FilterByNameCommand
+     *
+     * (Other filter forms can be added later.)
+     */
+    private static Command parseFilterCommand(final String arguments) throws NUStudyCommandException {
+        if (arguments.isEmpty()) {
+            throw new NUStudyCommandException("Invalid filter command. Usage: filter <course> OR filter <date> OR filter <course> <date>");
+        }
+
+        final String[] parts = arguments.split("\\s+");
+        if (parts.length == 1 && !DateParser.isValidDate(parts[0])) {
+            // single token that's not a date -> treat as course-name filter
+            return new FilterByNameCommand(arguments);
+        }
+
+        throw new NUStudyCommandException("Invalid filter command. Currently supported: filter <course>");
     }
 }
