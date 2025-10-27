@@ -234,8 +234,10 @@ Filtered courses matching "ma1511"
 ```
 
 Behaviour notes
-- All filter forms are read-only and do not modify stored data.
+- This filter is read-only and does not modify stored data.
 - Matching for course keywords is case-insensitive and uses substring matching.
+- The filtered list retains the original indices from the full course list so the printed numbers correspond to each 
+  course's index in the complete list (useful when editing/deleting by index).
 - If no matches are found, a clear empty-filter message is shown (e.g., `No courses matched "XYZ"`).
 
 ### Filter by date
@@ -259,8 +261,9 @@ Courses with sessions on 23 Oct 2025
 ```
 
 Behaviour notes
-- All filter forms are read-only and do not modify stored data.
-- Matching for course keywords is case-insensitive and uses substring matching.
+- This filter is read-only and does not modify stored data.
+- The filtered list retains the original indices from the full course list so the printed numbers correspond to each
+  course's index in the complete list (useful when editing/deleting by index).
 - If no matches are found, a clear empty-filter message is shown (e.g., `No sessions found on 23 Oct 2025`).
 
 ### Filter by course name and date
@@ -280,8 +283,9 @@ Sessions for MA1511 on 23 Oct 2025
 ```
 
 Behaviour notes
-- All filter forms are read-only and do not modify stored data.
+- This filter is read-only and does not modify stored data.
 - Matching for course keywords is case-insensitive and uses substring matching.
+- Session indices printed are relative to the course's session list (useful when editing/deleting by index).
 - If no matches are found, a clear empty-filter message is shown (e.g., `No sessions found for MA1511 on 23 Oct 2025`).
 
 ### Exit NUStudy
