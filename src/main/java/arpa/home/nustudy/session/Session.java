@@ -16,7 +16,7 @@ public class Session {
      * <p>
      * The loggedHours for each session
      */
-    private final int loggedHours;
+    private int loggedHours;
     private final Course course;
     private LocalDate date;
 
@@ -50,6 +50,15 @@ public class Session {
      */
     public int getLoggedHours() {
         return loggedHours;
+    }
+
+    /**
+     * Set logged hours for this session
+     *
+     * @param loggedHours Logged hours for this session
+     */
+    public void setLoggedHours(final int loggedHours) {
+        this.loggedHours = loggedHours;
     }
 
     /**
