@@ -73,7 +73,12 @@ public class EditSessionCommand implements Command {
             UserInterface.printEditSessionDateSuccess(date);
             return;
         } catch (final WrongDateFormatException e) {
-            // Intentionally left empty to try for Integer
+            // If parsing failed, check if it failed because the date is in the future:
+            if (DateParser.isFutureDate(arg2)) {
+                // Surface a specific FutureDateException so callers/tests get the expected behavior
+                throw new FutureDateException();
+            }
+            // Intentionally left empty to try for Integer if not a future-date issue
         }
 
         logger.log(Level.FINE, "Attempting to parse '" + arg2 + "' as integer");

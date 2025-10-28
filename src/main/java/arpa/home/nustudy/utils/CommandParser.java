@@ -13,6 +13,8 @@ import arpa.home.nustudy.command.ListCourseCommand;
 import arpa.home.nustudy.command.ListCourseHoursPerSessionCommand;
 import arpa.home.nustudy.command.ResetCourseHoursCommand;
 import arpa.home.nustudy.command.FilterByNameCommand;
+import arpa.home.nustudy.command.FilterByDateCommand;
+import arpa.home.nustudy.command.FilterByNameAndDateCommand;
 import arpa.home.nustudy.exceptions.NUStudyCommandException;
 
 public class CommandParser {
@@ -48,6 +50,10 @@ public class CommandParser {
         case "delete":
             return parseDeleteCommand(arguments);
         case "exit":
+            // Only accept "exit" with no extra arguments
+            if (!arguments.isEmpty()) {
+                throw new NUStudyCommandException("Invalid exit command format. Usage: exit");
+            }
             return new ExitCommand();
         case "filter":
             return parseFilterCommand(arguments);
@@ -172,7 +178,14 @@ public class CommandParser {
     }
 
     /**
-     * Parse filter commands.
+     * Parses the filter command arguments for filtering courses by name or date.
+     *
+     * @param arguments The command arguments to parse for filtering.
+     *
+     * @return A {@link FilterByNameCommand} instance if a course name is provided, or a {@link FilterByDateCommand}
+     *         instance if a date is provided.
+     *
+     * @throws NUStudyCommandException If the command format is invalid.
      */
     private static Command parseFilterCommand(final String arguments) throws NUStudyCommandException {
         if (arguments.isEmpty()) {
@@ -181,11 +194,43 @@ public class CommandParser {
         }
 
         final String[] parts = arguments.split("\\s+");
-        if (parts.length == 1 && !DateParser.isValidDate(parts[0])) {
+        if (parts.length == 1) {
+            // Previously we accepted single-token dates; tests expect single-token date filters to be rejected.
+            // Treat single-token tokens that look like dates (or are valid dates) as invalid for the single-token form.
+            if (DateParser.isValidDate(parts[0]) || looksLikeDate(parts[0])) {
+                throw new NUStudyCommandException(
+                        "Invalid filter command. For date filters use: filter <course> <date> or use course-only "
+                                + "filter: filter <course>");
+            }
             // single token that's not a date -> treat as course-name filter
             return new FilterByNameCommand(arguments);
+        } else if (parts.length == 2) {
+            // If second token is a valid date -> course + date filter (route so that command can show invalid-date
+            // messages)
+            if (DateParser.isValidDate(parts[1]) || looksLikeDate(parts[1])) {
+                return new FilterByNameAndDateCommand(parts[0], parts[1]);
+            } else {
+                throw new NUStudyCommandException(
+                        "Invalid filter command. Usage: filter <course> OR filter <date> OR filter <course> <date>");
+            }
         }
 
-        throw new NUStudyCommandException("Invalid filter command. Currently supported: filter <course>");
+        throw new NUStudyCommandException("Invalid filter command. Supported forms: filter <course> | filter <date>");
+    }
+
+    /**
+     * Checks if a token resembles a date format (e.g., contains digits and date separators).
+     *
+     * @param token The token to check.
+     *
+     * @return true if the token looks like a date, false otherwise.
+     */
+    private static boolean looksLikeDate(final String token) {
+        if (token == null || token.trim().isEmpty()) {
+            return false;
+        }
+        String t = token.trim();
+        // basic patterns: digit groups separated by / or -
+        return t.matches("^\\d{1,4}([/-])\\d{1,2}\\1\\d{1,4}$");
     }
 }

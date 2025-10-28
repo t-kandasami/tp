@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import arpa.home.nustudy.course.Course;
 import arpa.home.nustudy.course.CourseManager;
+import arpa.home.nustudy.session.Session;
 import arpa.home.nustudy.utils.DateParser;
 
 public class UserInterface {
@@ -175,6 +176,76 @@ public class UserInterface {
 
         for (int i = 0; i < courses.size() && i < originalIndices.size(); i++) {
             System.out.printf("%d. %s", originalIndices.get(i), courses.get(i));
+            System.out.println();
+        }
+    }
+
+    /**
+     * Print list of courses that have sessions on the specified date.
+     *
+     * @param courses         Matched courses
+     * @param originalIndices Corresponding 1-based indices from the full course list
+     * @param date            The date to display in the header
+     */
+    public static void printCoursesWithSessionsOnDate(final ArrayList<Course> courses,
+            final ArrayList<Integer> originalIndices,
+            final LocalDate date) {
+        if (courses == null || courses.isEmpty()) {
+            System.out.printf("No sessions found on %s", DateParser.formatDate(date));
+            System.out.println();
+            return;
+        }
+
+        System.out.printf("Courses with sessions on %s", DateParser.formatDate(date));
+        System.out.println();
+
+        for (int i = 0; i < courses.size() && i < originalIndices.size(); i++) {
+            System.out.printf("%d. %s", originalIndices.get(i), courses.get(i));
+            System.out.println();
+        }
+    }
+
+    /**
+     * Print a user-friendly invalid-date message.
+     *
+     * @param rawDate the raw date string supplied by the user
+     */
+    public static void printInvalidDateFormat(final String rawDate) {
+        // If the token is parseable but in the future, show a specific message.
+        if (DateParser.isFutureDate(rawDate)) {
+            System.out.printf("Invalid date: \"%s\" is in the future. Please provide today's or a past date.", rawDate);
+            System.out.println();
+            return;
+        }
+        System.out.printf("Invalid date format: \"%s\". Supported formats: yyyy-MM-dd, d/M/yyyy, d-M-yyyy",
+                rawDate);
+        System.out.println();
+    }
+
+    /**
+     * Print sessions for a specific course that occurred on the specified date.
+     *
+     * @param course                 The course whose sessions are printed
+     * @param sessionsOnDate         Matched sessions for that course on the date
+     * @param originalSessionIndices Corresponding 1-based indices within the course's full session list
+     * @param date                   The date to display in the header
+     */
+    public static void printSessionsForCourseOnDate(final Course course, final ArrayList<Session> sessionsOnDate,
+            final ArrayList<Integer> originalSessionIndices, final LocalDate date) {
+        if (sessionsOnDate == null || sessionsOnDate.isEmpty()) {
+            System.out.printf("No sessions found for %s on %s", course, DateParser.formatDate(date));
+            System.out.println();
+            return;
+        }
+
+        System.out.printf("Sessions for %s on %s", course.getCourseName(), DateParser.formatDate(date));
+        System.out.println();
+
+        for (int i = 0; i < sessionsOnDate.size() && i < originalSessionIndices.size(); i++) {
+            final Session s = sessionsOnDate.get(i);
+            final int originalIndex = originalSessionIndices.get(i);
+            System.out.printf("%d. %s - %d hours at %s", originalIndex, course, s.getLoggedHours(),
+                    DateParser.formatDate(s.getDate()));
             System.out.println();
         }
     }
