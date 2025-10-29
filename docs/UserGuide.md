@@ -32,10 +32,10 @@ type fast, NUStudy can get your study management tasks done faster than traditio
 1. Ensure that you have Java Runtime Environment (JRE) **17 or above** installed on your computer. If you do not have
    JRE 17 installed, you can [download Temurin JRE 17](https://adoptium.net/temurin/releases?version=17&os=any&arch=any
    ).
-2. Download the latest version of NUStudy from [GitHub releases](
+1. Download the latest version of NUStudy from [GitHub releases](
    https://github.com/AY2526S1-CS2113-W14-2/tp/releases/latest/download/NUStudy.jar)
-3. Copy the downloaded JAR file to the folder you want to use as the _home folder_ for NUStudy
-4. Run the application in the terminal with `java -jar ./path/to/NUStudy.jar`
+1. Copy the downloaded JAR file to the folder you want to use as the _home folder_ for NUStudy
+1. Run the application in the terminal with `java -jar ./path/to/NUStudy.jar`
 
 ## Features
 
