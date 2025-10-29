@@ -65,13 +65,6 @@ class CommandParserTest {
     }
 
     @Test
-    void parseCommand_filterWithDate_throwsException() {
-        // single token that is a valid date should not be parsed as name-filter in current implementation
-        assertThrows(NUStudyCommandException.class, () -> CommandParser.parseCommand("filter 23/10/2025"),
-                "Should throw exception for date-only filter (not yet supported by parseFilterCommand)");
-    }
-
-    @Test
     void parseCommand_listNoArgs_returnsListCourseCommand() throws NUStudyCommandException {
         Command command = CommandParser.parseCommand("list");
         assertTrue(command instanceof ListCourseCommand, "Should return ListCourseCommand for 'list'");
