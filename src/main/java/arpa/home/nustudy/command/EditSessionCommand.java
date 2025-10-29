@@ -2,6 +2,8 @@ package arpa.home.nustudy.command;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import arpa.home.nustudy.course.Course;
 import arpa.home.nustudy.course.CourseManager;
@@ -17,6 +19,7 @@ import arpa.home.nustudy.ui.UserInterface;
 import arpa.home.nustudy.utils.DateParser;
 
 public class EditSessionCommand implements Command {
+    private final Logger logger = Logger.getLogger(EditSessionCommand.class.getName());
     private String input;
 
     public EditSessionCommand(final String input) {
@@ -59,9 +62,10 @@ public class EditSessionCommand implements Command {
 
         Session session = courseSessions.get(index - 1);
 
+        final String arg2 = argument[2].trim();
         LocalDate date;
         try {
-            date = DateParser.parseDate(argument[2].trim());
+            date = DateParser.parseDate(arg2);
             if (date.isAfter(LocalDate.now())) {
                 throw new FutureDateException();
             }
@@ -69,8 +73,33 @@ public class EditSessionCommand implements Command {
             UserInterface.printEditSessionDateSuccess(date);
             return;
         } catch (final WrongDateFormatException e) {
-            // Intentionally left empty to try for Integer
+            // If parsing failed, check if it failed because the date is in the future:
+            if (DateParser.isFutureDate(arg2)) {
+                // Surface a specific FutureDateException so callers/tests get the expected behavior
+                throw new FutureDateException();
+            }
+            // Intentionally left empty to try for Integer if not a future-date issue
         }
+
+        logger.log(Level.FINE, "Attempting to parse '" + arg2 + "' as integer");
+
+        try {
+            final int newHours = Integer.parseInt(arg2);
+
+            logger.log(Level.FINE, "Parsed '" + arg2 + "' as integer 2 successfully");
+            logger.log(Level.FINE, "Updating course session hours to " + newHours);
+
+            session.setLoggedHours(newHours);
+
+            assert session.getLoggedHours() == newHours : "Updating course session hours should work as expected";
+
+            UserInterface.printEditSessionHoursSuccess(newHours);
+            return;
+        } catch (final NumberFormatException ignored) {
+            // Intentionally left empty to fall through to error handling
+        }
+
+        logger.log(Level.WARNING, "Failed to parse '" + arg2 + "' as anything");
 
         throw new NUStudyCommandException("Please input a valid date or study hours");
     }

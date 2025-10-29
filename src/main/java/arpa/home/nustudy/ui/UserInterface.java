@@ -7,11 +7,12 @@ import java.util.Scanner;
 
 import arpa.home.nustudy.course.Course;
 import arpa.home.nustudy.course.CourseManager;
+import arpa.home.nustudy.session.Session;
 import arpa.home.nustudy.utils.DateParser;
 
 public class UserInterface {
     private static final String LINE_BREAK = "____________________________________________________________";
-    private static Scanner INPUT_SCANNER = new Scanner(System.in, StandardCharsets.UTF_8);
+    private static Scanner inputScanner = new Scanner(System.in, StandardCharsets.UTF_8);
 
     /**
      * Prints a partition line for visual separation
@@ -26,23 +27,22 @@ public class UserInterface {
      * @return The trimmed user input command
      */
     public static String readInput() {
-        if (!INPUT_SCANNER.hasNextLine()) {
+        if (!inputScanner.hasNextLine()) {
             return null;
         }
 
-        return INPUT_SCANNER.nextLine().trim();
+        return inputScanner.nextLine().trim();
     }
 
     /**
-     * Reinitialises scanner to read from current System.in stream.
-     * Method is used for JUnit testing purposes to allow the Scanner to recognise changes
-     * made to System.in by System.setIn().
+     * Reinitialises scanner to read from current System.in stream. Method is used for JUnit testing purposes to allow
+     * the Scanner to recognise changes made to System.in by System.setIn().
      */
     public static void reinitialiseScanner() {
-        if (INPUT_SCANNER != null) {
-            INPUT_SCANNER.close();
+        if (inputScanner != null) {
+            inputScanner.close();
         }
-        INPUT_SCANNER = new Scanner(System.in);
+        inputScanner = new Scanner(System.in);
     }
 
     /**
@@ -81,7 +81,7 @@ public class UserInterface {
      * @param newCourseName The new coursename
      */
     public static void printCourseNameEdited(String oldCourseName, String newCourseName) {
-        System.out.printf("NOTE: Successfully renamed course %s to %s", oldCourseName,  newCourseName);
+        System.out.printf("NOTE: Successfully renamed course %s to %s", oldCourseName, newCourseName);
         System.out.println();
     }
 
@@ -144,5 +144,109 @@ public class UserInterface {
 
     public static void printEditSessionDateSuccess(LocalDate date) {
         System.out.println("Session Date change to " + DateParser.formatDate(date));
+    }
+
+    /**
+     * Print success message for editing a session hour for a course in the course manager
+     *
+     * @param newHours The new session hour changed for the course
+     */
+    public static void printEditSessionHoursSuccess(final int newHours) {
+        System.out.println("Session hours changed to " + newHours + " hours");
+    }
+
+    /**
+     * Print filtered list of courses while preserving their original indices from the full list.
+     *
+     * @param courses         List of matched courses
+     * @param originalIndices Corresponding 1-based indices from the full course list
+     * @param keyword         The filter keyword (used in header / empty message)
+     */
+    public static void printFilteredCourseList(final ArrayList<Course> courses,
+            final ArrayList<Integer> originalIndices,
+            final String keyword) {
+        if (courses == null || courses.isEmpty()) {
+            System.out.printf("No courses matched \"%s\"", keyword);
+            System.out.println();
+            return;
+        }
+
+        System.out.printf("Filtered courses matching \"%s\"", keyword);
+        System.out.println();
+
+        for (int i = 0; i < courses.size() && i < originalIndices.size(); i++) {
+            System.out.printf("%d. %s", originalIndices.get(i), courses.get(i));
+            System.out.println();
+        }
+    }
+
+    /**
+     * Print list of courses that have sessions on the specified date.
+     *
+     * @param courses         Matched courses
+     * @param originalIndices Corresponding 1-based indices from the full course list
+     * @param date            The date to display in the header
+     */
+    public static void printCoursesWithSessionsOnDate(final ArrayList<Course> courses,
+            final ArrayList<Integer> originalIndices,
+            final LocalDate date) {
+        if (courses == null || courses.isEmpty()) {
+            System.out.printf("No sessions found on %s", DateParser.formatDate(date));
+            System.out.println();
+            return;
+        }
+
+        System.out.printf("Courses with sessions on %s", DateParser.formatDate(date));
+        System.out.println();
+
+        for (int i = 0; i < courses.size() && i < originalIndices.size(); i++) {
+            System.out.printf("%d. %s", originalIndices.get(i), courses.get(i));
+            System.out.println();
+        }
+    }
+
+    /**
+     * Print a user-friendly invalid-date message.
+     *
+     * @param rawDate the raw date string supplied by the user
+     */
+    public static void printInvalidDateFormat(final String rawDate) {
+        // If the token is parseable but in the future, show a specific message.
+        if (DateParser.isFutureDate(rawDate)) {
+            System.out.printf("Invalid date: \"%s\" is in the future. Please provide today's or a past date.", rawDate);
+            System.out.println();
+            return;
+        }
+        System.out.printf("Invalid date format: \"%s\". Supported formats: yyyy-MM-dd, d/M/yyyy, d-M-yyyy",
+                rawDate);
+        System.out.println();
+    }
+
+    /**
+     * Print sessions for a specific course that occurred on the specified date.
+     *
+     * @param course                 The course whose sessions are printed
+     * @param sessionsOnDate         Matched sessions for that course on the date
+     * @param originalSessionIndices Corresponding 1-based indices within the course's full session list
+     * @param date                   The date to display in the header
+     */
+    public static void printSessionsForCourseOnDate(final Course course, final ArrayList<Session> sessionsOnDate,
+            final ArrayList<Integer> originalSessionIndices, final LocalDate date) {
+        if (sessionsOnDate == null || sessionsOnDate.isEmpty()) {
+            System.out.printf("No sessions found for %s on %s", course, DateParser.formatDate(date));
+            System.out.println();
+            return;
+        }
+
+        System.out.printf("Sessions for %s on %s", course.getCourseName(), DateParser.formatDate(date));
+        System.out.println();
+
+        for (int i = 0; i < sessionsOnDate.size() && i < originalSessionIndices.size(); i++) {
+            final Session s = sessionsOnDate.get(i);
+            final int originalIndex = originalSessionIndices.get(i);
+            System.out.printf("%d. %s - %d hours at %s", originalIndex, course, s.getLoggedHours(),
+                    DateParser.formatDate(s.getDate()));
+            System.out.println();
+        }
     }
 }
