@@ -11,14 +11,15 @@
   - [Session Component](#session-component)
   - [Storage Component](#storage-component)
   - [Reset Component](#reset-component)
-- [Appendix](#appendix)
+- [Appendix: Requirements](#appendix-requirements)
   - [Product scope](#product-scope)
     - [Target user profile](#target-user-profile)
     - [Value proposition](#value-proposition)
-  - [User Stories](#user-stories)
+  - [User stories](#user-stories)
+  - [Use cases](#use-cases)
   - [Non-Functional Requirements](#non-functional-requirements)
   - [Glossary](#glossary)
-- [Instructions for manual testing](#instructions-for-manual-testing)
+- [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
 
 ## Acknowledgements
 
@@ -82,13 +83,13 @@ interface is used in practice.
 #### Class `public class ListCourseCommand implements Command`
 
 #### Dependencies
-| Component        | Responsibility                                           |
-| ---------------- | -------------------------------------------------------- |
-| `CourseManager`  | Provides the collection of courses to be listed.         |
-| `SessionManager` | Present for consistency with command signature.         |
-| `UserInterface`  | Renders the course list or an appropriate message.       |
+| Component          | Responsibility                                          |
+|--------------------|---------------------------------------------------------|
+| `CourseManager`    | Provides the collection of courses to be listed.        |
+| `SessionManager`   | Present for consistency with command signature.         |
+| `UserInterface`    | Renders the course list or an appropriate message.      |
 | `NUStudyException` | Thrown if listing fails (not expected in current impl). |
-| `Logger`         | Records info/fine level logs for tracing execution.      |
+| `Logger`           | Records info/fine level logs for tracing execution.     |
 
 <u> Workflow </u>
 
@@ -103,7 +104,8 @@ Key steps:
 - Log completion at FINE level and return.
 
 Notes:
-- The assertions are defensive checks intended for development/testing (enabled with -ea). Production callers should ensure valid arguments.
+- The assertions are defensive checks intended for development/testing (enabled with -ea). Production callers should 
+  ensure valid arguments.
 
 ### Delete Course Command
 
@@ -309,33 +311,151 @@ The following activity diagram illustrates the complete reset workflow:
 
 {*more aspects and alternatives to be added*}
 
-## Appendix
+## Appendix: Requirements
 
 ### Product scope
 
 #### Target user profile
 
-{Describe the target user profile}
+- prefer desktop apps over other types
+- can type fast
+- prefers typing to mouse interactions
+- is reasonably comfortable using CLI apps
+- Undergraduate students who want a simple, keyboard-driven tool to track study time per course.
+- Teaching assistants / tutors who inspect or maintain small course logs.
+- Single-user administrators managing personal or small-group study records.
+- Intended for small-to-moderate datasets (tens to low hundreds of courses/sessions).
 
 #### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+Helps students to track their study hours for each course, see gaps and understand what courses to focus on next. 
+Students often struggle to manage study time across multiple courses, leading to missed deadlines. Existing tools 
+can be distracting, requiring internet access, or bloated with unnecessary features.
 
-### User Stories
+---
 
-| Version | As a ... | I want to ...             | So that I can ...                                           |
-|---------|----------|---------------------------|-------------------------------------------------------------|
-| v1.0    | new user | see usage instructions    | refer to them when I forget how to use the application      |
-| v2.0    | user     | find a to-do item by name | locate a to-do without having to go through the entire list |
+### User stories
+
+Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (optional) - `*`
+
+| Priority | As a …                    | I want to …                                                                   | So that I can…                                                   |
+|----------|---------------------------|-------------------------------------------------------------------------------|------------------------------------------------------------------|
+| `* * *`  | Easily distracted student | access the study app offline                                                  | be less distracted                                               |
+| `* * *`  | Careless student          | be asked for confirmation when I want to delete study sessions                | be rest assured there won’t be any accidental deletions          |
+| `* * *`  | Goal-oriented student     | set goals for total study hours per day                                       | I can track short-term progress                                  |
+| `* * *`  | Goal-oriented student     | set target study hours per course                                             | set my goals clear                                               |
+| `* * *`  | Organised student         | add a new course                                                              | track number of hours required for it                            |
+| `* * *`  | Organised student         | log study time spent for a specific course                                    | keep track of the amount of time spent studying per module       |
+| `* * *`  | Organised student         | remove a course                                                               | keep my study list relevant                                      |
+| `* * *`  | Visual learner            | be given proper feedback as I manipulate stuff (CRUD)                         | be visually stimulated and be informed of my actions             |
+| `* * *`  | Organised student         | reset logged hours                                                            | know what to focus on next                                       |
+| `* * *`  | Diligent student          | rank the course study time                                                    | start fresh for a current course                                 |
+| `* * *`  | Inquisitive student       | see which course I studied the least                                          | know where to focus more                                         |
+| `* * *`  | Efficient student         | set maximum study hours allocated in a week                                   | effectively balance my workload across the week                  |
+| `* * *`  | Reflective student        | track total studies time                                                      | understand my priorities                                         |
+| `* * *`  | Systematic student        | view a summary of hours spent on studying per course                          | have better time management                                      |
+| `* *`    | Ambitious student         | set long-term study goals for the semester                                    | plan my academic progress                                        |
+| `* *`    | Careful student           | edit previous log study time or course                                        | fix typos or mistakes                                            |
+| `* *`    | Careful student           | undo my last input                                                            | quickly fix my mistakes                                          |
+| `* *`    | Disciplined student       | set weekly study goals                                                        | maintain a consistent study routine                              |
+| `* *`    | Efficient student         | filter my study logs by date                                                  | focus on specific periods                                        |
+| `* *`    | Persistent student        | track my study streak                                                         | stay motivated to study daily                                    |
+| `* *`    | Motivated student         | earn badges/points for consistent study habits                                | stay engaged with the app                                        |
+| `* *`    | New user                  | view a manual on how to use this app                                          | quickly learn how to use its features                            |
+| `* *`    | Organised student         | view a calendar of all my course events                                       | plan my study schedule                                           |
+| `* *`    | Proactive student         | see a summary of my course deadlines                                          | prioritize tasks effectively                                     |
+| `* *`    | Attentive student         | compare actual versus target hours                                            | know if I am on track                                            |
+| `* *`    | Methodical student        | have an automatic way to log my study times per session                       | do not have to be aware and concerned if I forgot to time myself |
+| `* *`    | Thorough student          | have my study timing records saved automatically                              | be sure my progress will not be lost                             |
+| `* *`    | Resilient student         | have the option to import past study sessions if I have the save file with me | continue where I left off                                        |
+| `* *`    | Analytical student        | track my average study hour per day                                           | I can evaluate my consistency                                    |
+| `*`      | Busy student              | receive notifications for upcoming assignment deadlines                       | manage my time effectively                                       |
+| `*`      | Competitive student       | compare my study hours with anonymized peer data                              | gauge my effort                                                  |
+| `*`      | Responsible student       | confirm my assignment submissions                                             | I know they were received successfully                           |
+| `*`      | Time-conscious student    | set personal reminders for study tasks                                        | stay on top of my coursework                                     |
+
+## Use Cases
+
+UC1 — Add course (MSS)
+1. User issues: `add <course>`
+2. System validates and adds course
+3. System confirms addition; `list` shows it
+
+Extensions: missing/invalid input → system prompts; duplicate → system rejects
+
+UC2 — Add study session (MSS)
+1. User issues: `add <course> <hours> [date]`
+2. System validates course existence, hours and date
+3. System records session and confirms
+
+Extensions: invalid course/date/hours → system shows error
+
+UC3 — List courses / sessions (MSS)
+1. User issues: `list` or `list <course>`
+2. System displays courses or sessions with 1-based indices
+
+Extensions: no data → empty message
+
+UC4 — Edit session (MSS)
+1. User issues: `edit <course> <index> <hours|date>`
+2. System validates inputs and updates session
+3. System confirms update
+
+Extensions: invalid course/index/date → system shows error
+
+UC5 — Filter (MSS)
+1. User issues: `filter <course>` or `filter <date>` or `filter <course> <date>`
+2. System validates inputs and displays matching results
+3. System retains original course/session indices in output to support subsequent edit/delete by index
+
+Extensions: invalid/ future dates → informative error; no matches → empty message
+
+UC6 — Reset hours (MSS)
+1. User issues: `reset <course>` or `reset all`
+2. Two-stage confirmation (y/n, then safeword)
+3. On confirmation, system resets hours and confirms
+
+---
 
 ### Non-Functional Requirements
 
-{Give non-functional requirements}
+#### Data
+- NFR1: Persist data across sessions to local file; no data loss on normal shutdown.
+- NFR2: Handle typical dataset sizes (hundreds of entries) with responsive performance.
+
+#### Environment
+- NFR3: Run on mainstream OSes with Java 17+.
+
+#### Usability & Accessibility
+- NFR4: Clear, actionable error messages for invalid input (dates, indices, missing args).
+- NFR5: Keyboard-first UX; minimal typing overhead for common tasks.
+
+#### Maintainability & Testability
+- NFR6: Modular design (parser, UI, commands, managers) to ease maintenance.
+
+#### Reliability & Robustness
+- NFR7: Fail gracefully on malformed storage lines (log and skip), validate dates (reject future dates) and indices.
+
+#### Performance
+- NFR8: Typical command response time under 2 seconds for up to hundreds of records.
+
+#### Scalability
+- NFR9: Design permits scaling storage or migrating to DB if needed (out-of-scope for MVP).
+
+---
 
 ### Glossary
 
-* *glossary item* - Definition
+- Mainstream OS: Windows, Linux, Unix, MacOS
+- MSS: Must-Support Scenario
+- NUStudy: The name of the application
+- CLI: Command-Line Interface
+- Course: A study subject identified by a course code (e.g., CS2113, MA1511).
+- Session: A recorded study period linked to a Course, with logged hours and a date.
+- Index (course): 1-based position of a course in the CourseManager's list (used for edit/delete).
+- Index (session): 1-based position of a session in a course's session list (used for edit/delete).
+- Future date: A date strictly after the system's current date; commands validate and report this.
+- Safeword: Exact confirmation string required for destructive operations (e.g., `RESET`, `RESET ALL`).
 
-## Instructions for manual testing
-
+## Appendix: Instructions for manual testing
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
