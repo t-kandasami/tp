@@ -59,7 +59,8 @@ Add a course study session to the course book.
 
 Format: `add <course code> <study duration in hours> [date]`
 
-> [!NOTE]
+> **Note:**
+>
 > If `date` is not provided, today's date will be used.
 
 See [Appendix: Supported date formats](#appendix-supported-date-formats) for valid date formats.
