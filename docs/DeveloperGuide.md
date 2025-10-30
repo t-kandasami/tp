@@ -193,6 +193,57 @@ The `CourseManager` class defines the following methods:
 
 ### Session component
 
+<u>Overview</u>
+
+The session component is responsible for representing a study session, and managing the list of existing study sessions.
+
+It consists of 2 main classes:
+
+1. `Session` — responsible for representing a study session, which consists of the study session's logged hours, the
+   course studied, and the date of the study session
+1. `SessionManager` — responsible for managing the list of existing study sessions, and contains helper methods to
+   query the list of existing study sessions
+
+<u>Implementation details</u>
+
+The following is the class diagram for `Session` and `SessionManager`:
+
+![Session class diagram](diagrams/SessionClassDiagram.png)
+
+The `SessionManager` class acts as a controller or manager, keeping track of a dynamic list of `Session` instances
+using an internal `ArrayList`.
+
+**`Session` methods**:
+
+The `Session` class defines the following methods:
+
+- `Session(Course course, int loggedHours, LocalDate date)`: Create a new Course with the specific name
+- `getLoggedHours()`: Get logged hours for this session
+- `setLoggedHours(int loggedHours)`: Set logged hours for this session
+- `getCourse()`: Get course for this session
+- `getDate()`: Return the date of the session
+- `getDateString()`: Return a formatted string representation of the date
+- `setDate(LocalDate date)`: Set the date of teh session
+- `toStorageString()`: Return a string representation to be stored in the data file
+- `toString()`: Return a string representation of the course
+
+**`SessionManager` methods**:
+
+The `SessionManager` class defines the following methods:
+
+- `add(Course course, int loggedHours, LocalDate date)`: Add a study session to the list of study sessions
+- `sessionExists(Course course, int loggedHours)`: Return true if the given course and logged hours exist in the list of
+  study sessions
+- `getAllLoggedHoursForCourse(Course course)`: Get a list of all logged hours for a specific course
+- `getAllDateStringsForCourse(Course course)`: Get a list of all dates for a specific course
+- `clearAllSessions()`: Clear all study sessions regardless of course from study session list
+- `removeAllSessionsForCourse(Course course)`: Remove all study sessions associated with the given course
+- `getSessionCount()`: Return the number of sessions in the study session list
+- `getAllSessionsForCourse(Course course)`: Get a list of all study sessions for a specific course
+- `removeSession(Session session)`: Remove a specified session from the study session list
+- `removeAllSessionsByDate(LocalDate date)`: Remove all study sessions on a specified date
+- `iterator()`: Return an iterator to the list of study sessions
+
 ### Storage component
 
 <u>Overview</u>
