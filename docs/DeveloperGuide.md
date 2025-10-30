@@ -491,4 +491,32 @@ Extensions: invalid/ future dates → informative error; no matches → empty me
 
 ## Appendix: Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+- Technical Requirements:
+
+  - Ensure you have Java 17+ installed on your computer. If you do not have JRE 17 installed, you can [download Temurin JRE 17](https://adoptium.net/temurin/releases?version=17&os=any&arch=any).
+
+### Manual testing of features
+
+Please refer to the [User Guide](UserGuide.md) for the full list of features and instructions on how to use them.
+
+### JUnit testing
+
+JUnit tests are provided for core components of NUStudy. To run the tests, follow these steps:
+
+1. Open a terminal and navigate to the root directory of the project.
+
+1. Run the following command to execute the tests:
+
+  - On Windows:
+
+  ```
+    gradlew.bat test
+  ```
+
+  - On macOS/Linux:
+  
+   ```
+   ./gradlew test
+   ```
+
+3. Review the test results in the terminal output.
