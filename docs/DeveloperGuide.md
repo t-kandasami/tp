@@ -33,7 +33,23 @@ NUStudy uses the following tools for development and testing:
 
 ### UI component
 
+<u>Overview</u>
+
+[//]: # (TODO: Complete UI component overview for developer guide)
+
+<u>Implementation details</u>
+
+[//]: # (TODO: Complete UI component implementation details for developer guide)
+
 ### Parser component
+
+<u>Overview</u>
+
+[//]: # (TODO: Complete parser component overview for developer guide)
+
+<u>Implementation details</u>
+
+[//]: # (TODO: Complete parser component implementation details for developer guide)
 
 ### Command component
 
@@ -154,7 +170,8 @@ The following activity diagram illustrates the complete removing course workflow
 
 <u>Overview</u>
 
-The Course component is responsible for representing and managing course-related entities in the NUStudy application.
+The course component is responsible for representing and managing course-related entities in the NUStudy application.
+
 It consists of 2 main classes:
 
 1. `Course` — a class that encapsulates all information about a Course.
@@ -316,7 +333,7 @@ The following sequence diagrams illustrate how data is loaded from storage:
 
 1. Main load process: Checks for existence of parent directory and text file, creates buffer and handles continuous
    reading in of stored data lines from the text file.
-2. Parsing sub-process: Abstracted frame `sd parsing courses or sessions` showcases how each line is interpreted and
+1. Parsing sub-process: Abstracted frame `sd parsing courses or sessions` showcases how each line is interpreted and
    converted into `Course` or `Session` objects.
 
 *Main load sequence diagram for data loading:*
@@ -325,14 +342,14 @@ The following sequence diagrams illustrate how data is loaded from storage:
 
 The `load(courses, sessions)` method in `Storage` executes the following:
 
-1. `ensureParentDirectoryexists()` checks for the parent directory. If non-existent, it attempts to create one using 
+1. `ensureParentDirectoryexists()` checks for the parent directory. If non-existent, it attempts to create one using
    `mkdirs()`.
-2. If parent directory exists, the existence of the storage file `NUStudy.txt` is checked. If it is non-existent, a 
+1. If parent directory exists, the existence of the storage file `NUStudy.txt` is checked. If it is non-existent, a
    note is logged to notify user and empty managers are initialised.
-3. A `BufferedReader` is initiailsed to read in contents from the text file line by line.
-4. Each line from the file is handed over to a separate sub-process (see below). This sub-process handles checks, 
+1. A `BufferedReader` is initiailsed to read in contents from the text file line by line.
+1. Each line from the file is handed over to a separate sub-process (see below). This sub-process handles checks,
    `Session` or `Course` object creation and insertion into the respective managers.
-5. After all lines are processed, the `BufferedReader` is closed and returns to `App`.
+1. After all lines are processed, the `BufferedReader` is closed and returns to `App`.
 
 *Referenced sequence diagram for parsing logic:*
 
@@ -341,12 +358,12 @@ The `load(courses, sessions)` method in `Storage` executes the following:
 The abstracted logic parsing frame executes the following:
 
 1. Based on the line prefix, the `Storage` component assigns parsing logic as shown by the `opt` frame.
-   1. If a line starts with `C|`, it calls `parseCourse(line)` through the `DataParser` class, constructs a new 
-      `Course` object and inserts it into the `CourseManager` instance.
-   2. If a line starts with `S|`, it calls `parseSession(line)` through the `DataParser` class, constructs a 
-      new `Session` object with its corresponding `Course` reference and inserts it into the `SessionManager` 
-      instance if a matching course already exists.
-2. Each parsing branch contains internal validation checks for prefix correctness, segment counts and null checks.
+    1. If a line starts with `C|`, it calls `parseCourse(line)` through the `DataParser` class, constructs a new
+       `Course` object and inserts it into the `CourseManager` instance.
+    1. If a line starts with `S|`, it calls `parseSession(line)` through the `DataParser` class, constructs a
+       new `Session` object with its corresponding `Course` reference and inserts it into the `SessionManager`
+       instance if a matching course already exists.
+1. Each parsing branch contains internal validation checks for prefix correctness, segment counts and null checks.
 
 ### Reset component
 
@@ -542,9 +559,10 @@ Extensions: invalid/ future dates → informative error; no matches → empty me
 
 ## Appendix: Instructions for manual testing
 
-- Technical Requirements:
+**Technical requirements**:
 
-  - Ensure you have Java 17+ installed on your computer. If you do not have JRE 17 installed, you can [download Temurin JRE 17](https://adoptium.net/temurin/releases?version=17&os=any&arch=any).
+- Ensure you have Java 17+ installed on your computer. If you do not have JRE 17 installed, you can
+  [download Temurin JRE 17](https://adoptium.net/temurin/releases?version=17&os=any&arch=any).
 
 ### Manual testing of features
 
@@ -554,20 +572,15 @@ Please refer to the [User Guide](UserGuide.md) for the full list of features and
 
 JUnit tests are provided for core components of NUStudy. To run the tests, follow these steps:
 
-1. Open a terminal and navigate to the root directory of the project.
-
+1. Open a terminal and navigate to the root directory of the project
 1. Run the following command to execute the tests:
+    - On Windows:
+       ```shell
+       ./gradlew.bat test
+       ```
 
-  - On Windows:
-
-  ```
-    gradlew.bat test
-  ```
-
-  - On macOS/Linux:
-  
-   ```
-   ./gradlew test
-   ```
-
-3. Review the test results in the terminal output.
+    - On macOS/Linux:
+       ```shell
+       ./gradlew test
+       ```
+1. Review the test results in the terminal output
