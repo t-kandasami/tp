@@ -7,8 +7,8 @@ type fast, NUStudy can get your study management tasks done faster than traditio
 
 ## Table of contents
 
-- [Quick start](#quick-start)
-- [Features](#features)
+- [**Quick start**](#quick-start)
+- [**Features**](#features)
     - [Add a course](#add-a-course)
     - [Add a study session with hours](#add-a-study-session-with-hours)
     - [List all added courses](#list-all-added-courses)
@@ -24,8 +24,8 @@ type fast, NUStudy can get your study management tasks done faster than traditio
     - [Delete a session by index](#delete-a-session-by-index)
     - [Delete a session by date](#delete-a-session-by-date)
     - [Exit NUStudy](#exit-nustudy)
-- [Command summary](#command-summary)
-- [Appendix: Supported date formats](#appendix-supported-date-formats)
+- [**Command summary**](#command-summary)
+- [**Appendix: Supported date formats**](#appendix-supported-date-formats)
 
 ## Quick start
 
