@@ -1,52 +1,53 @@
 # Developer Guide
 
-## Table of Contents
+## Table of contents
 
-- [Acknowledgements](#acknowledgements)
-- [Design & implementation](#design--implementation)
-  - [UI Component](#ui-component)
-  - [Parser Component](#parser-component)
-  - [Command Component](#command-component)
-  - [Course Component](#course-component)
-  - [Session Component](#session-component)
-  - [Storage Component](#storage-component)
-  - [Reset Component](#reset-component)
-- [Appendix](#appendix)
-  - [Product scope](#product-scope)
-    - [Target user profile](#target-user-profile)
-    - [Value proposition](#value-proposition)
-  - [User Stories](#user-stories)
-  - [Non-Functional Requirements](#non-functional-requirements)
-  - [Glossary](#glossary)
-- [Instructions for manual testing](#instructions-for-manual-testing)
+- [**Acknowledgements**](#acknowledgements)
+- [**Design & implementation**](#design--implementation)
+    - [UI component](#ui-component)
+    - [Parser component](#parser-component)
+    - [Command component](#command-component)
+    - [Course component](#course-component)
+    - [Session component](#session-component)
+    - [Storage component](#storage-component)
+    - [Reset component](#reset-component)
+- [**Appendix: Requirements**](#appendix-requirements)
+    - [Product scope](#product-scope)
+        - [Target user profile](#target-user-profile)
+        - [Value proposition](#value-proposition)
+    - [User stories](#user-stories)
+    - [Use cases](#use-cases)
+    - [Non-functional requirements](#non-functional-requirements)
+    - [Glossary](#glossary)
+- [**Appendix: Instructions for manual testing**](#appendix-instructions-for-manual-testing)
 
 ## Acknowledgements
 
 NUStudy uses the following tools for development and testing:
 
-- [JUnit 5](https://junit.org/junit5/) - For unit testing
-- [Gradle](https://gradle.org/) - For build automation
-- [PlantUML](https://plantuml.com/) - For creating UML diagrams
+- [JUnit 5](https://junit.org/junit5/) — For unit testing
+- [Gradle](https://gradle.org/) — For build automation
+- [PlantUML](https://plantuml.com/) — For creating UML diagrams
 
 ## Design & implementation
 
-### UI Component
+### UI component
 
-### Parser Component
+### Parser component
 
-### Command Component
+### Command component
 
 <u>Overview</u>
 
 The command component is centered on the `Command` interface which defines an execution contract for all commands.
-Each command implements this interface and provide its own specific execution logic. This ensures consistent
-behaviour across commands.
+Each command implements this interface and provide its own specific execution logic. This ensures consistent behaviour
+across commands.
 
-<u>Implementation Details</u>
+<u>Implementation details</u>
 
 The following diagram is the class diagram for `Command` and its subclasses.
 
-![Command Class Diagram](diagrams/CommandClassDiagram.png)
+![Command class diagram](diagrams/CommandClassDiagram.png)
 
 The `Command` interface is implemented by the following command classes:
 
@@ -55,7 +56,6 @@ The `Command` interface is implemented by the following command classes:
 - **Edit Commands**: `EditCourseNameCommand`, `EditSessionCommand`
 - **List Commands**: `ListCourseCommand`, `ListCourseHoursPerSessionCommand`
 - **Other Commands**: `ResetCourseHoursCommand`, `ExitCommand`
-
 
 <u>Methods</u>
 
@@ -68,34 +68,37 @@ The `Command` interface defines the following methods:
 The following sections provide detailed examples of specific command implementations to illustrate how the `Command`
 interface is used in practice.
 
-### List Course Command
-<u> Overview </u>
+#### List course command
+
+<u>Overview</u>
 
 `ListCourseCommand` is a concrete implementation of the `Command` interface that lists all courses managed by
 `CourseManager`. It performs basic sanity checks, logs its actions, and delegates the rendering of the course list to
 `UserInterface`.
 
-<u> Implementation Details </u>
+<u>Implementation details</u>
 
-#### Package `arpa.home.nustudy.command`
+- Package: `arpa.home.nustudy.command`
+- Class: `public class ListCourseCommand implements Command`
 
-#### Class `public class ListCourseCommand implements Command`
+Dependencies:
 
-#### Dependencies
-| Component        | Responsibility                                           |
-| ---------------- | -------------------------------------------------------- |
-| `CourseManager`  | Provides the collection of courses to be listed.         |
-| `SessionManager` | Present for consistency with command signature.         |
-| `UserInterface`  | Renders the course list or an appropriate message.       |
+| Component          | Responsibility                                          |
+|--------------------|---------------------------------------------------------|
+| `CourseManager`    | Provides the collection of courses to be listed.        |
+| `SessionManager`   | Present for consistency with command signature.         |
+| `UserInterface`    | Renders the course list or an appropriate message.      |
 | `NUStudyException` | Thrown if listing fails (not expected in current impl). |
-| `Logger`         | Records info/fine level logs for tracing execution.      |
+| `Logger`           | Records info/fine level logs for tracing execution.     |
 
-<u> Workflow </u>
+<u>Workflow</u>
 
-The activity diagram below illustrates the ListCourseCommand.execute() flow:
-![](diagrams/ListCourseCommandActivityDiagram.png)
+The activity diagram below illustrates the `ListCourseCommand.execute()` flow:
+
+![List course command activity diagram](diagrams/ListCourseCommandActivityDiagram.png)
 
 Key steps:
+
 - Assert non-null arguments (both `courses` and `sessions`) to catch programming errors early.
 - Log the start of command execution at INFO level.
 - If the course list is empty, prompt the user with "No courses available" and stop.
@@ -103,11 +106,13 @@ Key steps:
 - Log completion at FINE level and return.
 
 Notes:
-- The assertions are defensive checks intended for development/testing (enabled with -ea). Production callers should ensure valid arguments.
 
-### Delete Course Command
+- The assertions are defensive checks intended for development/testing (enabled with `-ea`). Production callers should
+  ensure valid arguments.
 
-<u> Overview </u>
+#### Delete course command
+
+<u>Overview</u>
 
 `DeleteCourseCommand` is a concrete implementation of the `Command` interface in the NUStudy system. The primary
 function is to handle user requests to delete an existing course by its name from the courses `ArrayList` managed by
@@ -116,19 +121,18 @@ the `CourseManager`.
 This command does the following:
 
 - Validate the user input
-- Searches for the specified course.
-- Removes it from the internal course list if found.
-- Performs consistency checks post-deletion.
-- Logs all major steps and errors for traceability.
-- Displays a confirmation message to the user.
+- Searches for the specified course
+- Removes it from the internal course list if found
+- Performs consistency checks post-deletion
+- Logs all major steps and errors for traceability
+- Displays a confirmation message to the user
 
-<u> Implementation Details </u>
+<u>Implementation details</u>
 
-#### Package `arpa.home.nustudy.command`
+- Package: `arpa.home.nustudy.command`
+- Class: `public class DeleteCourseCommand implements Command`
 
-#### Class `public class DeleteCourseCommand implements Command`
-
-#### Dependencies
+Dependencies:
 
 | Component                      | Responsibility                                                            |
 |--------------------------------|---------------------------------------------------------------------------|
@@ -140,52 +144,56 @@ This command does the following:
 | `NUStudyNoSuchCourseException` | Thrown when the specified course does not exist.                          |
 | `Logger`                       | Provides runtime logging for debug, info, and error tracking.             |
 
-<u> Workflow </u>
+<u>Workflow</u>
 
 The following activity diagram illustrates the complete removing course workflow:
-![](diagrams/DeleteCourseCommandActivityDiagram.png)
 
-### Course Component
+![Delete course command activity diagram](diagrams/DeleteCourseCommandActivityDiagram.png)
+
+### Course component
 
 <u>Overview</u>
 
-The Course Component is responsible for representing and managing course-related entities in the NUStudy Application.
+The Course component is responsible for representing and managing course-related entities in the NUStudy application.
 It consists of 2 main classes:
 
-1. `Course` - a Class that encapsulates all information about a Course.
-2. `CourseManager` - a Class that manipulates and maintains a collection of Course Objects.
+1. `Course` — a class that encapsulates all information about a Course.
+1. `CourseManager` — a class that manipulates and maintains a collection of Course objects.
 
 These 2 classes forms the layer for handling the entity of Course. It is responsible for the CRUD of the entity Course.
 
-<u>Implementation Details</u>
+<u>Implementation details</u>
 
-The following diagram is the class diagram for `Course` and `CourseManger`
+The following diagram is the class diagram for `Course` and `CourseManger`:
 
-![](diagrams/CourseClassDiagram.png)
+![Course class diagram](diagrams/CourseClassDiagram.png)
 
-The `CourseManager` class acts as a controller or manager, handling a dynamic list of Course instances using an internal ArrayList.
+The `CourseManager` class acts as a controller or manager, handling a dynamic list of Course instances using an internal
+ArrayList.
 
-<u>Course Methods</u>
+**`Course` methods**:
 
-The `Course` class defines the following methods
-* `Course(String courseName)`: Constructs a new Course with the given name.
-* `getCourseName()`: Retrieves the name attribute of a Course.
-* `setCourseName(String courseName)`: Updates the course name of a Course used for the edit feature.
-* `toString()`: Returns the course name as a readable string.
-* `toStorageString()`: Returns the course data formatted for file storage.
+The `Course` class defines the following methods:
 
-<u>CourseManager Methods</u>
+- `Course(String courseName)`: Constructs a new Course with the given name.
+- `getCourseName()`: Retrieves the name attribute of a Course.
+- `setCourseName(String courseName)`: Updates the course name of a Course used for the edit feature.
+- `toString()`: Returns the course name as a readable string.
+- `toStorageString()`: Returns the course data formatted for file storage.
 
-The `CourseManager` class defines the following methods
-* `add(Course course)`: Adds a Course Object to the list.
-* `delete(Course course)`: Removes a Course Object from the list.
-* `getCourses()`: Retrieves all courses managed by this class.
-* `findCourse(String courseName)`: Searches for a course by name.
-* `iterator()`: Returns an iterator to traverse through all courses.
+**`CourseManager` methods**:
 
-### Session Component
+The `CourseManager` class defines the following methods:
 
-### Storage Component
+- `add(Course course)`: Adds a Course Object to the list.
+- `delete(Course course)`: Removes a Course Object from the list.
+- `getCourses()`: Retrieves all courses managed by this class.
+- `findCourse(String courseName)`: Searches for a course by name.
+- `iterator()`: Returns an iterator to traverse through all courses.
+
+### Session component
+
+### Storage component
 
 <u>Overview</u>
 
@@ -193,20 +201,20 @@ The `Storage` class is responsible for managing the saving and loading of Course
 local machine. NUStudy will load the saved data from the saved txt file if present when starting the application, and
 saving all data back to the saved txt file when application exits.
 
-<u>Implementation Details</u>
+<u>Implementation details</u>
 
 The Storage component consists of the following key classes:
 
-* `Storage` - Main class that handles file I/O operations for saving and loading data
-* `Course` - Represent a course with a name, provides serialisation via `toStorageString()`
-* `Session` - Represents a study session linked to a course with logged hours, provides serialisation via
+- `Storage` — Main class that handles file I/O operations for saving and loading data
+- `Course` — Represent a course with a name, provides serialisation via `toStorageString()`
+- `Session` — Represents a study session linked to a course with logged hours, provides serialisation via
   `toStorageString()`
-* `CourseManager` - Manages the collection of courses
-* `SessionManager` - Manages the collection of study sessions
+- `CourseManager` — Manages the collection of courses
+- `SessionManager` — Manages the collection of study sessions
 
 The class diagram below illustrates the relationships between these classes:
 
-![Storage Class Diagram](diagrams/StorageClassDiagram.png)
+![Storage class diagram](diagrams/StorageClassDiagram.png)
 
 <u>File format and conventions</u>
 
@@ -215,7 +223,7 @@ operation. Subsequent runs of the application will load data from this file.
 
 The storage file is lined-based, with each line representing a single record:
 
-**Format**
+**Format**:
 
 ```
 C|<courseName>
@@ -230,7 +238,7 @@ Where:
 - `<courseName>` is the course identifier
 - `<loggedHours>` is an integer representing study hours
 
-*Examples*
+**Examples**:
 
 ```
 C|CS2113
@@ -245,13 +253,13 @@ This example shows:
 - Two courses: CS2113 and MA1508E
 - Three study sessions: two for CS2113 (2 hours and 5 hours) and one for MA1508E (6 hours)
 
-<u>Save Operation</u>
+<u>Save operation</u>
 
 The following sequence diagram illustrates how data is stored to storage:
 
-![Storage Save Sequence Diagram](diagrams/StorageSaveSequenceDiagram.png)
+![Storage save sequence diagram](diagrams/StorageSaveSequenceDiagram.png)
 
-<u>Load Operation</u>
+<u>Load operation</u>
 
 The following sequence diagrams illustrate how data is loaded from storage:
 
@@ -262,7 +270,7 @@ The following sequence diagrams illustrate how data is loaded from storage:
 
 *Main load sequence diagram for data loading:*
 
-![Storage Load Sequence Diagram](diagrams/StorageLoadSequenceDiagram.png)
+![Storage load sequence diagram](diagrams/StorageLoadSequenceDiagram.png)
 
 The `load(courses, sessions)` method in `Storage` executes the following:
 
@@ -277,7 +285,7 @@ The `load(courses, sessions)` method in `Storage` executes the following:
 
 *Referenced sequence diagram for parsing logic:*
 
-![Storage Load Sequence Diagram(Parsing Logic)](diagrams/StorageLoadSequenceRefDiagram.png)
+![Storage load sequence diagram(Parsing Logic)](diagrams/StorageLoadSequenceRefDiagram.png)
 
 The abstracted logic parsing frame executes the following:
 
@@ -289,72 +297,198 @@ The abstracted logic parsing frame executes the following:
       instance if a matching course already exists.
 2. Each parsing branch contains internal validation checks for prefix correctness, segment counts and null checks.
 
-### Reset Component
+### Reset component
 
-<u> Overview </u>
+<u>Overview</u>
 
-The Reset Functionality enables users to clear logged study hours for either all or a specified course. A **double 
+The reset functionality enables users to clear logged study hours for either all or a specified course. A **double
 confirmation flow** is developed to prevent any unintended and thus, accidental deletions.
 
-<u> Implementation details </u>
+<u>Implementation details</u>
 
-1. First Level Confirmation:
-- Users must confirm with `y` or `n` regardless of capitalisation. This prompt loops until valid input is received
-- If `n` is received, reset operation is cancelled
-2. Second Level Confirmation:
-- Users are to prompted to type the `safeword` - `RESET ALL` for all courses and `RESET` for a specific course
-- The `safeword` must strictly be equivalent, else reset operation is cancelled
+1. First level confirmation:
+    - Users must confirm with `y` or `n` regardless of capitalisation. This prompt loops until valid input is received.
+    - If `n` is received, reset operation is cancelled
+1. Second level confirmation:
+    - Users are to prompted to type the `safeword` — `RESET ALL` for all courses and `RESET` for a specific course
+    - The `safeword` must strictly be equivalent, else reset operation is cancelled
 
-<u> Reset Workflow </u>
+<u>Reset workflow</u>
 
 The following activity diagram illustrates the complete reset workflow:
 
-![Reset Activity Diagram](diagrams/ResetFunctionDiagram.png)
+![Reset activity diagram](diagrams/ResetFunctionDiagram.png)
 
-<u> Design Considerations </u>
+<u>Design considerations</u>
 
 **Aspect: Confirmation mechanism**
 
-* **Alternative 1 (current choice)**: Dual-level confirmation with `safeword`
-  * Pros: By strictly requiring the user to clarify his/her final intent, this ensures maximum prevention in 
-    accidental deletion
-  * Cons: Slower user experience due to increased user interaction
-* **Alternative 2**: Single-level confirmation
-  * Pros: Quicker user experience, straightforward design
-  * Cons: Greater risk of accidental data wipe, especially for `reset all` usage
-* **Alternative 3**: Zero confirmation
-  * Pros: Quickest operation, minimal required user interaction
-  * Cons: Reckless design, leading to unacceptable risk of data wipe
+- **Alternative 1 (current choice)**: Dual-level confirmation with `safeword`
+    - Pros: By strictly requiring the user to clarify his/her final intent, this ensures maximum prevention in
+      accidental deletion
+    - Cons: Slower user experience due to increased user interaction
+- **Alternative 2**: Single-level confirmation
+    - Pros: Quicker user experience, straightforward design
+    - Cons: Greater risk of accidental data wipe, especially for `reset all` usage
+- **Alternative 3**: Zero confirmation
+    - Pros: Quickest operation, minimal required user interaction
+    - Cons: Reckless design, leading to unacceptable risk of data wipe
 
 {*more aspects and alternatives to be added*}
 
-## Appendix
+## Appendix: Requirements
 
 ### Product scope
 
 #### Target user profile
 
-{Describe the target user profile}
+- Prefer desktop apps over other types
+- Can type fast
+- Prefers typing to mouse interactions
+- Is reasonably comfortable using CLI apps
+- Undergraduate students who want a simple, keyboard-driven tool to track study time per course
+- Teaching assistants / tutors who inspect or maintain small course logs
+- Single-user administrators managing personal or small-group study records
+- Intended for small-to-moderate datasets (tens to low hundreds of courses/sessions)
 
 #### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+Helps students to track their study hours for each course, see gaps and understand what courses to focus on next.
+Students often struggle to manage study time across multiple courses, leading to missed deadlines. Existing tools can be
+distracting, requiring internet access, or bloated with unnecessary features.
 
-### User Stories
+### User stories
 
-| Version | As a ... | I want to ...             | So that I can ...                                           |
-|---------|----------|---------------------------|-------------------------------------------------------------|
-| v1.0    | new user | see usage instructions    | refer to them when I forget how to use the application      |
-| v2.0    | user     | find a to-do item by name | locate a to-do without having to go through the entire list |
+Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (optional) - `*`
 
-### Non-Functional Requirements
+| Priority | As a…                     | I want to…                                                                    | So that I can…                                                   |
+|----------|---------------------------|-------------------------------------------------------------------------------|------------------------------------------------------------------|
+| `* * *`  | Easily distracted student | access the study app offline                                                  | be less distracted                                               |
+| `* * *`  | Careless student          | be asked for confirmation when I want to delete study sessions                | be rest assured there won’t be any accidental deletions          |
+| `* * *`  | Goal-oriented student     | set goals for total study hours per day                                       | I can track short-term progress                                  |
+| `* * *`  | Goal-oriented student     | set target study hours per course                                             | set my goals clear                                               |
+| `* * *`  | Organised student         | add a new course                                                              | track number of hours required for it                            |
+| `* * *`  | Organised student         | log study time spent for a specific course                                    | keep track of the amount of time spent studying per module       |
+| `* * *`  | Organised student         | remove a course                                                               | keep my study list relevant                                      |
+| `* * *`  | Visual learner            | be given proper feedback as I manipulate stuff (CRUD)                         | be visually stimulated and be informed of my actions             |
+| `* * *`  | Organised student         | reset logged hours                                                            | know what to focus on next                                       |
+| `* * *`  | Diligent student          | rank the course study time                                                    | start fresh for a current course                                 |
+| `* * *`  | Inquisitive student       | see which course I studied the least                                          | know where to focus more                                         |
+| `* * *`  | Efficient student         | set maximum study hours allocated in a week                                   | effectively balance my workload across the week                  |
+| `* * *`  | Reflective student        | track total studies time                                                      | understand my priorities                                         |
+| `* * *`  | Systematic student        | view a summary of hours spent on studying per course                          | have better time management                                      |
+| `* *`    | Ambitious student         | set long-term study goals for the semester                                    | plan my academic progress                                        |
+| `* *`    | Careful student           | edit previous log study time or course                                        | fix typos or mistakes                                            |
+| `* *`    | Careful student           | undo my last input                                                            | quickly fix my mistakes                                          |
+| `* *`    | Disciplined student       | set weekly study goals                                                        | maintain a consistent study routine                              |
+| `* *`    | Efficient student         | filter my study logs by date                                                  | focus on specific periods                                        |
+| `* *`    | Persistent student        | track my study streak                                                         | stay motivated to study daily                                    |
+| `* *`    | Motivated student         | earn badges/points for consistent study habits                                | stay engaged with the app                                        |
+| `* *`    | New user                  | view a manual on how to use this app                                          | quickly learn how to use its features                            |
+| `* *`    | Organised student         | view a calendar of all my course events                                       | plan my study schedule                                           |
+| `* *`    | Proactive student         | see a summary of my course deadlines                                          | prioritize tasks effectively                                     |
+| `* *`    | Attentive student         | compare actual versus target hours                                            | know if I am on track                                            |
+| `* *`    | Methodical student        | have an automatic way to log my study times per session                       | do not have to be aware and concerned if I forgot to time myself |
+| `* *`    | Thorough student          | have my study timing records saved automatically                              | be sure my progress will not be lost                             |
+| `* *`    | Resilient student         | have the option to import past study sessions if I have the save file with me | continue where I left off                                        |
+| `* *`    | Analytical student        | track my average study hour per day                                           | I can evaluate my consistency                                    |
+| `*`      | Busy student              | receive notifications for upcoming assignment deadlines                       | manage my time effectively                                       |
+| `*`      | Competitive student       | compare my study hours with anonymized peer data                              | gauge my effort                                                  |
+| `*`      | Responsible student       | confirm my assignment submissions                                             | I know they were received successfully                           |
+| `*`      | Time-conscious student    | set personal reminders for study tasks                                        | stay on top of my coursework                                     |
 
-{Give non-functional requirements}
+## Use cases
+
+<u>UC1 — Add course (MSS)</u>
+
+1. User issues: `add <course>`
+1. System validates and adds course
+1. System confirms addition; `list` shows it
+
+Extensions: missing/invalid input → system prompts; duplicate → system rejects
+
+<u>UC2 — Add study session (MSS)</u>
+
+1. User issues: `add <course> <hours> [date]`
+1. System validates course existence, hours and date
+1. System records session and confirms
+
+Extensions: invalid course/date/hours → system shows error
+
+<u>UC3 — List courses / sessions (MSS)</u>
+
+1. User issues: `list` or `list <course>`
+1. System displays courses or sessions with 1-based indices
+
+Extensions: no data → empty message
+
+<u>UC4 — Edit session (MSS)</u>
+
+1. User issues: `edit <course> <index> <hours|date>`
+1. System validates inputs and updates session
+1. System confirms update
+
+Extensions: invalid course/index/date → system shows error
+
+<u>UC5 — Filter (MSS)</u>
+
+1. User issues: `filter <course>` or `filter <date>` or `filter <course> <date>`
+1. System validates inputs and displays matching results
+1. System retains original course/session indices in output to support subsequent edit/delete by index
+
+Extensions: invalid/ future dates → informative error; no matches → empty message
+
+<u>UC6 — Reset hours (MSS)</u>
+
+1. User issues: `reset <course>` or `reset all`
+1. Two-stage confirmation (y/n, then safeword)
+1. On confirmation, system resets hours and confirms
+
+### Non-functional requirements
+
+#### Data
+
+- NFR1: Persist data across sessions to local file; no data loss on normal shutdown
+- NFR2: Handle typical dataset sizes (hundreds of entries) with responsive performance
+
+#### Environment
+
+- NFR3: Run on mainstream OSes with Java 17+
+
+#### Usability & accessibility
+
+- NFR4: Clear, actionable error messages for invalid input (dates, indices, missing args)
+- NFR5: Keyboard-first UX; minimal typing overhead for common tasks
+
+#### Maintainability & testability
+
+- NFR6: Modular design (parser, UI, commands, managers) to ease maintenance
+
+#### Reliability & robustness
+
+- NFR7: Fail gracefully on malformed storage lines (log and skip), validate dates (reject future dates) and indices
+
+#### Performance
+
+- NFR8: Typical command response time under 2 seconds for up to hundreds of records
+
+#### Scalability
+
+- NFR9: Design permits scaling storage or migrating to DB if needed (out-of-scope for MVP)
 
 ### Glossary
 
-* *glossary item* - Definition
+- Mainstream OS: Windows, Linux, Unix, MacOS
+- MSS: Must-Support Scenario
+- NUStudy: The name of the application
+- CLI: Command-Line Interface
+- Course: A study subject identified by a course code (e.g., CS2113, MA1511)
+- Session: A recorded study period linked to a Course, with logged hours and a date
+- Index (course): 1-based position of a course in the CourseManager's list (used for edit/delete)
+- Index (session): 1-based position of a session in a course's session list (used for edit/delete)
+- Future date: A date strictly after the system's current date; commands validate and report this
+- Safeword: Exact confirmation string required for destructive operations (e.g., `RESET`, `RESET ALL`)
 
-## Instructions for manual testing
+## Appendix: Instructions for manual testing
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}

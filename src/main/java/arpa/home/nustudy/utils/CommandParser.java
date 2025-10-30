@@ -17,6 +17,9 @@ import arpa.home.nustudy.command.FilterByDateCommand;
 import arpa.home.nustudy.command.FilterByNameAndDateCommand;
 import arpa.home.nustudy.exceptions.NUStudyCommandException;
 
+/**
+ * Parses user input strings into Command objects.
+ */
 public class CommandParser {
     private static ResetCourseHoursCommand resetCourseHoursCommand;
 
@@ -182,8 +185,8 @@ public class CommandParser {
      *
      * @param arguments The command arguments to parse for filtering.
      *
-     * @return A {@link FilterByNameCommand} instance if a course name is provided, or a {@link FilterByDateCommand}
-     *         instance if a date is provided.
+     * @return A {@link FilterByNameCommand} instance if a course name is provided, a {@link FilterByDateCommand}
+     *         instance if a date is provided, or {@link FilterByNameAndDateCommand} for course+date.
      *
      * @throws NUStudyCommandException If the command format is invalid.
      */
@@ -195,17 +198,14 @@ public class CommandParser {
 
         final String[] parts = arguments.split("\\s+");
         if (parts.length == 1) {
-            // Previously we accepted single-token dates; tests expect single-token date filters to be rejected.
-            // Treat single-token tokens that look like dates (or are valid dates) as invalid for the single-token form.
+            // Accept single-token date-only filters -> let the FilterByDateCommand handle parsing/invalid-date
             if (DateParser.isValidDate(parts[0]) || looksLikeDate(parts[0])) {
-                throw new NUStudyCommandException(
-                        "Invalid filter command. For date filters use: filter <course> <date> or use course-only "
-                                + "filter: filter <course>");
+                return new FilterByDateCommand(parts[0]);
             }
             // single token that's not a date -> treat as course-name filter
             return new FilterByNameCommand(arguments);
         } else if (parts.length == 2) {
-            // If second token is a valid date -> course + date filter (route so that command can show invalid-date
+            // If second token looks like a date -> course + date filter (route so that command can show invalid-date
             // messages)
             if (DateParser.isValidDate(parts[1]) || looksLikeDate(parts[1])) {
                 return new FilterByNameAndDateCommand(parts[0], parts[1]);

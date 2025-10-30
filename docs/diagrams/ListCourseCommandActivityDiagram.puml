@@ -10,25 +10,27 @@ skinparam BoxPadding 1
 
 start
 
-if (courses is null?) then (yes)
-    :AssertionError: courses is null;
+:Assert courses != null;
+if (assertion failed?) then (yes)
+    :AssertionError thrown;
     stop
 else (no)
-    if (sessions is null?) then (yes)
-        :AssertionError: sessions is null;
+    :Assert sessions != null;
+    if (assertion failed?) then (yes)
+        :AssertionError thrown;
         stop
     else (no)
-        :Developer Log INFO "Executing ListCourseCommand";
+        :Developer Log [INFO] "Executing ListCourseCommand";
     endif
 endif
 
-if (Is course list empty?) then (yes)
-    :Prompt User "No courses available";
+if (course list is empty?) then (yes)
+    :UserInterface prints "No courses available";
     stop
 else (no)
     :Call UserInterface.printCourseList(courses);
 endif
 
-:Developer Log FINE "Finished ListCourseCommand";
+:Developer Log [FINE] "Finished ListCourseCommand";
 stop
 @enduml
