@@ -9,35 +9,49 @@ class Storage {
 
 class Course {
     - courseName : String
-    + Course(String courseName)
-    + String getCourseName()
-    + String toString()
-    + String toStorageString()
+    + Course(courseName: String)
+    + getCourseName() : String
+    + setCourseName(courseName: String) : void
+    + toString() : String
+    + toStorageString() : String
 }
 
 class Session {
-    - loggedHours : int
-    + Session(Course, int)
-    + int getLoggedHours()
-    + Course getCourse()
-    + String toString()
-    + String toStorageString()
+    - loggedHours: int
+    - date: LocalDate
+
+    + Session(course: Course, loggedHours: int, date: LocalDate)
+    + getLoggedHours(): int
+    + setLoggedHours(loggedHours: int): void
+    + getCourse(): Course
+    + getDate(): LocalDate
+    + getDateString(): String
+    + setDate(date: LocalDate): void
+    + toStorageString(): String
+    + toString(): String
 }
 
 class CourseManager {
-    + void add(Course)
-    + void delete(Course)
-    + ArrayList<Course> getCourses()
-    + Course findCourse(String)
-    + Iterator<Course> iterator()
+    + add(course: Course) : void
+    + delete(course: Course) : void
+    + getCourses() : ArrayList<Course>
+    + findCourse(courseName: String) : Course
+    + iterator() : Iterator<Course>
 }
 
 class SessionManager {
-    + void add(Course, int)
-    + ArrayList<Integer> getAllLoggedHoursForCourse(Course)
-    + void clearAllSessions()
-    + void removeAllSessionsForCourse(Course)
-    + Iterator<Session> iterator()
+
+    + add(course: Course, loggedHours: int, date: LocalDate): void
+    + sessionExists(course: Course, loggedHours: int): boolean
+    + getAllLoggedHoursForCourse(course: Course): ArrayList<Integer>
+    + getAllDateStringsForCourse(course: Course): ArrayList<String>
+    + clearAllSessions(): void
+    + removeAllSessionsForCourse(course: Course): void
+    + getSessionCount(): int
+    + getAllSessionsForCourse(course: Course): ArrayList<Session>
+    + removeSession(session: Session): boolean
+    + removeAllSessionsByDate(date: LocalDate): int
+    + iterator(): Iterator<Session>
 }
 
 
@@ -52,8 +66,8 @@ interface Iterable {
 Iterable<|.. CourseManager
 Iterable <|.. SessionManager
 
-CourseManager "0..1" --> "*" Course : Contains
-SessionManager "0..1" --> "*" Session : Contains
+CourseManager "0..1" --> "*" Course : manages >
+SessionManager "0..1" --> "*" Session : manages >
 
 Session "*"-->"1" Course
 
