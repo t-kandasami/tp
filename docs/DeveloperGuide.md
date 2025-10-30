@@ -253,22 +253,41 @@ The following sequence diagram illustrates how data is stored to storage:
 
 <u>Load Operation</u>
 
-The following sequence diagram illustrates how data is loaded from storage:
+The following sequence diagrams illustrate how data is loaded from storage:
+
+1. Main load process: Checks for existence of parent directory and text file, creates buffer and handles continuous
+   reading in of stored data lines from the text file.
+2. Parsing sub-process: Abstracted frame `sd parsing courses or sessions` showcases how each line is interpreted and
+   converted into `Course` or `Session` objects.
+
+*Main load sequence diagram for data loading:*
 
 ![Storage Load Sequence Diagram](diagrams/StorageLoadSequenceDiagram.png)
 
-How the `load` operation work:
+The `load(courses, sessions)` method in `Storage` executes the following:
 
-1. `ensureParentDirectoryexists()` checks for the parent file. An error message is logged and returns `false` if 
-   non-existent.
-2. If parent directory exists, storage file existence is checked. If `exists()` on the storage file returns false, 
-   empty dataset is initialised. Else, data is loaded in.
-3. Data is parsed in line by line using `nextLine()`. Lines with prefix `C|` are parsed as courses with `parseCourse
-(line)` while lines with prefix `S|` are parsed as sessions with `parseSession(line)`.
-4. Every line is validated in the format variables (prefix, number of segments, non-null values). For sessions, the 
-   referenced course must exist in the corresponding `CourseManager` instance.
-5. Warnings are logged for invalid lines - such lines are skipped.
-6. Only valid courses and sessions are added to the `CourseManager` and `SessionManager` instances respectively.
+1. `ensureParentDirectoryexists()` checks for the parent directory. If non-existent, it attempts to create one using 
+   `mkdirs()`.
+2. If parent directory exists, the existence of the storage file `NUStudy.txt` is checked. If it is non-existent, a 
+   note is logged to notify user and empty managers are initialised.
+3. A `BufferedReader` is initiailsed to read in contents from the text file line by line.
+4. Each line from the file is handed over to a separate sub-process (see below). This sub-process handles checks, 
+   `Session` or `Course` object creation and insertion into the respective managers.
+5. After all lines are processed, the `BufferedReader` is closed and returns to `App`.
+
+*Referenced sequence diagram for parsing logic:*
+
+![Storage Load Sequence Diagram(Parsing Logic)](diagrams/StorageLoadSequenceRefDiagram.png)
+
+The abstracted logic parsing frame executes the following:
+
+1. Based on the line prefix, the `Storage` component assigns parsing logic as shown by the `opt` frame.
+   1. If a line starts with `C|`, it calls `parseCourse(line)` through the `DataParser` class, constructs a new 
+      `Course` object and inserts it into the `CourseManager` instance.
+   2. If a line starts with `S|`, it calls `parseSession(line)` through the `DataParser` class, constructs a 
+      new `Session` object with its corresponding `Course` reference and inserts it into the `SessionManager` 
+      instance if a matching course already exists.
+2. Each parsing branch contains internal validation checks for prefix correctness, segment counts and null checks.
 
 ### Reset Component
 
