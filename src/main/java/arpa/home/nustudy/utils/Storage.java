@@ -121,10 +121,15 @@ public class Storage {
             line = line.trim();
 
             try {
-                if (line.startsWith("C|")) {
+                if (line.startsWith("C")) {
                     final Course course = DataParser.parseCourse(line);
+                    if (courses.findCourse(course.getCourseName()) != null) {
+                        System.out.println("Course already exists: " + course.getCourseName()
+                                + "\nDiscarding data.... ");
+                        continue;
+                    }
                     courses.add(course);
-                } else if (line.startsWith("S|")) {
+                } else if (line.startsWith("S")) {
                     final Session session = DataParser.parseSession(line);
                     Course sessionCourse = session.getCourse();
 
@@ -145,6 +150,7 @@ public class Storage {
             } catch (NUStudyException e) {
                 logger.log(Level.WARNING, "Unable to parse line: ");
                 logger.log(Level.INFO, "Error message: " + e.getMessage());
+                System.out.println(e.getMessage());
             }
         }
     }
