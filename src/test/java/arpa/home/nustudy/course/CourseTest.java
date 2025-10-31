@@ -11,12 +11,12 @@ class CourseTest {
     @Test
     void testStorageStringConversion() {
         Course course = new Course("CS2113");
-        assertEquals("C|CS2113", course.toStorageString());
+        assertEquals("C\tCS2113", course.toStorageString());
     }
 
     @Test
     void testStringStorageConversion() {
-        String storedCourseName = "C|CS2113";
+        String storedCourseName = "C\tCS2113";
         Course course = null;
         try {
             course = DataParser.parseCourse(storedCourseName);
