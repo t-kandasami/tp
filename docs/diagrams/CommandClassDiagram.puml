@@ -1,75 +1,96 @@
 @startuml
 'https://plantuml.com/class-diagram
+skinparam ClassAttributeIconSize 0
+hide circle
 
-interface Command {
-    + void execute(CourseManager, SessionManager)
-    + boolean isExit()
+interface Command <<interface>> {
+    + execute(CourseManager, SessionManager) : void
+    + isExit() : boolean
 }
 
 class AddCourseCommand {
-    - String input
-    + void execute(CourseManager, SessionManager)
-    + boolean isExit()
+    - input : String
+    + execute(CourseManager, SessionManager) : void
+    + isExit() : boolean
 }
 
 class AddSessionCommand {
-    - String input
-    + void execute(CourseManager, SessionManager)
-    + boolean isExit()
+    - input : String
+    + execute(CourseManager, SessionManager) : void
+    + isExit() : boolean
 }
 
 class DeleteCourseCommand {
-    - String input
-    + void execute(CourseManager, SessionManager)
-    + boolean isExit()
+    - input : String
+    + execute(CourseManager, SessionManager) : void
+    + isExit() : boolean
 }
 
 class DeleteSessionByDateCommand {
-    - String dateString
-    + void execute(CourseManager, SessionManager)
-    + boolean isExit()
+    - dateString : String
+    + execute(CourseManager, SessionManager) : void
+    + isExit() : boolean
 }
 
 class DeleteSessionByIndexCommand {
-    - String courseName
-    - String IndexString
-    + void execute(CourseManager, SessionManager)
-    + boolean isExit()
+    - courseName : String
+    - IndexString : String
+    + execute(CourseManager, SessionManager) : void
+    + isExit() : boolean
 }
 
 class EditCourseNameCommand {
-    - String oldCourseName
-    - String newCourseName
-    + void execute(CourseManager, SessionManager)
-    + boolean isExit()
+    - oldCourseName : String
+    - newCourseName : String
+    + execute(CourseManager, SessionManager) : void
+    + isExit() : boolean
 }
 
 class EditSessionCommand {
-    - String input
-    + void execute(CourseManager, SessionManager)
-    + boolean isExit()
+    - input : String
+    + execute(CourseManager, SessionManager) : void
+    + isExit() : boolean
 }
 
 class ExitCommand {
-    + void execute(CourseManager, SessionManager)
-    + boolean isExit()
+    + execute(CourseManager, SessionManager) : void
+    + isExit() : boolean
+}
+
+class FilterByDateCommand {
+    - dateString : String
+    + execute(CourseManager, SessionManager) : void
+    + isExit() : boolean
+}
+
+class FilterByNameAndDateCommand {
+    - courseKeyword : String
+    - dateString : String
+    + execute(CourseManager, SessionManager) : void
+    + isExit() : boolean
+}
+
+class FilterByName {
+    - keyword : String
+    + execute(CourseManager, SessionManager) : void
+    + isExit() : boolean
 }
 
 class ListCourseCommand {
-    + void execute(CourseManager, SessionManager)
-    + boolean isExit()
+    + execute(CourseManager, SessionManager) : void
+    + isExit() : boolean
 }
 
 class ListCourseHoursPerSessionCommand {
-    - String input
-    + void execute(CourseManager, SessionManager)
-    + boolean isExit()
+    - input : String
+    + execute(CourseManager, SessionManager) : void
+    + isExit() : boolean
 }
 
 class ResetCourseHoursCommand {
-    - String input
-    + void execute(CourseManager, SessionManager)
-    + boolean isExit()
+    - input : String
+    + execute(CourseManager, SessionManager) : void
+    + isExit() : boolean
 }
 
 AddCourseCommand -[hidden]down- AddSessionCommand
@@ -79,7 +100,10 @@ DeleteSessionByDateCommand -[hidden]down- DeleteSessionByIndexCommand
 DeleteSessionByIndexCommand -[hidden]down- EditCourseNameCommand
 
 EditSessionCommand -[hidden]down- ExitCommand
-ExitCommand -[hidden]down- ListCourseCommand
+ExitCommand -[hidden]down- FilterByDateCommand
+FilterByDateCommand -[hidden]down- FilterByNameAndDateCommand
+FilterByNameAndDateCommand -[hidden]down- FilterByName
+FilterByName -[hidden]down- ListCourseCommand
 ListCourseCommand -[hidden]down- ListCourseHoursPerSessionCommand
 ListCourseHoursPerSessionCommand -[hidden]down- ResetCourseHoursCommand
 
@@ -92,6 +116,9 @@ EditCourseNameCommand .up.|> Command
 
 EditSessionCommand .up.|> Command
 ExitCommand .up.|> Command
+FilterByDateCommand .up.|> Command
+FilterByNameAndDateCommand .up.|> Command
+FilterByName .up.|> Command
 ListCourseCommand .up.|> Command
 ListCourseHoursPerSessionCommand .up.|> Command
 ResetCourseHoursCommand .up.|> Command

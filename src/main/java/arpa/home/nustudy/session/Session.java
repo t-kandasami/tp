@@ -76,7 +76,7 @@ public class Session {
      * @return A string format in the formate "S|Course_Name|Logged_Hours|Date"
      */
     public String toStorageString() {
-        return "S|" + course.getCourseName() + "|" + loggedHours + "|" + date;
+        return "S\t" + course.getCourseName() + "\t" + loggedHours + "\t" + date;
     }
 
     /**

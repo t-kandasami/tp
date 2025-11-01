@@ -40,10 +40,10 @@ public class App {
             try {
                 final Command c = CommandParser.parseCommand(userInput);
                 c.execute(courseManager, sessionManager);
+                storage.save(courseManager, sessionManager);
 
                 if (c.isExit()) {
                     isExit = true;
-                    storage.save(courseManager, sessionManager);
                 }
             } catch (final NUStudyException e) {
                 System.out.println(e.getMessage());

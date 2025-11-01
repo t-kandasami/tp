@@ -1,4 +1,6 @@
 @startuml
+skinparam ClassAttributeIconSize 0
+hide circle
 
 class Storage {
     - dataFile : File
@@ -60,7 +62,7 @@ Storage ..> SessionManager : uses
 Storage ..> Course : uses toStorageString()
 Storage ..> Session : uses toStorageString()
 
-interface Iterable {
+interface Iterable <<interface>>{
     + Iterator iterator()
 }
 Iterable<|.. CourseManager

@@ -20,7 +20,7 @@ public class DataParser {
      * @throws NUStudyException If required format (empty segments between "|") is wrong.
      */
     public static Course parseCourse(String storageString) throws NUStudyException {
-        String[] parts = storageString.split("\\|");
+        String[] parts = storageString.split("\\t");
 
         if (!parts[0].equals("C")) {
             throw new NUStudyException("Invalid course type: " + storageString);
@@ -45,22 +45,27 @@ public class DataParser {
      * @throws NUStudyException If required format (empty segments between "|") is wrong.
      */
     public static Session parseSession(String storageString) throws NUStudyException {
-        String[] parts = storageString.split("\\|");
+        String[] parts = storageString.split("\\t");
 
         if (!parts[0].equals("S")) {
-            throw new NUStudyException("Invalid course type: " + storageString);
+            throw new NUStudyException("Invalid course type: " + storageString
+                    + "\nDiscarding data....");
         }
         if (parts.length != 4) {
-            throw new NUStudyException("Invalid session hours format: " + storageString);
+            throw new NUStudyException("Invalid session hours format: " + storageString
+                    + "\nDiscarding data....");
         }
         if (parts[1].isEmpty()) {
-            throw new NUStudyException("Course name cannot be empty: " + storageString);
+            throw new NUStudyException("Course name cannot be empty: " + storageString
+                    + "\nDiscarding data....");
         }
         if (parts[2].isEmpty()) {
-            throw new NUStudyException("Session hours cannot be empty: " + storageString);
+            throw new NUStudyException("Session hours cannot be empty: " + storageString
+                    + "\nDiscarding data....");
         }
         if (parts[3].trim().isEmpty()) {
-            throw new NUStudyException("Session date cannot be empty: " + storageString);
+            throw new NUStudyException("Session date cannot be empty: " + storageString
+                    + "\nDiscarding data....");
         }
 
         String courseName = parts[1];
@@ -71,15 +76,15 @@ public class DataParser {
             hours = Integer.parseInt(parts[2].trim());
             if (hours < 0) {
                 throw new NUStudyException("Invalid session hours format: " + storageString
-                        + "\n Discarding data...");
+                        + "\nDiscarding data...");
             }
             sessionDate = LocalDate.parse(parts[3].trim());
         } catch (NumberFormatException e) {
             throw new NUStudyException("Fail to parse Study Hours: " + storageString
-                    + "\n Discarding data....");
+                    + "\nDiscarding data....");
         } catch (DateTimeParseException e) {
             throw new NUStudyException("Fail to parse Study Hours: " + storageString
-                    + "\n Discarding data....");
+                    + "\nDiscarding data....");
         }
         Course course = new Course(courseName);
 

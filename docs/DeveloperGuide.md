@@ -71,6 +71,7 @@ The `Command` interface is implemented by the following command classes:
 - **Delete Commands**: `DeleteCourseCommand`, `DeleteSessionByDateCommand`, `DeleteSessionByIndexCommand`
 - **Edit Commands**: `EditCourseNameCommand`, `EditSessionCommand`
 - **List Commands**: `ListCourseCommand`, `ListCourseHoursPerSessionCommand`
+- **Filter Commands**: `FilterByDateCommand`, `FilterByNameAndDateCommand`, `FilterByNameCommand`
 - **Other Commands**: `ResetCourseHoursCommand`, `ExitCommand`
 
 <u>Methods</u>
@@ -294,26 +295,26 @@ The storage file is lined-based, with each line representing a single record:
 **Format**:
 
 ```
-C|<courseName>
-S|<courseName>|<loggedHours>
+C	<courseName>
+S	<courseName>	<loggedHours>
 ```
 
 Where:
 
-- `C|` prefix denotes a Course record
-- `S|` prefix denotes a Session record
-- Fields are separated by the pipe character `|`
+- `C` prefix denotes a Course record
+- `S` prefix denotes a Session record
+- Fields are separated by the tab character `\t`
 - `<courseName>` is the course identifier
 - `<loggedHours>` is an integer representing study hours
 
 **Examples**:
 
 ```
-C|CS2113
-C|MA1508E
-S|CS2113|2
-S|CS2113|5
-S|MA1508E|6
+C	CS2113
+C	MA1508E
+S	MA1508E	6	2025-10-31
+S	CS2113	2	2025-10-31
+S	CS2113	5	2025-10-31
 ```
 
 This example shows:
