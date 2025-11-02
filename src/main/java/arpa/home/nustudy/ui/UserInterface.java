@@ -112,8 +112,8 @@ public class UserInterface {
      * @param course The course that was added
      * @param hours  The hours that was spent of a study session
      */
-    public static void printStudySessionAdded(final Course course, final int hours) {
-        System.out.printf("Good Job! You have studied %d hours for %s", hours, course.getCourseName());
+    public static void printStudySessionAdded(final Course course, final double hours) {
+        System.out.printf("Good Job! You have studied %.1f hours for %s", hours, course.getCourseName());
         System.out.println();
     }
 
@@ -124,14 +124,14 @@ public class UserInterface {
      * @param hours  List of session hours for the course
      * @param dates  List of session dates for the course
      */
-    public static void printCourseHoursPerSession(final Course course, final ArrayList<Integer> hours,
+    public static void printCourseHoursPerSession(final Course course, final ArrayList<Double> hours,
             final ArrayList<String> dates) {
         System.out.println("List of study sessions");
 
         int idx = 1;
 
         for (int i = 0; i < hours.size() && i < dates.size(); i++) {
-            System.out.printf("%d. %s - %d hours at %s", idx, course, hours.get(i), dates.get(i));
+            System.out.printf("%d. %s - %.1f hours at %s", idx, course, hours.get(i), dates.get(i));
             System.out.println();
             idx++;
         }
@@ -151,7 +151,7 @@ public class UserInterface {
      *
      * @param newHours The new session hour changed for the course
      */
-    public static void printEditSessionHoursSuccess(final int newHours) {
+    public static void printEditSessionHoursSuccess(final double newHours) {
         System.out.println("Session hours changed to " + newHours + " hours");
     }
 
@@ -244,7 +244,7 @@ public class UserInterface {
         for (int i = 0; i < sessionsOnDate.size() && i < originalSessionIndices.size(); i++) {
             final Session s = sessionsOnDate.get(i);
             final int originalIndex = originalSessionIndices.get(i);
-            System.out.printf("%d. %s - %d hours at %s", originalIndex, course, s.getLoggedHours(),
+            System.out.printf("%d. %s - %.1f hours at %s", originalIndex, course, s.getLoggedHours(),
                     DateParser.formatDate(s.getDate()));
             System.out.println();
         }
