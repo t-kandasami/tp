@@ -6,8 +6,7 @@ package arpa.home.nustudy.exceptions;
  */
 public class WrongDateFormatException extends NUStudyException {
 
-    public WrongDateFormatException() {
-        super("Wrong date Format!\n" +
-                "Use dd/mm/yyyy");
+    public WrongDateFormatException(String message) {
+        super("Invalid date or date format: " + message + ". Supported formats: yyyy-MM-dd, d/M/yyyy, d-M-yyyy");
     }
 }
