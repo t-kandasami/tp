@@ -62,6 +62,7 @@ Format: `add <course code> <study duration in hours> [date]`
 > **Note:**
 >
 > If `date` is not provided, today's date will be used.
+> `hours` should be 0.5 to 24
 
 See [Appendix: Supported date formats](#appendix-supported-date-formats) for valid date formats.
 
@@ -70,7 +71,7 @@ Example: `add CS2113 5`
 Expected output:
 
 ```
-Good Job! You have studied 5 hours for CS2113
+Good Job! You have studied 5.0 hours for CS2113
 ```
 
 ### List all added courses
@@ -100,9 +101,9 @@ Expected output:
 
 ```
 List of study sessions
-1. CS2113 - 3 hours at 25 Oct 2025
-2. CS2113 - 1 hours at 25 Oct 2025
-3. CS2113 - 4 hours at 25 Oct 2025
+1. CS2113 - 3.0 hours at 25 Oct 2025
+2. CS2113 - 1.0 hours at 25 Oct 2025
+3. CS2113 - 4.0 hours at 25 Oct 2025
 ```
 
 ### Edit a course name
@@ -130,7 +131,7 @@ Example: `edit CS2113 1 2`
 Expected output:
 
 ```
-Session hours changed to 2 hours
+Session hours changed to 2.0 hours
 ```
 
 ### Edit study session date for a course
@@ -213,8 +214,8 @@ Expected output:
 
 ```
 Sessions for MA1511 on 23 Oct 2025
-1. MA1511 - 3 hours at 23 Oct 2025
-2. MA1511 - 1 hours at 23 Oct 2025
+1. MA1511 - 3.0 hours at 23 Oct 2025
+2. MA1511 - 1.0 hours at 23 Oct 2025
 ```
 
 Behaviour notes:
@@ -286,7 +287,7 @@ Expected output:
 
 ```
 Session 2 was successsfuly deleted for CS2113
-Deleted session: CS2113 - 5 hours on 26 Oct 2025
+Deleted session: CS2113 - 5.0 hours on 26 Oct 2025
 ```
 
 ### Delete a session by date
@@ -344,3 +345,7 @@ NUStudy supports the following date formats:
 - `yyyy-MM-dd` (e.g. 2025-10-25)
 - `d/M/yyyy` (e.g. 25/10/2025)
 - `d-M-yyyy` (e.g. 25-10-2025)
+
+## Appendix: Supported hour range
+
+NUStudy supports hours starting from 0.5 to 24 with 0.5 increment only. 
