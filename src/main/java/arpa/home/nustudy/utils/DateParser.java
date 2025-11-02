@@ -14,8 +14,8 @@ import arpa.home.nustudy.exceptions.WrongDateFormatException;
 public class DateParser {
 
     private static final String[] DATE_PATTERNS = {
-            "uuuu-MM-dd", "d/M/uuuu", "dd/MM/uuuu", "dd/M/uuuu", "d/MM/uuuu",
-            "d-M-uuuu", "dd-M-uuuu", "dd-MM-uuuu", "d-MM-uuuu"
+        "uuuu-MM-dd", "d/M/uuuu", "dd/MM/uuuu", "dd/M/uuuu", "d/MM/uuuu",
+        "d-M-uuuu", "dd-M-uuuu", "dd-MM-uuuu", "d-MM-uuuu"
     };
 
     /**
