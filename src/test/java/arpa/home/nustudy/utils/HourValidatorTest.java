@@ -24,9 +24,9 @@ class HourValidatorTest {
     @Test
     void parseHours_invalidBelowMin() {
         NUStudyException exception = assertThrows(NUStudyException.class, () -> {
-            HourValidator.parseHours("0.5");
+            HourValidator.parseHours("0");
         });
-        assertEquals("Hours must be between 1 and 24, in 0.5 increments.", exception.getMessage());
+        assertEquals("Hours must be between 0.5 and 24, in 0.5 increments.", exception.getMessage());
     }
 
     @Test
@@ -34,7 +34,7 @@ class HourValidatorTest {
         NUStudyException exception = assertThrows(NUStudyException.class, () -> {
             HourValidator.parseHours("24.5");
         });
-        assertEquals("Hours must be between 1 and 24, in 0.5 increments.", exception.getMessage());
+        assertEquals("Hours must be between 0.5 and 24, in 0.5 increments.", exception.getMessage());
     }
 
     @Test
@@ -42,7 +42,7 @@ class HourValidatorTest {
         NUStudyException exception = assertThrows(NUStudyException.class, () -> {
             HourValidator.parseHours("2.3");
         });
-        assertEquals("Hours must be between 1 and 24, in 0.5 increments.", exception.getMessage());
+        assertEquals("Hours must be between 0.5 and 24, in 0.5 increments.", exception.getMessage());
     }
 
     @Test
