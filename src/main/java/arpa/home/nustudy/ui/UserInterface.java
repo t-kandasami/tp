@@ -217,7 +217,7 @@ public class UserInterface {
             System.out.println();
             return;
         }
-        System.out.printf("Invalid date format: \"%s\". Supported formats: yyyy-MM-dd, d/M/yyyy, d-M-yyyy",
+        System.out.printf("Invalid date or date format: \"%s\". Supported formats: yyyy-MM-dd, d/M/yyyy, d-M-yyyy",
                 rawDate);
         System.out.println();
     }

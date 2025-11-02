@@ -68,7 +68,7 @@ public class EditSessionCommand implements Command {
         try {
             date = DateParser.parseDate(arg2);
             if (date.isAfter(LocalDate.now())) {
-                throw new FutureDateException();
+                throw new FutureDateException(arg2);
             }
             session.setDate(date);
             UserInterface.printEditSessionDateSuccess(date);
@@ -77,7 +77,7 @@ public class EditSessionCommand implements Command {
             // If parsing failed, check if it failed because the date is in the future:
             if (DateParser.isFutureDate(arg2)) {
                 // Surface a specific FutureDateException so callers/tests get the expected behavior
-                throw new FutureDateException();
+                throw new FutureDateException(arg2);
             }
             // Intentionally left empty to try for Integer if not a future-date issue
         }

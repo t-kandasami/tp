@@ -14,6 +14,7 @@ import arpa.home.nustudy.exceptions.NUStudyNoSuchCourseException;
 import arpa.home.nustudy.exceptions.WrongDateFormatException;
 import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.ui.UserInterface;
+import arpa.home.nustudy.utils.DateParser;
 import arpa.home.nustudy.utils.HourValidator;
 
 public class AddSessionCommand implements Command {
@@ -75,9 +76,14 @@ public class AddSessionCommand implements Command {
 
         final LocalDate date;
         if (arguments.length == 3) {
-            date = parseDate(arguments[2]);
-            if (date.isAfter(LocalDate.now())) {
-                throw new FutureDateException();
+            try {
+                date = parseDate(arguments[2]);
+            } catch (WrongDateFormatException e) {
+                if (DateParser.isFutureDate(arguments[2])) {
+                    // Surface a specific FutureDateException so callers/tests get the expected behavior
+                    throw new FutureDateException(arguments[2].trim());
+                }
+                throw e;
             }
         } else {
             date = LocalDate.now();
