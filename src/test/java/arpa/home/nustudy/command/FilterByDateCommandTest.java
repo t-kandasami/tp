@@ -156,7 +156,8 @@ public class FilterByDateCommandTest {
         cmd.execute(courses, sessions);
 
         String out = outContent.toString();
-        assertTrue(out.toLowerCase().contains("invalid date format"), "Should print invalid date message: " + out);
+        assertTrue(out.toLowerCase().contains("invalid date or date format"),
+                "Should print invalid date message: " + out);
     }
 
     @Test
