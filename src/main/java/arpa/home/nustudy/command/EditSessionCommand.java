@@ -17,6 +17,7 @@ import arpa.home.nustudy.session.Session;
 import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.ui.UserInterface;
 import arpa.home.nustudy.utils.DateParser;
+import arpa.home.nustudy.utils.HourValidator;
 
 public class EditSessionCommand implements Command {
     private final Logger logger = Logger.getLogger(EditSessionCommand.class.getName());
@@ -81,10 +82,10 @@ public class EditSessionCommand implements Command {
             // Intentionally left empty to try for Integer if not a future-date issue
         }
 
-        logger.log(Level.FINE, "Attempting to parse '" + arg2 + "' as integer");
+        logger.log(Level.FINE, "Attempting to parse '" + arg2 + "' as double");
 
         try {
-            final int newHours = Integer.parseInt(arg2);
+            final double newHours = HourValidator.parseHours(arg2);
 
             logger.log(Level.FINE, "Parsed '" + arg2 + "' as integer 2 successfully");
             logger.log(Level.FINE, "Updating course session hours to " + newHours);
