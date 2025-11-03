@@ -21,13 +21,15 @@ public class App {
      */
     public static void main(final String[] args) {
         System.out.println("Hello from NUStudy");
-        System.out.println("use <help> for help");
+        System.out.println("Type `help` to show commands");
 
         boolean isExit = false;
 
         storage.load(courseManager, sessionManager);
 
         do {
+            System.out.println();
+
             final String userInput = UserInterface.readInput();
 
             if (userInput == null) {
