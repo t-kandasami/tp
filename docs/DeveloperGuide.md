@@ -412,8 +412,6 @@ The following activity diagram illustrates the complete reset workflow:
     - Pros: Quickest operation, minimal required user interaction
     - Cons: Reckless design, leading to unacceptable risk of data wipe
 
-{*more aspects and alternatives to be added*}
-
 ### Exception component
 
 <u>Overview</u>
