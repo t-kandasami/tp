@@ -344,11 +344,11 @@ The abstracted logic parsing frame executes the following:
     1. If a line starts with `S`, it calls `parseSession(line)` through the `DataParser` class, constructs a
        new `Session` object with its corresponding `Course` reference and inserts it into the `SessionManager`
        instance if a matching course already exists.
-1. Each parsing branch contains [internal validation checks](#udata-integrity-and-safetyu) for prefix correctness,
+1. Each parsing branch contains [internal validation checks](#data-integrity-and-safety) for prefix correctness,
    segment counts and null
    checks.
 
-#### <u>Data integrity and safety</u>
+#### Data integrity and safety
 
 NUStudy includes a built-in data validation to protect against corrupted or manually modified storage files.
 
@@ -480,7 +480,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (opti
 1. System validates and adds course
 1. System confirms addition; `list` shows it
 
-Extensions: missing/invalid input → system prompts; duplicate → system rejects
+Extensions: missing/invalid input → system prompts; duplicate (case-insensitive) → system rejects
 
 <u>UC2 — Add study session (MSS)</u>
 

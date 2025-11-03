@@ -11,7 +11,8 @@ type fast, NUStudy can get your study management tasks done faster than traditio
 - [**Features**](#features)
     - [Help](#help)
     - [Add a course](#add-a-course)
-    - [Add a study session with hours](#add-a-study-session-with-hours)
+    - [Add a study session for today](#add-a-study-session-for-today)
+    - [Add a study session with custom date](#add-a-study-session-with-custom-date)
     - [List all added courses](#list-all-added-courses)
     - [List study sessions for a course](#list-study-sessions-for-a-course)
     - [Edit a course code](#edit-a-course-code)
@@ -56,7 +57,7 @@ Expected output:
     ---------------------------------------------------------------------------------------------------
     Help                               help                                help
     Add a course                       add <course code>                   add CS2113
-    Add a study session                add <course code> <hours>           add CS2113 5
+    Add a study session for today      add <course code> <hours>           add CS2113 5
     Add a study session with date      add <course code> <hours> <date>    add CS2113 5 23/10/2025
     List all courses                   list                                list
     List study sessions                list <course code>                  list CS2113
@@ -80,6 +81,10 @@ Add a course to the course book.
 
 Format: `add <course code>`
 
+> **Note:**
+> - Course codes are **case-insensitive**.
+> - Uniqueness is enforced by course code (ignoring case).
+
 Example: `add CS2113`
 
 Expected output:
@@ -88,14 +93,13 @@ Expected output:
 Good Job! You have added CS2113
 ```
 
-### Add a study session without date
+### Add a study session for today
 
-Add a course study session to the course book.
+Add a course study session to the course book with today's date.
 
 Format: `add <course code> <study duration in hours>`
 
 > **Note:**
->
 >
 > Today's date will be used.
 >
@@ -111,14 +115,13 @@ Expected output:
 Good Job! You have studied 5.0 hours for CS2113
 ```
 
-### Add a study session with date
+### Add a study session with custom date
 
-Add a course study session to the course book.
+Add a course study session to the course book with custom date.
 
 Format: `add <course code> <study duration in hours> <date>`
 
 > **Note:**
->
 >
 > Future dates are not allowed. Any date strictly after today's date will be rejected with an informative error; provide
 > a past or today's date.
@@ -300,7 +303,7 @@ Format: `reset <course>`, or `reset all`
 
 Example: `reset CS2113`
 
-Expected output (_`>` indicates user input_):
+Expected output (_`>` indicates user input, but is not shown in the program_):
 
 ```
 Are you sure of resetting hours for CS2113 (y/n)?
@@ -313,7 +316,7 @@ Logged hours for CS2113 have been reset
 
 Example: `reset all`
 
-Expected output (_`>` indicates user input_):
+Expected output (_`>` indicates user input, but is not shown in the program_):
 
 ```
 Are you sure you want to reset hours for ALL courses? (y/n)
@@ -332,7 +335,7 @@ Format: `delete <course code>`
 
 Example: `delete CS2113`
 
-Expected output (_`>` indicates user input_):
+Expected output (_`>` indicates user input, but is not shown in the program_):
 
 ```
 Are you sure you want to delete CS2113 (y/n)?
@@ -423,7 +426,8 @@ Input character rules:
 |--------|---------------------------------------------------------------------------------|--------------------------------------------------------------------|----------------------------|
 | Help   | [Help](#help)                                                                   | `help`                                                             | `help`                     |
 | Add    | [Add a course](#add-a-course)                                                   | `add <course code>`                                                | `add CS2113`               |
-|        | [Add a study session with hours](#add-a-study-session-with-hours)               | `add <course code> <study duration in hours> [date]`               | `add CS2113 5`             |
+|        | [Add a study session for today](#add-a-study-session-for-today)                 | `add <course code> <study duration in hours>`                      | `add CS2113 5`             |
+|        | [Add a study session with custom date](#add-a-study-session-with-custom-date)   | `add <course code> <study duration in hours> <date>`               | `add CS2113 5 04/11/2025`  |
 | List   | [List all added courses](#list-all-added-courses)                               | `list`                                                             | `list`                     |
 |        | [List study sessions for a course](#list-study-sessions-for-a-course)           | `list <course code>`                                               | `list CS2113`              |
 | Edit   | [Edit a course code](#edit-a-course-code)                                       | `edit <old course code> <new course code>`                         | `edit CS2113 MA1511`       |

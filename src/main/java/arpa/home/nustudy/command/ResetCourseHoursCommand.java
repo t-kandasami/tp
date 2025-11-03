@@ -35,7 +35,7 @@ public class ResetCourseHoursCommand implements Command {
      * @param sessions The {@code SessionManager} instance.
      */
     private static void resetAllCourseHandler(final SessionManager sessions) {
-        if (doubleConfirmationWrapper("Are you sure you want to reset hours for ALL courses?", "RESET ALL",
+        if (doubleConfirmationWrapper("Are you sure you want to reset hours for ALL courses", "RESET ALL",
                 "reset all courses")) {
             return;
         }
@@ -150,7 +150,7 @@ public class ResetCourseHoursCommand implements Command {
 
         checkNonExistentCourse(target);
 
-        if (doubleConfirmationWrapper("Are you sure of resetting hours for " + target + "?", "RESET",
+        if (doubleConfirmationWrapper("Are you sure of resetting hours for " + target, "RESET",
                 "reset hours for " + target)) {
             return;
         }
