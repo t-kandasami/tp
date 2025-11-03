@@ -67,8 +67,8 @@ Expected output:
      Filter by course                   filter <course>                     filter MA1511
      Filter by date                     filter <date>                       filter 23/10/2025
      Filter code and date               filter <course> <date>              filter MA1511 23/10/2025
-     Reset a Course                     reset <course>                      reset CS2113
-     Reset all Courses                  reset all                           reset all
+     Reset a course                     reset <course>                      reset CS2113
+     Reset all courses                  reset all                           reset all
      Delete a course                    delete <course code>                delete CS2113
      Delete session by index            delete <course code> <index>        delete CS2113 2
      Delete session by date             delete <date>                       delete 26/10/2025
