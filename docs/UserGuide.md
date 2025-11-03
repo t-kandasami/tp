@@ -317,10 +317,33 @@ Expected output:
 ```
 Exiting App. Goodbye!
 ```
+### Data Integrity and Safety
+
+NUStudy automatically saves your study data into a file called `NUStudy.txt` in the `data` folder. It is important 
+to understand how data validation works to keep your information safe!
+
+_When we NUStudy detects problems while loading your datafile, you might encouter this..._
+
+```
+=== Entries with issues ===
+
+Entry ignored: S	CS2113	10.0	2025-11-03-23
+Reason: Failed to parse study session date
+
+=== Entries with issues ===
+```
+Do not panic! You can add your corrupted entries again similar to when you add a course or session for the first 
+time. You can refer to the list of skipped entries for reference.
+
+_Therefore, here are some tips for you..._
+
+1. Backup regularly! Copy `NUStudy.txt` into a USB drive or cloud storage once a week
+2. Use the app, not a text editor! Always use NUStudy commands instead of manually editing the file unless you are 
+   familiar with CLI applications
 
 ## Command summary
 
-| Type   | Action                                                                          | Format                                                             | Example                    |
+|  Type  | Action                                                                          | Format                                                             | Example                    |
 |--------|---------------------------------------------------------------------------------|--------------------------------------------------------------------|----------------------------|
 | Add    | [Add a course](#add-a-course)                                                   | `add <course code>`                                                | `add CS2113`               |
 |        | [Add a study session with hours](#add-a-study-session-with-hours)               | `add <course code> <study duration in hours> [date]`               | `add CS2113 5`             |

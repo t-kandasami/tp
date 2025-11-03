@@ -366,6 +366,29 @@ The abstracted logic parsing frame executes the following:
        instance if a matching course already exists.
 1. Each parsing branch contains internal validation checks for prefix correctness, segment counts and null checks.
 
+<u>Data integrity and safety</u>
+
+NUStudy includes a built-in data validation to protect against corrupted or manually modified storage files.
+
+**Validation checks**
+
+The following validations are performed on each line during load:
+
+1. Manual modification: lines using whitespaces instead of `\t` (TAB) are flagged as manually injected data
+2. Duplicate course: Course entries that already exist in the system are identified
+3. Formatting: Lines must match the expected format (prefix, filed count, data types)
+4. Date: Session dates must be in valid `YYYY-MM-DD` format
+5. Course reference: Sessions must reference existing courses
+
+**Handling invalid entries**
+
+The following is executed when invalid entries are detected:
+
+1. The entry is skipped and not loaded into the system.
+2. The problematic line and specific reason are recorded
+3. A warning is logged for debugging purposes
+4. Loading continues with remaining valid entries
+
 ### Reset component
 
 <u>Overview</u>
