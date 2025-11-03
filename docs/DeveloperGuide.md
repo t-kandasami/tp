@@ -50,7 +50,7 @@ The `Command` interface is implemented by the following command classes:
 - **Edit Commands**: `EditCourseNameCommand`, `EditSessionCommand`
 - **List Commands**: `ListCourseCommand`, `ListCourseHoursPerSessionCommand`
 - **Filter Commands**: `FilterByDateCommand`, `FilterByNameAndDateCommand`, `FilterByNameCommand`
-- **Other Commands**: `ResetCourseHoursCommand`, `ExitCommand`
+- **Other Commands**: `ResetCourseHoursCommand`, `ExitCommand`, `HelpCommand`
 
 <u>Methods</u>
 

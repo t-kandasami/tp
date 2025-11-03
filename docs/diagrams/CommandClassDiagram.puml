@@ -93,12 +93,17 @@ class ResetCourseHoursCommand {
     + isExit() : boolean
 }
 
+class HelpCommand {
+    + execute(CourseManager, SessionManager) : void
+    + isExit() : boolean
+}
+
 AddCourseCommand -[hidden]down- AddSessionCommand
 AddSessionCommand -[hidden]down- DeleteCourseCommand
 DeleteCourseCommand -[hidden]down- DeleteSessionByDateCommand
 DeleteSessionByDateCommand -[hidden]down- DeleteSessionByIndexCommand
 DeleteSessionByIndexCommand -[hidden]down- EditCourseNameCommand
-
+EditCourseNameCommand -[hidden]down- HelpCommand
 EditSessionCommand -[hidden]down- ExitCommand
 ExitCommand -[hidden]down- FilterByDateCommand
 FilterByDateCommand -[hidden]down- FilterByNameAndDateCommand
@@ -113,6 +118,7 @@ DeleteCourseCommand .up.|> Command
 DeleteSessionByDateCommand .up.|> Command
 DeleteSessionByIndexCommand .up.|> Command
 EditCourseNameCommand .up.|> Command
+HelpCommand .up.|> Command
 
 EditSessionCommand .up.|> Command
 ExitCommand .up.|> Command
