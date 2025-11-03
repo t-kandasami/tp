@@ -88,11 +88,11 @@ Expected output:
 Good Job! You have added CS2113
 ```
 
-### Add a study session with hours
+### Add a study session without date
 
 Add a course study session to the course book.
 
-Format: `add <course code> <study duration in hours> [date]`
+Format: `add <course code> <study duration in hours>`
 
 > **Note:**
 >
@@ -106,6 +106,31 @@ Format: `add <course code> <study duration in hours> [date]`
 See [Appendix: Supported date formats](#appendix-supported-date-formats) for valid date formats.
 
 Example: `add CS2113 5`
+
+Expected output:
+
+```
+Good Job! You have studied 5.0 hours for CS2113
+```
+
+### Add a study session with date
+
+Add a course study session to the course book.
+
+Format: `add <course code> <study duration in hours> <date>`
+
+> **Note:**
+>
+> If `date` is not provided, today's date will be used.
+>
+> Future dates are not allowed. Any date strictly after today's date will be rejected with an informative error; provide
+> a past or today's date.
+>
+> `hours` should be 0.5 to 24
+
+See [Appendix: Supported date formats](#appendix-supported-date-formats) for valid date formats.
+
+Example: `add CS2113 5 04/11/2025`
 
 Expected output:
 
