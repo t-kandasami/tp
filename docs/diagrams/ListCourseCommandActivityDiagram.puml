@@ -7,30 +7,25 @@ skinparam ActivityDiamondBackgroundColor #Wheat
 skinparam Padding 1
 skinparam ParticipantPadding 1
 skinparam BoxPadding 1
+skinparam conditionStyle diamond
 
 start
+:User issues the `list` command;
 
-:Assert courses != null;
-if (assertion failed?) then (yes)
+if () then ([Input empty])
     :AssertionError thrown;
     stop
-else (no)
-    :Assert sessions != null;
-    if (assertion failed?) then (yes)
-        :AssertionError thrown;
-        stop
-    else (no)
-        :Developer Log [INFO] "Executing ListCourseCommand";
-    endif
+else ([Input is not empty])
+    :Developer Log INFO "Executing ListCourseCommand";
 endif
 
-if (course list is empty?) then (yes)
+if () then ([course list is empty])
     :UserInterface prints "No courses available";
     stop
-else (no)
+else ([course list not empty])
     :Call UserInterface.printCourseList(courses);
 endif
 
-:Developer Log [FINE] "Finished ListCourseCommand";
+:Developer Log FINE "Finished ListCourseCommand";
 stop
 @enduml
