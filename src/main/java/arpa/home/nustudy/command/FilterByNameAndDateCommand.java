@@ -14,12 +14,13 @@ import arpa.home.nustudy.utils.DateParser;
 import arpa.home.nustudy.exceptions.WrongDateFormatException;
 import arpa.home.nustudy.exceptions.NUStudyCommandException;
 import arpa.home.nustudy.exceptions.NUStudyException;
+import arpa.home.nustudy.utils.LoggerHandler;
 
 /**
  * Command to filter study sessions by exact course name (case-insensitive) and date.
  */
 public class FilterByNameAndDateCommand implements Command {
-    private static final Logger logger = Logger.getLogger(FilterByNameAndDateCommand.class.getName());
+    private static final Logger logger = LoggerHandler.getLogger(FilterByNameAndDateCommand.class);
 
     private final String courseKeyword;
     private final String dateString;

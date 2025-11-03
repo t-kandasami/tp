@@ -17,9 +17,10 @@ import arpa.home.nustudy.session.Session;
 import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.ui.UserInterface;
 import arpa.home.nustudy.utils.DateParser;
+import arpa.home.nustudy.utils.LoggerHandler;
 
 public class EditSessionCommand implements Command {
-    private final Logger logger = Logger.getLogger(EditSessionCommand.class.getName());
+    private static final Logger logger = LoggerHandler.getLogger(EditSessionCommand.class);
     private String input;
 
     public EditSessionCommand(final String input) {

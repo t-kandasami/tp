@@ -5,12 +5,13 @@ import java.util.logging.Logger;
 
 import arpa.home.nustudy.course.CourseManager;
 import arpa.home.nustudy.session.SessionManager;
+import arpa.home.nustudy.utils.LoggerHandler;
 
 /**
  * Displays a detailed help message for all available commands in NUStudy.
  */
 public class HelpCommand implements Command {
-    private static final Logger logger = Logger.getLogger(HelpCommand.class.getName());
+    private static final Logger logger = LoggerHandler.getLogger(HelpCommand.class);
 
     public HelpCommand() {
     }
