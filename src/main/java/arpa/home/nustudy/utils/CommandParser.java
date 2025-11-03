@@ -134,30 +134,18 @@ public class CommandParser {
      */
     private static Command parseEditCommand(final String arguments) throws NUStudyCommandException {
         if (arguments.isEmpty()) {
-            throw new NUStudyCommandException("""
-                    Invalid edit command format.
-                    Usages: edit <old course name> <new course name> OR
-                            edit <course code> <session index> <new study duration in hours> OR
-                            edit <course code> <session index> <new date>""");
+            throw new NUStudyCommandException("Invalid command");
         }
 
         final String[] parts = arguments.split("\\s+");
         if (parts.length <= 1) {
-            throw new NUStudyCommandException("""
-                    Invalid edit command format.
-                    Usages: edit <old course name> <new course name> OR
-                            edit <course code> <session index> <new study duration in hours> OR
-                            edit <course code> <session index> <new date>""");
+            throw new NUStudyCommandException("Invalid command");
         } else if (parts.length == 2) {
             return new EditCourseNameCommand(arguments);
         } else if (parts.length == 3) {
             return new EditSessionCommand(arguments);
         }
-        throw new NUStudyCommandException("""
-                Invalid edit command format.
-                Usages: edit <old course name> <new course name> OR
-                        edit <course code> <session index> <new study duration in hours> OR
-                        edit <course code> <session index> <new date>""");
+        throw new NUStudyCommandException("Invalid command");
     }
 
     /**
