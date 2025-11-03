@@ -44,14 +44,17 @@ activate BR
 Storage -> Storage: loadData(courses, sessions, buffer)
 activate Storage
 
+    Storage -> ArrayList**: new ArrayList<>()
+    activate ArrayList
+    ArrayList --> Storage: ignoredEntries : ArrayList<String>
+    deactivate ArrayList
 
 loop while next line is not null
-Storage -> BR: readline()
+Storage -> BR: readLine()
     BR --> Storage: line : String
-
     ref over BR, Storage
-    parsing courses or sessions
-
+        parsing courses or sessions
+    end
 end
 
 Storage --> Storage:
