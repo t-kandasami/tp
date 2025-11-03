@@ -81,7 +81,7 @@ public class CommandParser {
         if (arguments.isEmpty()) {
             throw new NUStudyCommandException("""
                     Add command requires arguments.
-                    Usage: add <course> OR add <course> <hours>""");
+                    Usage: add <course> OR add <course> <hours> OR add <course> <hours> <date>""");
         }
 
         final String[] parts = arguments.split("\\s+");
@@ -94,7 +94,7 @@ public class CommandParser {
         } else {
             throw new NUStudyCommandException("""
                     Invalid add command format.
-                    Usage: add <course> OR add <course> <hours>""");
+                    Usage: add <course> OR add <course> <hours> OR add <course> <hours> <date>""");
         }
     }
 
