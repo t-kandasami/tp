@@ -63,6 +63,9 @@ Format: `add <course code> <study duration in hours> [date]`
 > **Note:**
 >
 > If `date` is not provided, today's date will be used.
+>
+> Future dates are not allowed. Any date strictly after today's date will be rejected with an informative error; provide
+> a past or today's date.
 
 See [Appendix: Supported date formats](#appendix-supported-date-formats) for valid date formats.
 
@@ -199,6 +202,8 @@ Behaviour notes:
 - The filtered list retains the original indices from the full course list so the printed numbers correspond to each
   course's index in the complete list (useful when editing/deleting by index).
 - If no matches are found, a clear empty-filter message is shown (e.g. `No sessions found on 23 Oct 2025`).
+- Future dates are not allowed for date filters; a date strictly after today's date will be rejected and the app will
+  display an informative error indicating the date is in the future.
 
 ### Filter by course name and date
 
@@ -224,6 +229,8 @@ Behaviour notes:
 - Matching for course keywords is case-insensitive and uses substring matching.
 - Session indices printed are relative to the course's session list (useful when editing/deleting by index).
 - If no matches are found, a clear empty-filter message is shown (e.g. `No sessions found for MA1511 on 23 Oct 2025`).
+- Future dates are not allowed for the date parameter; the command will reject dates after today and show an informative
+  error message.
 
 ### Reset hours for a course
 
@@ -317,14 +324,16 @@ Expected output:
 ```
 Exiting App. Goodbye!
 ```
+
 ### Data Integrity and Safety
 
-NUStudy automatically saves your study data into a file called `NUStudy.txt` in the `data` folder. It is important 
+NUStudy automatically saves your study data into a file called `NUStudy.txt` in the `data` folder. It is important
 to understand how data validation works to keep your information safe!
 
 _When NUStudy detects problems while loading your datafile, you might encouter this..._
 
 For example, when you accidentally keyed in an extra `-23` at the back of  `2025-11-03`:
+
 ```
 === Entries with issues ===
 
@@ -333,22 +342,26 @@ Reason: Failed to parse study session date
 
 === Entries with issues ===
 ```
-Do not panic! You can add your corrupted entries again similar to when you add a course or session for the first 
+
+Do not panic! You can add your corrupted entries again similar to when you add a course or session for the first
 time. You can refer to the list of skipped entries for reference.
 
 _Therefore, here are some tips for you..._
 
 1. Backup regularly! Copy `NUStudy.txt` into a USB drive or cloud storage once a week
-2. Use the app, not a text editor! Always use NUStudy commands instead of manually editing the file unless you are 
+2. Use the app, not a text editor! Always use NUStudy commands instead of manually editing the file unless you are
    familiar with CLI applications
 
 Input character rules:
+
 - General free-text inputs must use English alphanumeric characters only (A–Z, a–z, 0–9).
 - Course codes may include symbols (e.g., `-`, `_`, `/`) for flexibility.
+- Date rules: Dates must follow supported formats and cannot be future dates (dates strictly after today's date will be
+  rejected).
 
 ## Command summary
 
-|  Type  | Action                                                                          | Format                                                             | Example                    |
+| Type   | Action                                                                          | Format                                                             | Example                    |
 |--------|---------------------------------------------------------------------------------|--------------------------------------------------------------------|----------------------------|
 | Add    | [Add a course](#add-a-course)                                                   | `add <course code>`                                                | `add CS2113`               |
 |        | [Add a study session with hours](#add-a-study-session-with-hours)               | `add <course code> <study duration in hours> [date]`               | `add CS2113 5`             |
@@ -368,7 +381,8 @@ Input character rules:
 
 ## Appendix: Supported date formats
 
-NUStudy supports the following date formats:
+NUStudy supports the following date formats (cannot be future dates and dates strictly after today's date will be
+rejected):
 
 - `yyyy-MM-dd` (e.g. 2025-10-25)
 - `d/M/yyyy` (e.g. 25/10/2025)

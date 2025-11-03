@@ -381,7 +381,9 @@ The following validations are performed on each line during load:
 1. Manual modification: lines using whitespaces instead of `\t` (TAB) are flagged as manually injected data
 2. Duplicate course: Course entries that already exist in the system are identified
 3. Formatting: Lines must match the expected format (prefix, filed count, data types)
-4. Date: Session dates must be in valid `YYYY-MM-DD` format
+4. Date: Session dates must be valid (supported formats in User Guide, eg: 'DD/MM/YYYY') and must not be in the 
+   future — any date strictly after
+   the system's current date will be rejected.
 5. Course reference: Sessions must reference existing courses
 6. Character set: User input fields are restricted to English alphanumeric characters (A–Z, a–z, 0–9). Course codes are
    allowed to include symbols (for example `-`, `_`, `/`) for flexibility.
