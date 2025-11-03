@@ -33,7 +33,7 @@ public class EditSessionCommand implements Command {
      * @param courses  The course list to work with
      * @param sessions The session manager to work with
      *
-     * @throws NUStudyException              If the course name is invalid
+     * @throws NUStudyException              If the course code is invalid
      * @throws NUStudyCommandException       If the index or date format is invalid
      * @throws NUStudyNoSuchSessionException If the session index is out of bounds
      * @throws FutureDateException           If the provided date is in the future
@@ -45,7 +45,7 @@ public class EditSessionCommand implements Command {
         Course course = courses.findCourse(argument[0].trim());
 
         if (course == null) {
-            throw new NUStudyNoSuchCourseException("Invalid course name!");
+            throw new NUStudyNoSuchCourseException("Invalid course code!");
         }
 
         int index;

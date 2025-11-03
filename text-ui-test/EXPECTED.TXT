@@ -1,4 +1,5 @@
 Hello from NUStudy
+use <help> for help
 Good Job! I have added CS2113
 List of courses:
 1. CS2113

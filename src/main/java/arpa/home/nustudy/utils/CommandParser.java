@@ -3,18 +3,19 @@ package arpa.home.nustudy.utils;
 import arpa.home.nustudy.command.AddCourseCommand;
 import arpa.home.nustudy.command.AddSessionCommand;
 import arpa.home.nustudy.command.Command;
-import arpa.home.nustudy.command.DeleteSessionByDateCommand;
 import arpa.home.nustudy.command.DeleteCourseCommand;
-import arpa.home.nustudy.command.EditCourseNameCommand;
+import arpa.home.nustudy.command.DeleteSessionByDateCommand;
 import arpa.home.nustudy.command.DeleteSessionByIndexCommand;
+import arpa.home.nustudy.command.EditCourseNameCommand;
 import arpa.home.nustudy.command.EditSessionCommand;
 import arpa.home.nustudy.command.ExitCommand;
+import arpa.home.nustudy.command.FilterByDateCommand;
+import arpa.home.nustudy.command.FilterByNameAndDateCommand;
+import arpa.home.nustudy.command.FilterByNameCommand;
+import arpa.home.nustudy.command.HelpCommand;
 import arpa.home.nustudy.command.ListCourseCommand;
 import arpa.home.nustudy.command.ListCourseHoursPerSessionCommand;
 import arpa.home.nustudy.command.ResetCourseHoursCommand;
-import arpa.home.nustudy.command.FilterByNameCommand;
-import arpa.home.nustudy.command.FilterByDateCommand;
-import arpa.home.nustudy.command.FilterByNameAndDateCommand;
 import arpa.home.nustudy.exceptions.NUStudyCommandException;
 
 /**
@@ -60,6 +61,8 @@ public class CommandParser {
             return new ExitCommand();
         case "filter":
             return parseFilterCommand(arguments);
+        case "help":
+            return new HelpCommand();
         default:
             throw new NUStudyCommandException("Wrong command");
         }
