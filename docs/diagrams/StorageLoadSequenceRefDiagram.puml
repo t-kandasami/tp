@@ -32,7 +32,7 @@ group sd parsing courses or sessions
 
         note right: - Check "C" prefix\n- Ensure 2 segments\n- Name is not null
 
-    else line starts with "S|"
+    else line starts with "S"
 
         Storage -> Parser: parseSession(line)
         activate Parser
@@ -53,7 +53,7 @@ group sd parsing courses or sessions
         Session --> Storage: sessionCourse : Course
         deactivate Session
 
-        note right: - Check "S" prefix\n- Ensure 3 segments\n- Name is not null\n -Hours is type Integer
+ note right:- Check "S" prefix\n- Ensure 4 segments\n- Name is not null\n- Hours is not null\n- Session date is not null
 
         loop for Course c : courses
 
