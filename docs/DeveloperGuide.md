@@ -348,6 +348,8 @@ The `load(courses, sessions)` method in `Storage` executes the following:
 1. If parent directory exists, the existence of the storage file `NUStudy.txt` is checked. If it is non-existent, a
    note is logged to notify user and empty managers are initialised.
 1. A `BufferedReader` is initiailsed to read in contents from the text file line by line.
+2. An `ArrayList<String>` object is initialised to collect all ignored entries which will be later displayed to the 
+   user for refrence.
 1. Each line from the file is handed over to a separate sub-process (see below). This sub-process handles checks,
    `Session` or `Course` object creation and insertion into the respective managers.
 1. After all lines are processed, the `BufferedReader` is closed and returns to `App`.
@@ -359,14 +361,15 @@ The `load(courses, sessions)` method in `Storage` executes the following:
 The abstracted logic parsing frame executes the following:
 
 1. Based on the line prefix, the `Storage` component assigns parsing logic as shown by the `opt` frame.
-    1. If a line starts with `C|`, it calls `parseCourse(line)` through the `DataParser` class, constructs a new
+    1. If a line starts with `C`, it calls `parseCourse(line)` through the `DataParser` class, constructs a new
        `Course` object and inserts it into the `CourseManager` instance.
-    1. If a line starts with `S|`, it calls `parseSession(line)` through the `DataParser` class, constructs a
+    1. If a line starts with `S`, it calls `parseSession(line)` through the `DataParser` class, constructs a
        new `Session` object with its corresponding `Course` reference and inserts it into the `SessionManager`
        instance if a matching course already exists.
-1. Each parsing branch contains internal validation checks for prefix correctness, segment counts and null checks.
+1. Each parsing branch contains [internal validation checks](#udata-integrity-and-safetyu) for prefix correctness, segment counts and null 
+   checks.
 
-<u>Data integrity and safety</u>
+#### <u>Data integrity and safety</u>
 
 NUStudy includes a built-in data validation to protect against corrupted or manually modified storage files.
 

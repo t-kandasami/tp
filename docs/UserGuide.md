@@ -24,6 +24,7 @@ type fast, NUStudy can get your study management tasks done faster than traditio
     - [Delete a session by index](#delete-a-session-by-index)
     - [Delete a session by date](#delete-a-session-by-date)
     - [Exit NUStudy](#exit-nustudy)
+    - [Data Integrity and Safety](#data-integrity-and-safety)
 - [**Command summary**](#command-summary)
 - [**Appendix: Supported date formats**](#appendix-supported-date-formats)
 
@@ -321,8 +322,9 @@ Exiting App. Goodbye!
 NUStudy automatically saves your study data into a file called `NUStudy.txt` in the `data` folder. It is important 
 to understand how data validation works to keep your information safe!
 
-_When we NUStudy detects problems while loading your datafile, you might encouter this..._
+_When NUStudy detects problems while loading your datafile, you might encouter this..._
 
+For example, when you accidentally keyed in an extra `-23` at the back of  `2025-11-03`:
 ```
 === Entries with issues ===
 

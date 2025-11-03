@@ -36,16 +36,20 @@ Given below are my contributions to the project.
     deleting sessions by date for all couress or a specified index for a specified course:
   [#85](https://github.com/AY2526S1-CS2113-W14-2/tp/pull/85).
   - Added JUnit 5 test cases for my implemented features and enhancements. Raised total method 
-    coverage to 100%.
+    coverage to 100%: [#90](https://github.com/AY2526S1-CS2113-W14-2/tp/pull/90).
 - __Documentation__:
   - User Guide:
     - Added documentation for features `delete course by index`, `delete course by date` and `reset course 
-      hours`
+      hours`: [#90](https://github.com/AY2526S1-CS2113-W14-2/tp/pull/90).
+    - Added documentation for data integrity and safety for clear understanding of how data loading is handled: 
+      [#180](https://github.com/AY2526S1-CS2113-W14-2/tp/pull/180).
   - Developer Guide:
     - Added implementation details, activity flow diagram and design considerations of the `reset` feature:
     [#71](https://github.com/AY2526S1-CS2113-W14-2/tp/pull/71).
     - Added implementation details and sequence diagram for the data loading component feature:
     [#71](https://github.com/AY2526S1-CS2113-W14-2/tp/pull/71).
+      - Added list of validation checks and execution upon detection of invalid entries:
+      - [#180](https://github.com/AY2526S1-CS2113-W14-2/tp/pull/180).
 - __Community__:
   - PRs reviewed (with non-trivial review comments): [#65](https://github.com/AY2526S1-CS2113-W14-2/tp/pull/65).
   - The confirmation handler feature I implemented was adopted by my teammate, Kandasami:
