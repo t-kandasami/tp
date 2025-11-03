@@ -12,68 +12,67 @@ participant ":SessionManager" as SM
 
 group sd parsing courses or sessions
     activate Storage
-    alt line starts with "C|"
-            Storage -> Parser: parseCourse(line)
-            activate Parser
 
-            Parser -> Course**: new Course(courseName)
-            activate Course
-            Course --> Parser: course : Course
-            deactivate Course
+    alt line starts with "C"
+        Storage -> Parser: parseCourse(line)
+        activate Parser
 
-            Parser --> Storage: course: Course
-            deactivate Parser
+        Parser -> Course**: new Course(courseName)
+        activate Course
+        Course --> Parser: course : Course
+        deactivate Course
 
-            Storage -> CM: add(course)
-            activate CM
-            CM --> Storage
-            deactivate CM
+        Parser --> Storage: course: Course
+        deactivate Parser
 
-            note right: - Check "C" prefix\n- Ensure 2 segments\n- Name is not null
+        Storage -> CM: add(course)
+        activate CM
+        CM --> Storage
+        deactivate CM
 
-        else line starts with "S|"
+        note right: - Check "C" prefix\n- Ensure 2 segments\n- Name is not null
 
-            Storage -> Parser: parseSession(line)
-            activate Parser
+    else line starts with "S|"
 
-            Parser -> Course**: new Course(courseName)
-            activate Course
-            Course --> Parser: course : Course
-            deactivate Course
+        Storage -> Parser: parseSession(line)
+        activate Parser
 
-            Parser -> Session**: new Session(course, hours)
+        Parser -> Course**: new Course(courseName)
+        activate Course
+        Course --> Parser: course : Course
+        deactivate Course
+
+        Parser -> Session**: new Session(course, hours)
+        activate Session
+        Session --> Parser: session : Session
+
+        Parser --> Storage: session : Session
+        deactivate Parser
+
+        Storage -> Session: getCourse()
+        Session --> Storage: sessionCourse : Course
+        deactivate Session
+
+        note right: - Check "S" prefix\n- Ensure 3 segments\n- Name is not null\n -Hours is type Integer
+
+        loop for Course c : courses
+
+        Storage -> Course: c.getCourseName().equals(sessionCourse.getCourseName())
+        activate Course
+        Course --> Storage: result : boolean
+        deactivate Course
+
+        end
+
+        opt matching course != null
+            Storage -> SM: add(matchingCourse, hours)
+            activate SM
+            SM -> Session**: new Session(course, loggedHours)
             activate Session
-            Session --> Parser: session : Session
-
-            Parser --> Storage: session : Session
-            deactivate Parser
-
-            Storage -> Session: getCourse()
-            Session --> Storage: sessionCourse : Course
+            Session --> SM: session : Session
             deactivate Session
-
-            note right: - Check "S" prefix\n- Ensure 3 segments\n- Name is not null\n -Hours is type Integer
-
-            loop for Course c : courses
-
-            Storage -> Course: c.getCourseName().equals(sessionCourse.getCourseName())
-            activate Course
-            Course --> Storage: result : boolean
-            deactivate Course
-
-            end
-
-            opt matching course != null
-                Storage -> SM: add(matchingCourse, hours)
-                activate SM
-                SM -> Session**: new Session(course, loggedHours)
-                activate Session
-                Session --> SM: session : Session
-                deactivate Session
-                SM --> Storage: session : Session
-                deactivate SM
-            end
-
+            SM --> Storage: session : Session
+            deactivate SM
         end
     end
 @enduml
