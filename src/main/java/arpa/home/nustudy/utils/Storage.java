@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -106,26 +107,41 @@ public class Storage {
     }
 
     /**
-     * Parses then loads the stored data from a buffered reader into the {@code CourseManager} and {@code
-     * SessionManager} instances.
+     * Parses and loads the stored data from a buffered reader into the {@code CourseManager} and {@code
+     * SessionManager} instances. Entries must be in TAB-separated format.
      *
-     * @param courses The {@code CourseManager} instance to load in the loaded courses.
-     * @param sessions The {@code SessionManager} instance to load in the loaded sessions.
-     * @param buffer The duplicate copy of type {@code BufferedReader} of the storage file.
+     * <ul>
+     *     <li>Course: {@code C\tCOURSE_NAME}</li>
+     *     <li>Session: {@code S\tCOURSE_NAME\tHOURS\tDATE}</li>
+     * </ul>
+     * invalid or corrupted entires are ignored and reported to the user.
+     *
+     * @param courses The {@code CourseManager} instance to load courses into.
+     * @param sessions The {@code SessionManager} instance to load sessions into.
+     * @param buffer The {@code BufferedReader} for reading the storage file.
      * @throws IOException If an I/O error is raised while reading from the buffer.
      */
     private static void loadData(CourseManager courses, SessionManager sessions,
             final BufferedReader buffer) throws IOException {
         String line;
+        ArrayList<String> ignoredEntries = new ArrayList<>();
+
         while ((line = buffer.readLine()) != null) {
             line = line.trim();
 
             try {
+                // Checks if line is manually modified with spaces " " instead of tabs "\t"
+                if ((line.startsWith("C ") || line.startsWith("S ") || !line.contains("\t"))) {
+                    ignoredEntries.add("Entry ignored: " + line + "\nReason: manually injected data");
+                    logger.log(Level.WARNING, "Manually injected data detected: " + line);
+                    continue;
+                }
+
                 if (line.startsWith("C")) {
                     final Course course = DataParser.parseCourse(line);
                     if (courses.findCourse(course.getCourseName()) != null) {
-                        System.out.println("Course already exists: " + course.getCourseName()
-                                + "\nDiscarding data.... ");
+                        ignoredEntries.add("Entry ignored: " + line + "\nReason: duplicate course");
+                        logger.log(Level.WARNING, "Duplicate course ignored: " + line);
                         continue;
                     }
                     courses.add(course);
@@ -135,7 +151,7 @@ public class Storage {
 
                     Course matchingCourse = null;
                     for (Course c : courses) {
-                        if (c.getCourseName().equals(sessionCourse.getCourseName())) {
+                        if (c.getCourseName().equalsIgnoreCase(sessionCourse.getCourseName())) {
                             matchingCourse = c;
                             break;
                         }
@@ -144,23 +160,34 @@ public class Storage {
                     if (matchingCourse != null) {
                         sessions.add(matchingCourse, session.getLoggedHours(), session.getDate());
                     } else {
+                        ignoredEntries.add("Entry ignored: " + line + "\nReason: session course not found");
                         logger.log(Level.WARNING, "Session course is invalid: " + sessionCourse.getCourseName());
                     }
                 }
             } catch (NUStudyException e) {
-                logger.log(Level.WARNING, "Unable to parse line: ");
-                logger.log(Level.INFO, "Error message: " + e.getMessage());
-                System.out.println(e.getMessage());
+                ignoredEntries.add("Entry ignored: " + line + "\nReason: " + e.getMessage());
+                logger.log(Level.WARNING, "Unable to parse on line: " + line + " - " + e.getMessage());
             }
+        }
+
+        if (!ignoredEntries.isEmpty()) {
+            System.out.println("\n=== Entries with issues ===\n");
+            for (String ignoredEntry : ignoredEntries) {
+                System.out.println(ignoredEntry);
+            }
+            System.out.println("\n=== Entries with issues ===\n");
+            System.out.println("Please do not modify the data file unnecessarily!\n");
         }
     }
 
     /**
-     * Loads data of types {@code Course} and {@code Session} from the stored text file.
+     * Loads {@code Course} and {@code Session} data from the stored text file.
+     * Creates a parent directory for data file if non-existent.
+     * If file is non-existent, an empty dataset is initialised.
+     * Handles corrupted or invalid entries gracefully by logging them and notifying the user.
      *
-     * @param courses The {@code CourseManager} instance to load in the loaded courses with.
-     * @param sessions The {@code SessionManager} instance to load in the loaded sessions with.
-     * @throws FileNotFoundException
+     * @param courses The {@code CourseManager} instance to load courses into.
+     * @param sessions The {@code SessionManager} instance to load sessions into.
      */
     public void load(CourseManager courses, SessionManager sessions) {
         if (!ensureParentDirectoryExists()) {
@@ -174,7 +201,6 @@ public class Storage {
         }
 
         try (BufferedReader buffer = new BufferedReader(new FileReader(dataFile))) {
-            logger.log(Level.INFO, "Loading data from: " + dataFile.getAbsolutePath());
             loadData(courses, sessions, buffer);
             logger.log(Level.INFO, "Successfully loaded all data from: " + dataFile.getAbsolutePath());
         } catch (IOException e) {
