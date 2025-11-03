@@ -484,7 +484,7 @@ Extensions: missing/invalid input → system prompts; duplicate → system rejec
 
 <u>UC2 — Add study session (MSS)</u>
 
-1. User issues: `add <course> <hours> [date]`
+1. User issues: `add <course>` or `add <course> <hours>` or `add <course> <hours> <date>`
 1. System validates course existence, hours and date
 1. System records session and confirms
 
@@ -499,7 +499,7 @@ Extensions: no data → empty message
 
 <u>UC4 — Edit session (MSS)</u>
 
-1. User issues: `edit <course> <index> <hours|date>`
+1. User issues: `edit <course> <index> <hours>` or `edit <course> <index> <date>`
 1. System validates inputs and updates session
 1. System confirms update
 
