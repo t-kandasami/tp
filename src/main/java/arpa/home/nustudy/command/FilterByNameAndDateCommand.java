@@ -125,12 +125,12 @@ public class FilterByNameAndDateCommand implements Command {
 
                     // If date matches, attempt to obtain logged hours and create a real Session
                     if (date.equals((LocalDate) sDate)) {
-                        int hours = 0;
+                        double hours = 0;
                         try {
                             Method getLoggedHours = sObj.getClass().getMethod("getLoggedHours");
                             Object hoursObj = getLoggedHours.invoke(sObj);
-                            if (hoursObj instanceof Integer) {
-                                hours = ((Integer) hoursObj).intValue();
+                            if (hoursObj instanceof Double) {
+                                hours = ((Double) hoursObj).doubleValue();
                             } else {
                                 hours = Integer.parseInt(hoursObj.toString());
                             }

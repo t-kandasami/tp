@@ -15,6 +15,7 @@ import arpa.home.nustudy.exceptions.WrongDateFormatException;
 import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.ui.UserInterface;
 import arpa.home.nustudy.utils.DateParser;
+import arpa.home.nustudy.utils.HourValidator;
 
 public class AddSessionCommand implements Command {
     private static final Logger logger = Logger.getLogger(AddSessionCommand.class.getName());
@@ -64,13 +65,13 @@ public class AddSessionCommand implements Command {
             throw new NUStudyNoSuchCourseException("Course with the name " + courseName + " does not exist");
         }
 
-        final int hours;
+        double hours;
         try {
-            hours = Integer.parseInt(arguments[1]);
+            hours = HourValidator.parseHours(arguments[1]);
             logger.log(Level.FINE, "Parsed hours: {0}", hours);
         } catch (final NumberFormatException e) {
             logger.log(Level.WARNING, "Invalid hours format: {0}", arguments[1]);
-            throw new NUStudyException("Hours must be an integer");
+            throw new NUStudyException("Hours must be a double");
         }
 
         final LocalDate date;

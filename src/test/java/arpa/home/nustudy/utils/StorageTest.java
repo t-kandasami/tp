@@ -59,17 +59,17 @@ class StorageTest {
         assertEquals("C\tMA1508E", lines.get(1), "Expect: C\tMA1508E\n Actual:" + lines.get(1));
         assertEquals("C\tCG2111A", lines.get(2), "Expect: C\tCG2111A\n Actual:" + lines.get(2));
 
-        assertEquals("S\tCS2113\t5\t2025-10-25", lines.get(3), "Expect: S\tCS2113\t5\t2025-10-25\n Actual:"
+        assertEquals("S\tCS2113\t5.0\t2025-10-25", lines.get(3), "Expect: S\tCS2113\t5\t2025-10-25\n Actual:"
                 + lines.get(3));
-        assertEquals("S\tCS2113\t10\t2025-10-25", lines.get(4), "Expect: S\tCS2113\t10\t2025-10-25\n Actual:"
+        assertEquals("S\tCS2113\t10.0\t2025-10-25", lines.get(4), "Expect: S\tCS2113\t10\t2025-10-25\n Actual:"
                 + lines.get(4));
-        assertEquals("S\tMA1508E\t3\t2025-10-25", lines.get(5), "Expect: S\tMA1508E\t3\t2025-10-25\n Actual:"
+        assertEquals("S\tMA1508E\t3.0\t2025-10-25", lines.get(5), "Expect: S\tMA1508E\t3\t2025-10-25\n Actual:"
                 + lines.get(5));
-        assertEquals("S\tMA1508E\t5\t2025-10-25", lines.get(6), "Expect: S\tMA1508E\t5\t2025-10-25\n Actual:"
+        assertEquals("S\tMA1508E\t5.0\t2025-10-25", lines.get(6), "Expect: S\tMA1508E\t5\t2025-10-25\n Actual:"
                 + lines.get(6));
-        assertEquals("S\tCG2111A\t3\t2025-10-25", lines.get(7), "Expect: S\tCG2111A\t3\t2025-10-25\n Actual:"
+        assertEquals("S\tCG2111A\t3.0\t2025-10-25", lines.get(7), "Expect: S\tCG2111A\t3\t2025-10-25\n Actual:"
                 + lines.get(7));
-        assertEquals("S\tCG2111A\t1\t2025-10-25", lines.get(8), "Expect: S\tCG2111A\t1\t2025-10-25\n Actual:"
+        assertEquals("S\tCG2111A\t1.0\t2025-10-25", lines.get(8), "Expect: S\tCG2111A\t1\t2025-10-25\n Actual:"
                 + lines.get(8));
 
     }
@@ -92,8 +92,8 @@ class StorageTest {
         final List<String> firstSave = Files.readAllLines(Paths.get(testFilePath));
         assertEquals(2, firstSave.size(), "Expect: 2");
         assertEquals("C\tCS2113", firstSave.get(0), "Expect: C\tCS2113\n Actual:" + firstSave.get(0));
-        assertEquals("S\tCS2113\t5\t2025-10-25", firstSave.get(1),
-                "Expect: S\tCS2113\t5\t2025-10-25\n Actual:" + firstSave.get(1));
+        assertEquals("S\tCS2113\t5.0\t2025-10-25", firstSave.get(1),
+                "Expect: S\tCS2113\t5.0\t2025-10-25\n Actual:" + firstSave.get(1));
 
         courseManager.add(new Course("MA1508E"));
         storage.save(courseManager, sessionManager);
@@ -101,8 +101,8 @@ class StorageTest {
         assertEquals(3, secondSave.size(), "Expect: 3");
         assertEquals("C\tCS2113", secondSave.get(0), "Expect: C\tCS2113\n Actual:" + secondSave.get(0));
         assertEquals("C\tMA1508E", secondSave.get(1), "Expect: C\tMA1508E\n Actual:" + secondSave.get(1));
-        assertEquals("S\tCS2113\t5\t2025-10-25", secondSave.get(2),
-                "Expect: S\tCS2113\t5\t2025-10-25\n Actual:" + secondSave.get(2));
+        assertEquals("S\tCS2113\t5.0\t2025-10-25", secondSave.get(2),
+                "Expect: S\tCS2113\t5.0\t2025-10-25\n Actual:" + secondSave.get(2));
     }
 
     @Test

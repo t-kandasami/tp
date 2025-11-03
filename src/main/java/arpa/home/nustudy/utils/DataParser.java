@@ -69,11 +69,11 @@ public class DataParser {
         }
 
         String courseName = parts[1];
-        int hours;
+        double hours;
         LocalDate sessionDate;
 
         try {
-            hours = Integer.parseInt(parts[2].trim());
+            hours = HourValidator.parseHours(parts[2].trim());
             if (hours < 0) {
                 throw new NUStudyException("Invalid session hours format: " + storageString
                         + "\nDiscarding data...");

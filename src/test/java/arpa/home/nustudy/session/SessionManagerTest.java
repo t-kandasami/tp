@@ -23,8 +23,8 @@ class SessionManagerTest {
     @Test
     void testAdd() {
         sessionManager.add(c1, 27, LocalDate.parse("2025-10-25"));
-        ArrayList<Integer> hours1 = sessionManager.getAllLoggedHoursForCourse(c1);
-        ArrayList<Integer> hours2 = sessionManager.getAllLoggedHoursForCourse(c2);
+        ArrayList<Double> hours1 = sessionManager.getAllLoggedHoursForCourse(c1);
+        ArrayList<Double> hours2 = sessionManager.getAllLoggedHoursForCourse(c2);
         Assertions.assertEquals(1, hours1.size());
         Assertions.assertEquals(27, hours1.get(0));
         sessionManager.add(c1, 60, LocalDate.parse("2025-10-25"));
@@ -39,7 +39,7 @@ class SessionManagerTest {
     void testGetAllLoggedHoursForCourse() {
         sessionManager.add(c1, 42, LocalDate.parse("2025-10-25"));
         sessionManager.add(c1, 69, LocalDate.parse("2025-10-25"));
-        ArrayList<Integer> hours = sessionManager.getAllLoggedHoursForCourse(c1);
+        ArrayList<Double> hours = sessionManager.getAllLoggedHoursForCourse(c1);
         Assertions.assertEquals(2, hours.size());
         Assertions.assertEquals(42, hours.get(0));
         Assertions.assertEquals(69, hours.get(1));
@@ -47,7 +47,7 @@ class SessionManagerTest {
 
     @Test
     void testClearAllSessions() {
-        ArrayList<Integer> hours = sessionManager.getAllLoggedHoursForCourse(c1);
+        ArrayList<Double> hours = sessionManager.getAllLoggedHoursForCourse(c1);
         Assertions.assertTrue(hours.isEmpty());
 
         sessionManager.add(c1, 59, LocalDate.parse("2025-10-25"));
