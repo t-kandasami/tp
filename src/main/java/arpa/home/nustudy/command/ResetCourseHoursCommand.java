@@ -9,13 +9,14 @@ import arpa.home.nustudy.exceptions.NUStudyException;
 import arpa.home.nustudy.exceptions.NUStudyNoSuchCourseException;
 import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.utils.ConfirmationHandler;
+import arpa.home.nustudy.utils.LoggerHandler;
 
 /**
  * Creates a new ResetCourseHoursCommand with the specified user input. A specific course or all courses can be reset
  * depending on the input.
  */
 public class ResetCourseHoursCommand implements Command {
-    private static final Logger logger = Logger.getLogger(ResetCourseHoursCommand.class.getName());
+    private static final Logger logger = LoggerHandler.getLogger(ResetCourseHoursCommand.class);
     private final String input;
 
     /**

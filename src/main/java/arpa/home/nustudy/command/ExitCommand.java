@@ -3,6 +3,7 @@ package arpa.home.nustudy.command;
 import arpa.home.nustudy.course.CourseManager;
 import arpa.home.nustudy.exceptions.NUStudyException;
 import arpa.home.nustudy.session.SessionManager;
+import arpa.home.nustudy.utils.LoggerHandler;
 
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
@@ -10,7 +11,7 @@ import java.util.logging.Logger;
 
 //@@author Wrooi
 public class ExitCommand implements Command {
-    private static final Logger logger = Logger.getLogger(ExitCommand.class.getName());
+    private static final Logger logger = LoggerHandler.getLogger(ExitCommand.class);
 
     static {
         logger.setLevel(Level.INFO);

@@ -10,6 +10,7 @@ import arpa.home.nustudy.exceptions.NUStudyNoSuchCourseException;
 import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.ui.UserInterface;
 import arpa.home.nustudy.utils.ConfirmationHandler;
+import arpa.home.nustudy.utils.LoggerHandler;
 
 //@@author t-kandasami
 
@@ -18,7 +19,7 @@ import arpa.home.nustudy.utils.ConfirmationHandler;
  * course. Provides feedback through the UserInterface and logs actions.
  */
 public class DeleteCourseCommand implements Command {
-    private static final Logger logger = Logger.getLogger(DeleteCourseCommand.class.getName());
+    private static final Logger logger = LoggerHandler.getLogger(DeleteCourseCommand.class);
     private final String input;
 
     /**

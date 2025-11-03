@@ -4,6 +4,7 @@ import arpa.home.nustudy.course.CourseManager;
 import arpa.home.nustudy.exceptions.NUStudyException;
 import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.ui.UserInterface;
+import arpa.home.nustudy.utils.LoggerHandler;
 
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
@@ -12,7 +13,7 @@ import java.util.logging.Logger;
 //@@author Wrooi
 public class ListCourseCommand implements Command {
     // Add a logger for this command
-    private static final Logger logger = Logger.getLogger(ListCourseCommand.class.getName());
+    private static final Logger logger = LoggerHandler.getLogger(ListCourseCommand.class);
 
     // Configure a lightweight console handler for this logger so logs are visible in tests/runs
     static {

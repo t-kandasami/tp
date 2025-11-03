@@ -16,9 +16,10 @@ import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.ui.UserInterface;
 import arpa.home.nustudy.utils.DateParser;
 import arpa.home.nustudy.utils.HourValidator;
+import arpa.home.nustudy.utils.LoggerHandler;
 
 public class AddSessionCommand implements Command {
-    private static final Logger logger = Logger.getLogger(AddSessionCommand.class.getName());
+    private static final Logger logger = LoggerHandler.getLogger(AddSessionCommand.class);
     private final String input;
 
     /**

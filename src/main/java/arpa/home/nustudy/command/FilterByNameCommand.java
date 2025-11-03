@@ -9,6 +9,7 @@ import arpa.home.nustudy.exceptions.NUStudyCommandException;
 import arpa.home.nustudy.exceptions.NUStudyException;
 import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.ui.UserInterface;
+import arpa.home.nustudy.utils.LoggerHandler;
 
 /**
  * Command to filter courses by a keyword in their name or string representation.
@@ -21,7 +22,7 @@ import arpa.home.nustudy.ui.UserInterface;
  * {@link arpa.home.nustudy.ui.UserInterface#printFilteredCourseList(ArrayList, ArrayList, String)}.
  */
 public class FilterByNameCommand implements Command {
-    private static final Logger logger = Logger.getLogger(FilterByNameCommand.class.getName());
+    private static final Logger logger = LoggerHandler.getLogger(FilterByNameCommand.class);
     private final String keyword;
 
     /**
