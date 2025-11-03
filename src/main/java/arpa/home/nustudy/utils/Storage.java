@@ -113,7 +113,7 @@ public class Storage {
      *     <li>Course: {@code C\tCOURSE_NAME}</li>
      *     <li>Session: {@code S\tCOURSE_NAME\tHOURS\tDATE}</li>
      * </ul>
-     * invalid or corrupted entires are ignored and reported to the user.
+     * invalid or corrupted entries are ignored and reported to the user.
      *
      * @param courses The {@code CourseManager} instance to load courses into.
      * @param sessions The {@code SessionManager} instance to load sessions into.
