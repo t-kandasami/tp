@@ -361,16 +361,16 @@ The following validations are performed on each line during load:
 3. Formatting: Lines must match the expected format (prefix, filed count, data types)
 4. Date: Session dates must be valid (supported formats in User Guide, eg: 'DD/MM/YYYY') and must not be in the 
    future — any date strictly after
-   the system's current date will be rejected.
+   the system's current date will be rejected
 5. Course reference: Sessions must reference existing courses
 6. Character set: User input fields are restricted to English alphanumeric characters (A–Z, a–z, 0–9). Course codes are
-   allowed to include symbols (for example `-`, `_`, `/`) for flexibility.
+   allowed to include symbols (for example `-`, `_`, `/`) for flexibility
 
 **Handling invalid entries**
 
 The following is executed when invalid entries are detected:
 
-1. The entry is skipped and not loaded into the system.
+1. The entry is skipped and not loaded into the system
 2. The problematic line and specific reason are recorded
 3. A warning is logged for debugging purposes
 4. Loading continues with remaining valid entries
@@ -385,7 +385,7 @@ confirmation flow** is developed to prevent any unintended and thus, accidental 
 <u>Implementation details</u>
 
 1. First level confirmation:
-    - Users must confirm with `y` or `n` regardless of capitalisation. This prompt loops until valid input is received.
+    - Users must confirm with `y` or `n` regardless of capitalisation. This prompt loops until valid input is received
     - If `n` is received, reset operation is cancelled
 1. Second level confirmation:
     - Users are to prompted to type the `safeword` — `RESET ALL` for all courses and `RESET` for a specific course
