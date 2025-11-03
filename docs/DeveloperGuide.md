@@ -480,7 +480,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (opti
 1. System validates and adds course
 1. System confirms addition; `list` shows it
 
-Extensions: missing/invalid input → system prompts; duplicate → system rejects
+Extensions: missing/invalid input → system prompts; duplicate (case-insensitive) → system rejects
 
 <u>UC2 — Add study session (MSS)</u>
 
