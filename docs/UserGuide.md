@@ -76,7 +76,7 @@ Good Job! You have studied 5.0 hours for CS2113
 
 ### List all added courses
 
-Show a list of all courses in the course book.
+Show a list of all courses in the course book. (Does not show study sessions and time logged)
 
 Format: `list`
 
