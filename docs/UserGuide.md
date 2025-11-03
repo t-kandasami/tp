@@ -50,19 +50,18 @@ Example: `add CS2113`
 Expected output:
 
 ```
-Good Job! I have added CS2113
+Good Job! You have added CS2113
 ```
 
 ### Add a study session with hours
 
-Add a course study session to the course book.
+Add a course study session to the course book. `hours` should be 0.5 to 24
 
 Format: `add <course code> <study duration in hours> [date]`
 
 > **Note:**
 >
 > If `date` is not provided, today's date will be used.
-> `hours` should be 0.5 to 24
 
 See [Appendix: Supported date formats](#appendix-supported-date-formats) for valid date formats.
 
@@ -272,7 +271,7 @@ Expected output (_`>` indicates user input_):
 ```
 Are you sure you want to delete CS2113 (y/n)?
 > y
-NOTE: We have deleted CS2113 from Course Book
+NOTE: You have deleted CS2113 from Course Book
 ```
 
 ### Delete a session by index
