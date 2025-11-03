@@ -299,7 +299,7 @@ Format: `reset <course>`, or `reset all`
 
 Example: `reset CS2113`
 
-Expected output (_`>` indicates user input_):
+Expected output (_`>` indicates user input, but is not shown in the program_):
 
 ```
 Are you sure of resetting hours for CS2113 (y/n)?
@@ -312,7 +312,7 @@ Logged hours for CS2113 have been reset
 
 Example: `reset all`
 
-Expected output (_`>` indicates user input_):
+Expected output (_`>` indicates user input, but is not shown in the program_):
 
 ```
 Are you sure you want to reset hours for ALL courses? (y/n)
@@ -331,7 +331,7 @@ Format: `delete <course code>`
 
 Example: `delete CS2113`
 
-Expected output (_`>` indicates user input_):
+Expected output (_`>` indicates user input, but is not shown in the program_):
 
 ```
 Are you sure you want to delete CS2113 (y/n)?
