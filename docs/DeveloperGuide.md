@@ -139,7 +139,7 @@ This command does the following:
 
 - Validate the user input
 - Searches for the specified course
-- Removes it from the internal course list if found
+- Removes it and sessions if exist from the internal course list if found
 - Performs consistency checks post-deletion
 - Logs all major steps and errors for traceability
 - Displays a confirmation message to the user
