@@ -175,7 +175,7 @@ public class CommandParser {
         if (arguments.isEmpty()) {
             throw new NUStudyCommandException("""
                     Invalid delete command format.
-                    Usage: delete <date> OR delete <course> <index>""");
+                    Usage: delete <date> OR delete <course> OR delete <course> <index>""");
         }
 
         final String[] parts = arguments.split("\\s+");
@@ -191,7 +191,7 @@ public class CommandParser {
         } else {
             throw new NUStudyCommandException("""
                     Invalid delete command format.
-                    Usage: delete <course> <index> OR delete <date>""");
+                    Usage: delete <date> OR delete <course> OR delete <course> <index>""");
         }
     }
 
