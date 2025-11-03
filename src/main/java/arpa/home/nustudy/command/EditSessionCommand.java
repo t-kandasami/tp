@@ -17,7 +17,6 @@ import arpa.home.nustudy.session.Session;
 import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.ui.UserInterface;
 import arpa.home.nustudy.utils.DateParser;
-import arpa.home.nustudy.utils.HourValidator;
 
 public class EditSessionCommand implements Command {
     private final Logger logger = Logger.getLogger(EditSessionCommand.class.getName());
@@ -85,15 +84,14 @@ public class EditSessionCommand implements Command {
         logger.log(Level.FINE, "Attempting to parse '" + arg2 + "' as double");
 
         try {
-            final double newHours = HourValidator.parseHours(arg2);
-
+            final double newHours = Double.parseDouble(arg2);
+            if (!(newHours >= 0.5 && newHours <= 24 && (newHours * 2) % 1 == 0)) {
+                throw new NUStudyCommandException("Hours must be between 0.5 and 24, in 0.5 increments.");
+            }
             logger.log(Level.FINE, "Parsed '" + arg2 + "' as integer 2 successfully");
             logger.log(Level.FINE, "Updating course session hours to " + newHours);
-
             session.setLoggedHours(newHours);
-
             assert session.getLoggedHours() == newHours : "Updating course session hours should work as expected";
-
             UserInterface.printEditSessionHoursSuccess(newHours);
             return;
         } catch (final NumberFormatException ignored) {
