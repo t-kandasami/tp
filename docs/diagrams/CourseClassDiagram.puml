@@ -1,4 +1,7 @@
 @startuml
+skinparam ClassAttributeIconSize 0
+hide circle
+
 class Course {
     - courseName : String
     + Course(courseName: String)
@@ -9,7 +12,6 @@ class Course {
 }
 
 class CourseManager {
-    - courses : ArrayList<Course>
     + add(course: Course) : void
     + delete(course: Course) : void
     + getCourses() : ArrayList<Course>

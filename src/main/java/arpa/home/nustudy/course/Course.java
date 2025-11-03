@@ -52,6 +52,6 @@ public class Course {
      * @return A string format in the formate "C|Course_Name"
      */
     public String toStorageString() {
-        return "C|" + courseName;
+        return "C\t" + courseName;
     }
 }

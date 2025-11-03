@@ -133,7 +133,7 @@ class DeleteSessionByIndexCommandTest {
         Session testSession = new Session(course, 5, testDate);
         String expectedDateFormat = testSession.getDateString();
         assertTrue(getOutput().contains("Session 1 was successfully deleted for CS2100"));
-        assertTrue(getOutput().contains("Deleted session: CS2100 - 5 hours on " + expectedDateFormat));
+        assertTrue(getOutput().contains("Deleted session: CS2100 - 5.0 hours on " + expectedDateFormat));
     }
 
     @Test
@@ -153,6 +153,6 @@ class DeleteSessionByIndexCommandTest {
         assertEquals(7, sessionManager.getAllSessionsForCourse(course).get(1).getLoggedHours());
 
         assertTrue(getOutput().contains("Session 2 was successfully deleted for CS2100"));
-        assertTrue(getOutput().contains("Deleted session: CS2100 - 6 hours on 27 Oct 2025"));
+        assertTrue(getOutput().contains("Deleted session: CS2100 - 6.0 hours on 27 Oct 2025"));
     }
 }

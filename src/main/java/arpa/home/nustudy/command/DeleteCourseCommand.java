@@ -43,6 +43,7 @@ public class DeleteCourseCommand implements Command {
     @Override
     public void execute(final CourseManager courses, final SessionManager sessions) throws NUStudyException {
         logger.log(Level.INFO, "Executing DeleteCourseCommand with input: {0}", input);
+
         assert courses != null : "List of Courses cannot be null";
         assert input != null : "Input cannot be null";
 
@@ -69,6 +70,7 @@ public class DeleteCourseCommand implements Command {
         assert (courseToDelete.getCourseName().equals(input)) : "Returned course name does "
                 + "match input";
 
+        sessions.removeAllSessionsForCourse(courseToDelete);
         courses.delete(courseToDelete);
 
         if (courses.findCourse(input) == null) {

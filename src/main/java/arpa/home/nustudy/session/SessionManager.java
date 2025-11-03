@@ -15,11 +15,11 @@ public class SessionManager implements Iterable<Session> {
      * @param course      The course object want to add study session
      * @param loggedHours The amount of hours spent for a study session
      */
-    public void add(final Course course, final int loggedHours, final LocalDate date) {
+    public void add(final Course course, final double loggedHours, final LocalDate date) {
         sessions.add(new Session(course, loggedHours, date));
     }
 
-    public boolean sessionExists (final Course course, final int loggedHours) {
+    public boolean sessionExists (final Course course, final double loggedHours) {
         for (Session session : sessions) {
             if (session.getCourse().equals(course) && session.getLoggedHours() == loggedHours) {
                 return true;
@@ -35,8 +35,8 @@ public class SessionManager implements Iterable<Session> {
      *
      * @return List of all logged hours
      */
-    public ArrayList<Integer> getAllLoggedHoursForCourse(final Course course) {
-        final ArrayList<Integer> res = new ArrayList<>();
+    public ArrayList<Double> getAllLoggedHoursForCourse(final Course course) {
+        final ArrayList<Double> res = new ArrayList<>();
 
         for (final Session session : sessions) {
             if (!session.getCourse().equals(course)) {

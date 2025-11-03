@@ -16,7 +16,7 @@ public class Session {
      * <p>
      * The loggedHours for each session
      */
-    private int loggedHours;
+    private double loggedHours;
     private final Course course;
     private LocalDate date;
 
@@ -27,7 +27,7 @@ public class Session {
      * @param loggedHours the amount of hours spent
      * @param date        The date of Study Session
      */
-    public Session(final Course course, final int loggedHours, final LocalDate date) {
+    public Session(final Course course, final double loggedHours, final LocalDate date) {
         this.loggedHours = loggedHours;
         this.course = course;
         this.date = date;
@@ -48,7 +48,7 @@ public class Session {
      *
      * @return Logged hours for this session
      */
-    public int getLoggedHours() {
+    public double getLoggedHours() {
         return loggedHours;
     }
 
@@ -57,7 +57,7 @@ public class Session {
      *
      * @param loggedHours Logged hours for this session
      */
-    public void setLoggedHours(final int loggedHours) {
+    public void setLoggedHours(final double loggedHours) {
         this.loggedHours = loggedHours;
     }
 
@@ -76,7 +76,7 @@ public class Session {
      * @return A string format in the formate "S|Course_Name|Logged_Hours|Date"
      */
     public String toStorageString() {
-        return "S|" + course.getCourseName() + "|" + loggedHours + "|" + date;
+        return "S\t" + course.getCourseName() + "\t" + loggedHours + "\t" + date;
     }
 
     /**

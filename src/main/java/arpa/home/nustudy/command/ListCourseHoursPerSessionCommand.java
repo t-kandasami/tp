@@ -43,7 +43,7 @@ public class ListCourseHoursPerSessionCommand implements Command {
             throw new NUStudyNoSuchCourseException("Course with name " + courseName + " does not exist");
         }
 
-        final ArrayList<Integer> courseHours = sessions.getAllLoggedHoursForCourse(course);
+        final ArrayList<Double> courseHours = sessions.getAllLoggedHoursForCourse(course);
         final ArrayList<String> courseDate = sessions.getAllDateStringsForCourse(course);
 
         UserInterface.printCourseHoursPerSession(course, courseHours, courseDate);

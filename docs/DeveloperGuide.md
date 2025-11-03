@@ -71,6 +71,7 @@ The `Command` interface is implemented by the following command classes:
 - **Delete Commands**: `DeleteCourseCommand`, `DeleteSessionByDateCommand`, `DeleteSessionByIndexCommand`
 - **Edit Commands**: `EditCourseNameCommand`, `EditSessionCommand`
 - **List Commands**: `ListCourseCommand`, `ListCourseHoursPerSessionCommand`
+- **Filter Commands**: `FilterByDateCommand`, `FilterByNameAndDateCommand`, `FilterByNameCommand`
 - **Other Commands**: `ResetCourseHoursCommand`, `ExitCommand`
 
 <u>Methods</u>
@@ -138,7 +139,7 @@ This command does the following:
 
 - Validate the user input
 - Searches for the specified course
-- Removes it from the internal course list if found
+- Removes it and sessions if exist from the internal course list if found
 - Performs consistency checks post-deletion
 - Logs all major steps and errors for traceability
 - Displays a confirmation message to the user
@@ -294,26 +295,26 @@ The storage file is lined-based, with each line representing a single record:
 **Format**:
 
 ```
-C|<courseName>
-S|<courseName>|<loggedHours>
+C	<courseName>
+S	<courseName>	<loggedHours>
 ```
 
 Where:
 
-- `C|` prefix denotes a Course record
-- `S|` prefix denotes a Session record
-- Fields are separated by the pipe character `|`
+- `C` prefix denotes a Course record
+- `S` prefix denotes a Session record
+- Fields are separated by the tab character `\t`
 - `<courseName>` is the course identifier
 - `<loggedHours>` is an integer representing study hours
 
 **Examples**:
 
 ```
-C|CS2113
-C|MA1508E
-S|CS2113|2
-S|CS2113|5
-S|MA1508E|6
+C	CS2113
+C	MA1508E
+S	MA1508E	6	2025-10-31
+S	CS2113	2	2025-10-31
+S	CS2113	5	2025-10-31
 ```
 
 This example shows:
@@ -403,6 +404,31 @@ The following activity diagram illustrates the complete reset workflow:
     - Cons: Reckless design, leading to unacceptable risk of data wipe
 
 {*more aspects and alternatives to be added*}
+
+### Exception component
+
+<u>Overview</u>
+
+The exception component package defines a proper hierarchy of custom exceptions used across the NUStudy application
+to handle various error conditions gracefully. All exceptions in this package inherit from base class
+`NUStudyException`, which extends the internal Java `Exception` class.
+
+<u>Implementation details</u>
+
+| **Class Name**                                       | **Description**                                                   |
+|------------------------------------------------------|-------------------------------------------------------------------|
+| `NUStudyException(String message)`                   | Base class for all custom exceptions in NUStudy.                  |
+| `FutureDateException(String message)`                | Thrown when a provided date is in the future.                     |
+| `NUStudyCommandException(String message)`            | Handles invalid or unrecognized user commands.                    |
+| `NUStudyCourseAlreadyExistException(String message)` | Raised when trying to add a course that already exists.           |
+| `NUStudyNoSuchSessionException()`                    | Thrown when the user enters an invalid or nonexistent session ID. |
+| `WrongDateFormatException(String message)`           | Raised when a user inputs an invalid date or unsupported format.  |
+
+<u>Design Considerations</u>
+
+- **Hierarchy-based error handling**: All exceptions extend from a common parent, allowing centralised error handling.
+- **Providing better clarity**: Each exception class focuses on a specific, well-defined error condition.
+- **User Guidance**: Error messages are crafted to guide users toward valid input or actions.
 
 ## Appendix: Requirements
 

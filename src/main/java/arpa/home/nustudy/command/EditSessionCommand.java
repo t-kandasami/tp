@@ -32,7 +32,7 @@ public class EditSessionCommand implements Command {
      * @param courses  The course list to work with
      * @param sessions The session manager to work with
      *
-     * @throws NUStudyException              If the course name is invalid
+     * @throws NUStudyException              If the course code is invalid
      * @throws NUStudyCommandException       If the index or date format is invalid
      * @throws NUStudyNoSuchSessionException If the session index is out of bounds
      * @throws FutureDateException           If the provided date is in the future
@@ -44,7 +44,7 @@ public class EditSessionCommand implements Command {
         Course course = courses.findCourse(argument[0].trim());
 
         if (course == null) {
-            throw new NUStudyNoSuchCourseException("Invalid course name!");
+            throw new NUStudyNoSuchCourseException("Invalid course code!");
         }
 
         int index;
@@ -67,7 +67,7 @@ public class EditSessionCommand implements Command {
         try {
             date = DateParser.parseDate(arg2);
             if (date.isAfter(LocalDate.now())) {
-                throw new FutureDateException();
+                throw new FutureDateException(arg2);
             }
             session.setDate(date);
             UserInterface.printEditSessionDateSuccess(date);
@@ -76,23 +76,22 @@ public class EditSessionCommand implements Command {
             // If parsing failed, check if it failed because the date is in the future:
             if (DateParser.isFutureDate(arg2)) {
                 // Surface a specific FutureDateException so callers/tests get the expected behavior
-                throw new FutureDateException();
+                throw new FutureDateException(arg2);
             }
             // Intentionally left empty to try for Integer if not a future-date issue
         }
 
-        logger.log(Level.FINE, "Attempting to parse '" + arg2 + "' as integer");
+        logger.log(Level.FINE, "Attempting to parse '" + arg2 + "' as double");
 
         try {
-            final int newHours = Integer.parseInt(arg2);
-
+            final double newHours = Double.parseDouble(arg2);
+            if (!(newHours >= 0.5 && newHours <= 24 && (newHours * 2) % 1 == 0)) {
+                throw new NUStudyCommandException("Hours must be between 0.5 and 24, in 0.5 increments.");
+            }
             logger.log(Level.FINE, "Parsed '" + arg2 + "' as integer 2 successfully");
             logger.log(Level.FINE, "Updating course session hours to " + newHours);
-
             session.setLoggedHours(newHours);
-
             assert session.getLoggedHours() == newHours : "Updating course session hours should work as expected";
-
             UserInterface.printEditSessionHoursSuccess(newHours);
             return;
         } catch (final NumberFormatException ignored) {

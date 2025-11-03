@@ -21,6 +21,7 @@ public class App {
      */
     public static void main(final String[] args) {
         System.out.println("Hello from NUStudy");
+        System.out.println("use <help> for help");
 
         boolean isExit = false;
 
@@ -40,10 +41,10 @@ public class App {
             try {
                 final Command c = CommandParser.parseCommand(userInput);
                 c.execute(courseManager, sessionManager);
+                storage.save(courseManager, sessionManager);
 
                 if (c.isExit()) {
                     isExit = true;
-                    storage.save(courseManager, sessionManager);
                 }
             } catch (final NUStudyException e) {
                 System.out.println(e.getMessage());

@@ -4,6 +4,7 @@ package arpa.home.nustudy.utils;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 import arpa.home.nustudy.exceptions.WrongDateFormatException;
 
@@ -13,7 +14,8 @@ import arpa.home.nustudy.exceptions.WrongDateFormatException;
 public class DateParser {
 
     private static final String[] DATE_PATTERNS = {
-        "yyyy-MM-dd", "d/M/yyyy", "d-M-yyyy"
+        "uuuu-MM-dd", "d/M/uuuu", "dd/MM/uuuu", "dd/M/uuuu", "d/MM/uuuu",
+        "d-M-uuuu", "dd-M-uuuu", "dd-MM-uuuu", "d-MM-uuuu"
     };
 
     /**
@@ -27,25 +29,26 @@ public class DateParser {
      */
     public static LocalDate parseDate(String date) throws WrongDateFormatException {
         if (date == null || date.isEmpty()) {
-            throw new WrongDateFormatException();
+            throw new WrongDateFormatException(date.trim());
         }
 
         for (String pattern : DATE_PATTERNS) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+            DateTimeFormatter formatter = DateTimeFormatter
+                    .ofPattern(pattern)
+                    .withResolverStyle(ResolverStyle.STRICT);
 
             try {
                 LocalDate parsed = LocalDate.parse(date.trim(), formatter);
                 // disallow future dates
                 if (parsed.isAfter(LocalDate.now())) {
-                    throw new WrongDateFormatException();
+                    throw new WrongDateFormatException(date.trim());
                 }
                 return parsed;
             } catch (DateTimeParseException ignored) {
                 // Intentionally ignore and try the next pattern
             }
         }
-        throw new WrongDateFormatException();
-
+        throw new WrongDateFormatException(date.trim());
     }
 
     /**

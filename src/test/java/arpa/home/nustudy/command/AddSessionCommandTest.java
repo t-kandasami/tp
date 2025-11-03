@@ -15,6 +15,7 @@ import arpa.home.nustudy.exceptions.NUStudyException;
 import arpa.home.nustudy.exceptions.NUStudyNoSuchCourseException;
 import arpa.home.nustudy.session.SessionManager;
 
+//@@author t-kandasami
 class AddSessionCommandTest {
     private CourseManager courseManager;
     private SessionManager sessionManager;
@@ -33,8 +34,8 @@ class AddSessionCommandTest {
         assertDoesNotThrow(() -> cmd.execute(courseManager, sessionManager));
 
         // Verify session added with correct hours
-        assertTrue(sessionManager.getAllLoggedHoursForCourse(course).contains(3),
-                "Session with 3 hours should be recorded for course CS1010");
+        assertTrue(sessionManager.getAllLoggedHoursForCourse(course).contains(3.0),
+                "Session with 3.0 hours should be recorded for course CS1010");
     }
 
     @Test
@@ -53,7 +54,7 @@ class AddSessionCommandTest {
 
         NUStudyException ex = assertThrows(NUStudyException.class,
                 () -> command.execute(courseManager, sessionManager));
-        assertEquals("Hours must be an integer", ex.getMessage());
+        assertEquals("Hours must be a double", ex.getMessage());
     }
 
     @Test
@@ -63,3 +64,4 @@ class AddSessionCommandTest {
         assertFalse(cmd.isExit());
     }
 }
+//@author
