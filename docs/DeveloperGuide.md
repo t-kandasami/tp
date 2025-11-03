@@ -348,7 +348,7 @@ The `load(courses, sessions)` method in `Storage` executes the following:
 1. If parent directory exists, the existence of the storage file `NUStudy.txt` is checked. If it is non-existent, a
    note is logged to notify user and empty managers are initialised.
 1. A `BufferedReader` is initiailsed to read in contents from the text file line by line.
-2. An `ArrayList<String>` object is initialised to collect all ignored entries which will be later displayed to the 
+2. An `ArrayList<String>` object is initialised to collect all ignored entries which will be later displayed to the
    user for refrence.
 1. Each line from the file is handed over to a separate sub-process (see below). This sub-process handles checks,
    `Session` or `Course` object creation and insertion into the respective managers.
@@ -366,7 +366,8 @@ The abstracted logic parsing frame executes the following:
     1. If a line starts with `S`, it calls `parseSession(line)` through the `DataParser` class, constructs a
        new `Session` object with its corresponding `Course` reference and inserts it into the `SessionManager`
        instance if a matching course already exists.
-1. Each parsing branch contains [internal validation checks](#udata-integrity-and-safetyu) for prefix correctness, segment counts and null 
+1. Each parsing branch contains [internal validation checks](#udata-integrity-and-safetyu) for prefix correctness,
+   segment counts and null
    checks.
 
 #### <u>Data integrity and safety</u>
@@ -382,6 +383,8 @@ The following validations are performed on each line during load:
 3. Formatting: Lines must match the expected format (prefix, filed count, data types)
 4. Date: Session dates must be in valid `YYYY-MM-DD` format
 5. Course reference: Sessions must reference existing courses
+6. Character set: User input fields are restricted to English alphanumeric characters (A–Z, a–z, 0–9). Course codes are
+   allowed to include symbols (for example `-`, `_`, `/`) for flexibility.
 
 **Handling invalid entries**
 
@@ -481,13 +484,13 @@ distracting, requiring internet access, or bloated with unnecessary features.
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (optional) - `*`
 
-| Priority | As a…                     | I want to…                                                                    | So that I can…                                                   |
-|----------|---------------------------|-------------------------------------------------------------------------------|------------------------------------------------------------------|
-| `* * *`  | Organised student         | add a new course                                                              | track number of hours required for it                            |
-| `* * *`  | Organised student         | log study time spent for a specific course                                    | keep track of the amount of time spent studying per module       |
-| `* * *`  | Organised student         | remove a course                                                               | keep my study list relevant                                      |
-| `* * *`  | Visual learner            | be given proper feedback as I manipulate stuff (CRUD)                         | be visually stimulated and be informed of my actions             |
-| `* * *`  | Organised student         | reset logged hours                                                            | know what to focus on next                                       |
+| Priority | As a…             | I want to…                                            | So that I can…                                             |
+|----------|-------------------|-------------------------------------------------------|------------------------------------------------------------|
+| `* * *`  | Organised student | add a new course                                      | track number of hours required for it                      |
+| `* * *`  | Organised student | log study time spent for a specific course            | keep track of the amount of time spent studying per module |
+| `* * *`  | Organised student | remove a course                                       | keep my study list relevant                                |
+| `* * *`  | Visual learner    | be given proper feedback as I manipulate stuff (CRUD) | be visually stimulated and be informed of my actions       |
+| `* * *`  | Organised student | reset logged hours                                    | know what to focus on next                                 |
 
 ## Use cases
 

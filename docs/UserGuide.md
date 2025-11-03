@@ -342,6 +342,10 @@ _Therefore, here are some tips for you..._
 2. Use the app, not a text editor! Always use NUStudy commands instead of manually editing the file unless you are 
    familiar with CLI applications
 
+Input character rules:
+- General free-text inputs must use English alphanumeric characters only (A–Z, a–z, 0–9).
+- Course codes may include symbols (e.g., `-`, `_`, `/`) for flexibility.
+
 ## Command summary
 
 |  Type  | Action                                                                          | Format                                                             | Example                    |
@@ -372,4 +376,4 @@ NUStudy supports the following date formats:
 
 ## Appendix: Supported hour range
 
-NUStudy supports hours starting from 0.5 to 24 with 0.5 increment only. 
+NUStudy supports hours starting from 0.5 to 24 with 0.5 increment only.
