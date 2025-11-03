@@ -35,11 +35,14 @@ It is written in Java and uses Gradle for Build Management. JUnit for unit-testi
 * **Enhancement 2** : Edit Course Name [#86](https://github.com/AY2526S1-CS2113-W14-2/tp/pull/86)
     * Allowing users to edit the name of courses. This feature was built with the intention that it will update the
       sessions as well.
+* **Enhancement 3** : Help Command [#175](https://github.com/AY2526S1-CS2113-W14-2/tp/pull/175)
+    * Listing all the commands available in NUStudy in a clear concise list
 
 #### Contributions to User Guide
 
 * Edit a course name section
 * Delete a Course
+* Help Command
 
 #### Contributions to Developer Guide
 
@@ -47,3 +50,5 @@ It is written in Java and uses Gradle for Build Management. JUnit for unit-testi
     * The Descriptions and Activity Diagram
 * **Course Component**: The entire section of Course Component
     * The Descriptions and Activity Diagram
+* **Exception Component**: The entire section of the Exception Component
+    * The Description and table
