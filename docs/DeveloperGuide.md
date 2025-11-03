@@ -4,8 +4,6 @@
 
 - [**Acknowledgements**](#acknowledgements)
 - [**Design & implementation**](#design--implementation)
-    - [UI component](#ui-component)
-    - [Parser component](#parser-component)
     - [Command component](#command-component)
     - [Course component](#course-component)
     - [Session component](#session-component)
@@ -31,26 +29,6 @@ NUStudy uses the following tools for development and testing:
 
 ## Design & implementation
 
-### UI component
-
-<u>Overview</u>
-
-[//]: # (TODO: Complete UI component overview for developer guide)
-
-<u>Implementation details</u>
-
-[//]: # (TODO: Complete UI component implementation details for developer guide)
-
-### Parser component
-
-<u>Overview</u>
-
-[//]: # (TODO: Complete parser component overview for developer guide)
-
-<u>Implementation details</u>
-
-[//]: # (TODO: Complete parser component implementation details for developer guide)
-
 ### Command component
 
 <u>Overview</u>
@@ -72,7 +50,7 @@ The `Command` interface is implemented by the following command classes:
 - **Edit Commands**: `EditCourseNameCommand`, `EditSessionCommand`
 - **List Commands**: `ListCourseCommand`, `ListCourseHoursPerSessionCommand`
 - **Filter Commands**: `FilterByDateCommand`, `FilterByNameAndDateCommand`, `FilterByNameCommand`
-- **Other Commands**: `ResetCourseHoursCommand`, `ExitCommand`
+- **Other Commands**: `ResetCourseHoursCommand`, `ExitCommand`, `HelpCommand`
 
 <u>Methods</u>
 
