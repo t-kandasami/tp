@@ -193,10 +193,10 @@ ArrayList.
 
 The `Course` class defines the following methods:
 
-- `Course(String courseName)`: Constructs a new Course with the given name.
-- `getCourseName()`: Retrieves the name attribute of a Course.
-- `setCourseName(String courseName)`: Updates the course name of a Course used for the edit feature.
-- `toString()`: Returns the course name as a readable string.
+- `Course(String courseName)`: Constructs a new Course with the given code.
+- `getCourseName()`: Retrieves the course code attribute of a Course.
+- `setCourseName(String courseName)`: Updates the course code of a Course used for the edit feature.
+- `toString()`: Returns the course code as a readable string.
 - `toStorageString()`: Returns the course data formatted for file storage.
 
 **`CourseManager` methods**:
@@ -235,15 +235,15 @@ using an internal `ArrayList`.
 
 The `Session` class defines the following methods:
 
-- `Session(Course course, int loggedHours, LocalDate date)`: Create a new Course with the specific name
+- `Session(Course course, int loggedHours, LocalDate date)`: Create a new Session for the specified course code
 - `getLoggedHours()`: Get logged hours for this session
 - `setLoggedHours(int loggedHours)`: Set logged hours for this session
 - `getCourse()`: Get course for this session
 - `getDate()`: Return the date of the session
 - `getDateString()`: Return a formatted string representation of the date
-- `setDate(LocalDate date)`: Set the date of teh session
+- `setDate(LocalDate date)`: Set the date of the session
 - `toStorageString()`: Return a string representation to be stored in the data file
-- `toString()`: Return a string representation of the course
+- `toString()`: Return a string representation of the course and/or session
 
 **`SessionManager` methods**:
 
