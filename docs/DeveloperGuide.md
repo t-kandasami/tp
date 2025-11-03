@@ -348,7 +348,7 @@ The `load(courses, sessions)` method in `Storage` executes the following:
 1. If parent directory exists, the existence of the storage file `NUStudy.txt` is checked. If it is non-existent, a
    note is logged to notify user and empty managers are initialised.
 1. A `BufferedReader` is initiailsed to read in contents from the text file line by line.
-2. An `ArrayList<String>` object is initialised to collect all ignored entries which will be later displayed to the 
+2. An `ArrayList<String>` object is initialised to collect all ignored entries which will be later displayed to the
    user for refrence.
 1. Each line from the file is handed over to a separate sub-process (see below). This sub-process handles checks,
    `Session` or `Course` object creation and insertion into the respective managers.
@@ -366,7 +366,8 @@ The abstracted logic parsing frame executes the following:
     1. If a line starts with `S`, it calls `parseSession(line)` through the `DataParser` class, constructs a
        new `Session` object with its corresponding `Course` reference and inserts it into the `SessionManager`
        instance if a matching course already exists.
-1. Each parsing branch contains [internal validation checks](#udata-integrity-and-safetyu) for prefix correctness, segment counts and null 
+1. Each parsing branch contains [internal validation checks](#udata-integrity-and-safetyu) for prefix correctness,
+   segment counts and null
    checks.
 
 #### <u>Data integrity and safety</u>
@@ -380,8 +381,12 @@ The following validations are performed on each line during load:
 1. Manual modification: lines using whitespaces instead of `\t` (TAB) are flagged as manually injected data
 2. Duplicate course: Course entries that already exist in the system are identified
 3. Formatting: Lines must match the expected format (prefix, filed count, data types)
-4. Date: Session dates must be in valid `YYYY-MM-DD` format
+4. Date: Session dates must be valid (supported formats in User Guide, eg: 'DD/MM/YYYY') and must not be in the 
+   future — any date strictly after
+   the system's current date will be rejected.
 5. Course reference: Sessions must reference existing courses
+6. Character set: User input fields are restricted to English alphanumeric characters (A–Z, a–z, 0–9). Course codes are
+   allowed to include symbols (for example `-`, `_`, `/`) for flexibility.
 
 **Handling invalid entries**
 
@@ -481,41 +486,13 @@ distracting, requiring internet access, or bloated with unnecessary features.
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (optional) - `*`
 
-| Priority | As a…                     | I want to…                                                                    | So that I can…                                                   |
-|----------|---------------------------|-------------------------------------------------------------------------------|------------------------------------------------------------------|
-| `* * *`  | Easily distracted student | access the study app offline                                                  | be less distracted                                               |
-| `* * *`  | Careless student          | be asked for confirmation when I want to delete study sessions                | be rest assured there won’t be any accidental deletions          |
-| `* * *`  | Goal-oriented student     | set goals for total study hours per day                                       | I can track short-term progress                                  |
-| `* * *`  | Goal-oriented student     | set target study hours per course                                             | set my goals clear                                               |
-| `* * *`  | Organised student         | add a new course                                                              | track number of hours required for it                            |
-| `* * *`  | Organised student         | log study time spent for a specific course                                    | keep track of the amount of time spent studying per module       |
-| `* * *`  | Organised student         | remove a course                                                               | keep my study list relevant                                      |
-| `* * *`  | Visual learner            | be given proper feedback as I manipulate stuff (CRUD)                         | be visually stimulated and be informed of my actions             |
-| `* * *`  | Organised student         | reset logged hours                                                            | know what to focus on next                                       |
-| `* * *`  | Diligent student          | rank the course study time                                                    | start fresh for a current course                                 |
-| `* * *`  | Inquisitive student       | see which course I studied the least                                          | know where to focus more                                         |
-| `* * *`  | Efficient student         | set maximum study hours allocated in a week                                   | effectively balance my workload across the week                  |
-| `* * *`  | Reflective student        | track total studies time                                                      | understand my priorities                                         |
-| `* * *`  | Systematic student        | view a summary of hours spent on studying per course                          | have better time management                                      |
-| `* *`    | Ambitious student         | set long-term study goals for the semester                                    | plan my academic progress                                        |
-| `* *`    | Careful student           | edit previous log study time or course                                        | fix typos or mistakes                                            |
-| `* *`    | Careful student           | undo my last input                                                            | quickly fix my mistakes                                          |
-| `* *`    | Disciplined student       | set weekly study goals                                                        | maintain a consistent study routine                              |
-| `* *`    | Efficient student         | filter my study logs by date                                                  | focus on specific periods                                        |
-| `* *`    | Persistent student        | track my study streak                                                         | stay motivated to study daily                                    |
-| `* *`    | Motivated student         | earn badges/points for consistent study habits                                | stay engaged with the app                                        |
-| `* *`    | New user                  | view a manual on how to use this app                                          | quickly learn how to use its features                            |
-| `* *`    | Organised student         | view a calendar of all my course events                                       | plan my study schedule                                           |
-| `* *`    | Proactive student         | see a summary of my course deadlines                                          | prioritize tasks effectively                                     |
-| `* *`    | Attentive student         | compare actual versus target hours                                            | know if I am on track                                            |
-| `* *`    | Methodical student        | have an automatic way to log my study times per session                       | do not have to be aware and concerned if I forgot to time myself |
-| `* *`    | Thorough student          | have my study timing records saved automatically                              | be sure my progress will not be lost                             |
-| `* *`    | Resilient student         | have the option to import past study sessions if I have the save file with me | continue where I left off                                        |
-| `* *`    | Analytical student        | track my average study hour per day                                           | I can evaluate my consistency                                    |
-| `*`      | Busy student              | receive notifications for upcoming assignment deadlines                       | manage my time effectively                                       |
-| `*`      | Competitive student       | compare my study hours with anonymized peer data                              | gauge my effort                                                  |
-| `*`      | Responsible student       | confirm my assignment submissions                                             | I know they were received successfully                           |
-| `*`      | Time-conscious student    | set personal reminders for study tasks                                        | stay on top of my coursework                                     |
+| Priority | As a…             | I want to…                                            | So that I can…                                             |
+|----------|-------------------|-------------------------------------------------------|------------------------------------------------------------|
+| `* * *`  | Organised student | add a new course                                      | track number of hours required for it                      |
+| `* * *`  | Organised student | log study time spent for a specific course            | keep track of the amount of time spent studying per module |
+| `* * *`  | Organised student | remove a course                                       | keep my study list relevant                                |
+| `* * *`  | Visual learner    | be given proper feedback as I manipulate stuff (CRUD) | be visually stimulated and be informed of my actions       |
+| `* * *`  | Organised student | reset logged hours                                    | know what to focus on next                                 |
 
 ## Use cases
 
