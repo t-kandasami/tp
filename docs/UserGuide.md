@@ -97,7 +97,7 @@ Format: `add <course code> <study duration in hours>`
 > **Note:**
 >
 >
-> today's date will be used.
+> Today's date will be used.
 >
 > `<study duration in hours>` should be 0.5 to 24
 
