@@ -96,12 +96,10 @@ Format: `add <course code> <study duration in hours>`
 
 > **Note:**
 >
-> If `date` is not provided, today's date will be used.
 >
-> Future dates are not allowed. Any date strictly after today's date will be rejected with an informative error; provide
-> a past or today's date.
-> 
-> `hours` should be 0.5 to 24
+> today's date will be used.
+>
+> `<study duration in hours>` should be 0.5 to 24
 
 See [Appendix: Supported date formats](#appendix-supported-date-formats) for valid date formats.
 
@@ -121,12 +119,11 @@ Format: `add <course code> <study duration in hours> <date>`
 
 > **Note:**
 >
-> If `date` is not provided, today's date will be used.
 >
 > Future dates are not allowed. Any date strictly after today's date will be rejected with an informative error; provide
 > a past or today's date.
 >
-> `hours` should be 0.5 to 24
+> `<study duration in hours>` should be 0.5 to 24
 
 See [Appendix: Supported date formats](#appendix-supported-date-formats) for valid date formats.
 
