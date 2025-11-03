@@ -75,4 +75,6 @@ group sd parsing courses or sessions
             deactivate SM
         end
     end
+end
+
 @enduml
