@@ -1,38 +1,41 @@
 @startuml
+skinparam ClassAttributeIconSize 0
+hide circle
+
 class Session {
-    - loggedHours: int
-    - course: Course
-    - date: LocalDate
+    - loggedHours : int
+    - course : Course
+    - date : LocalDate
 
     + Session(course: Course, loggedHours: int, date: LocalDate)
-    + getLoggedHours(): int
-    + setLoggedHours(loggedHours: int): void
-    + getCourse(): Course
-    + getDate(): LocalDate
-    + getDateString(): String
-    + setDate(date: LocalDate): void
-    + toStorageString(): String
-    + toString(): String
+    + getLoggedHours() : int
+    + setLoggedHours(loggedHours: int) : void
+    + getCourse() : Course
+    + getDate() : LocalDate
+    + getDateString() : String
+    + setDate(date: LocalDate) : void
+    + toStorageString() : String
+    + toString() : String
 }
 
 class SessionManager implements Iterable<Session> {
-    - sessions: ArrayList<Session>
+    - sessions : ArrayList<Session>
 
-    + add(course: Course, loggedHours: int, date: LocalDate): void
-    + sessionExists(course: Course, loggedHours: int): boolean
-    + getAllLoggedHoursForCourse(course: Course): ArrayList<Integer>
-    + getAllDateStringsForCourse(course: Course): ArrayList<String>
-    + clearAllSessions(): void
-    + removeAllSessionsForCourse(course: Course): void
-    + getSessionCount(): int
-    + getAllSessionsForCourse(course: Course): ArrayList<Session>
-    + removeSession(session: Session): boolean
-    + removeAllSessionsByDate(date: LocalDate): int
-    + iterator(): Iterator<Session>
+    + add(course: Course, loggedHours: int, date: LocalDate) : void
+    + sessionExists(course: Course, loggedHours: int) : boolean
+    + getAllLoggedHoursForCourse(course: Course) : ArrayList<Integer>
+    + getAllDateStringsForCourse(course: Course) : ArrayList<String>
+    + clearAllSessions() : void
+    + removeAllSessionsForCourse(course: Course) : void
+    + getSessionCount() : int
+    + getAllSessionsForCourse(course: Course) : ArrayList<Session>
+    + removeSession(session: Session) : boolean
+    + removeAllSessionsByDate(date: LocalDate) : int
+    + iterator() : Iterator<Session>
 }
 
 interface Iterable<Session> {
-    + iterator(): Iterator<Session>
+    + iterator() : Iterator<Session>
 }
 
 SessionManager "1" -- "0..*" Session: manages >

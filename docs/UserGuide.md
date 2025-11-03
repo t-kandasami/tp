@@ -9,16 +9,17 @@ type fast, NUStudy can get your study management tasks done faster than traditio
 
 - [**Quick start**](#quick-start)
 - [**Features**](#features)
+    - [Help](#help)
     - [Add a course](#add-a-course)
     - [Add a study session with hours](#add-a-study-session-with-hours)
     - [List all added courses](#list-all-added-courses)
     - [List study sessions for a course](#list-study-sessions-for-a-course)
-    - [Edit a course name](#edit-a-course-name)
+    - [Edit a course code](#edit-a-course-code)
     - [Edit study session hours for a course](#edit-study-session-hours-for-a-course)
     - [Edit study session date for a course](#edit-study-session-date-for-a-course)
-    - [Filter by course name](#filter-by-course-name)
+    - [Filter by course code](#filter-by-course-code)
     - [Filter by date](#filter-by-date)
-    - [Filter by course name and date](#filter-by-course-name-and-date)
+    - [Filter by course code and date](#filter-by-course-code-and-date)
     - [Reset hours for a course](#reset-hours-for-a-course)
     - [Delete a course](#delete-a-course)
     - [Delete a session by index](#delete-a-session-by-index)
@@ -40,6 +41,39 @@ type fast, NUStudy can get your study management tasks done faster than traditio
 
 ## Features
 
+### Help
+
+Lists out all the commands NUStudy supports
+
+Format: `help`
+
+Expected output:
+
+```
+                               NUStudy Help
+    ===================================================================================================
+    Type                               Format                              Example
+    ---------------------------------------------------------------------------------------------------
+    Help                               help                                help
+    Add a course                       add <course code>                   add CS2113
+    Add a study session                add <course code> <hours>           add CS2113 5
+    Add a study session with date      add <course code> <hours> <date>    add CS2113 5 23/10/2025
+    List all courses                   list                                list
+    List study sessions                list <course code>                  list CS2113
+    Edit course code                   edit <old course code> <new code>   edit CS2113 MA1511
+    Edit study session hours           edit <course code> <index> <hours>  edit CS2113 1 2
+    Edit study session date            edit <course code> <index> <date>   edit CS2113 1 23/10/2025
+    Filter by course                   filter <course>                     filter MA1511
+    Filter by date                     filter <date>                       filter 23/10/2025
+    Filter code and date               filter <course> <date>              filter MA1511 23/10/2025
+    Reset                              reset <course> or reset all         reset CS2113
+    Delete a course                    delete <course code>                delete CS2113
+    Delete session by index            delete <course code> <index>        delete CS2113 2
+    Delete session by date             delete <date>                       delete 26/10/2025
+    Exit NUStudy                       exit                                exit
+    ====================================================================================================
+```
+
 ### Add a course
 
 Add a course to the course book.
@@ -54,22 +88,46 @@ Expected output:
 Good Job! You have added CS2113
 ```
 
-### Add a study session with hours
+### Add a study session without date
 
-Add a course study session to the course book. `hours` should be 0.5 to 24
+Add a course study session to the course book.
 
-Format: `add <course code> <study duration in hours> [date]`
+Format: `add <course code> <study duration in hours>`
 
 > **Note:**
 >
-> If `date` is not provided, today's date will be used.
 >
-> Future dates are not allowed. Any date strictly after today's date will be rejected with an informative error; provide
-> a past or today's date.
+> Today's date will be used.
+>
+> `<study duration in hours>` should be 0.5 to 24
 
 See [Appendix: Supported date formats](#appendix-supported-date-formats) for valid date formats.
 
 Example: `add CS2113 5`
+
+Expected output:
+
+```
+Good Job! You have studied 5.0 hours for CS2113
+```
+
+### Add a study session with date
+
+Add a course study session to the course book.
+
+Format: `add <course code> <study duration in hours> <date>`
+
+> **Note:**
+>
+>
+> Future dates are not allowed. Any date strictly after today's date will be rejected with an informative error; provide
+> a past or today's date.
+>
+> `<study duration in hours>` should be 0.5 to 24
+
+See [Appendix: Supported date formats](#appendix-supported-date-formats) for valid date formats.
+
+Example: `add CS2113 5 04/11/2025`
 
 Expected output:
 
@@ -109,11 +167,11 @@ List of study sessions
 3. CS2113 - 4.0 hours at 25 Oct 2025
 ```
 
-### Edit a course name
+### Edit a course code
 
-Edit an old course name with a new course name. The old course has to exist beforehand.
+Edit an old course code with a new course code. The old course must exist beforehand.
 
-Format: `edit <old course name> <new course name>`
+Format: `edit <old course code> <new course code>`
 
 Example: `edit CS2113 MA1511`
 
@@ -153,9 +211,9 @@ Expected output:
 Session Date change to 23 Oct 2025
 ```
 
-### Filter by course name
+### Filter by course code
 
-Show all courses whose codes or names match the given course keyword.
+Show all courses whose codes match the given course keyword.
 
 Format: `filter <course>`
 
@@ -205,9 +263,9 @@ Behaviour notes:
 - Future dates are not allowed for date filters; a date strictly after today's date will be rejected and the app will
   display an informative error indicating the date is in the future.
 
-### Filter by course name and date
+### Filter by course code and date
 
-Show sessions for the specified course that occurred on the given date.
+Show sessions for the specified course code that occurred on the given date.
 
 Format: `filter <course> <date>`
 
@@ -363,16 +421,17 @@ Input character rules:
 
 | Type   | Action                                                                          | Format                                                             | Example                    |
 |--------|---------------------------------------------------------------------------------|--------------------------------------------------------------------|----------------------------|
+| Help   | [Help](#help)                                                                   | `help`                                                             | `help`                     |
 | Add    | [Add a course](#add-a-course)                                                   | `add <course code>`                                                | `add CS2113`               |
 |        | [Add a study session with hours](#add-a-study-session-with-hours)               | `add <course code> <study duration in hours> [date]`               | `add CS2113 5`             |
 | List   | [List all added courses](#list-all-added-courses)                               | `list`                                                             | `list`                     |
 |        | [List study sessions for a course](#list-study-sessions-for-a-course)           | `list <course code>`                                               | `list CS2113`              |
-| Edit   | [Edit a course name](#edit-a-course-name)                                       | `edit <old course name> <new course name>`                         | `edit CS2113 MA1511`       |
+| Edit   | [Edit a course code](#edit-a-course-code)                                       | `edit <old course code> <new course code>`                         | `edit CS2113 MA1511`       |
 |        | [Edit study session hours for a course](#edit-study-session-hours-for-a-course) | `edit <course code> <session index> <new study duration in hours>` | `edit CS2113 1 2`          |
 |        | [Edit study session date for a course](#edit-study-session-date-for-a-course)   | `edit <course code> <session index> <new date>`                    | `edit CS2113 1 23/10/2025` |
-| Filter | [Filter by course name](#filter-by-course-name)                                 | `filter <course>`                                                  | `filter MA1511`            |
+| Filter | [Filter by course code](#filter-by-course-code)                                 | `filter <course>`                                                  | `filter MA1511`            |
 |        | [Filter by date](#filter-by-date)                                               | `filter <date>`                                                    | `filter 23/10/2025`        |
-|        | [Filter by course name and date](#filter-by-course-name-and-date)               | `filter <course> <date>`                                           | `filter MA1511 23/10/2025` |
+|        | [Filter by course code and date](#filter-by-course-code-and-date)               | `filter <course> <date>`                                           | `filter MA1511 23/10/2025` |
 | Reset  | [Reset hours for a course](#reset-hours-for-a-course)                           | `reset <course>`, or `reset all`                                   | `reset CS2113`             |
 | Delete | [Delete a course](#delete-a-course)                                             | `delete <course code>`                                             | `delete CS2113`            |
 |        | [Delete a session by index](#delete-a-session-by-index)                         | `delete <course code> <index>`                                     | `delete CS2113 2`          |
