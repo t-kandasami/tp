@@ -7,6 +7,7 @@ skinparam ActivityDiamondBackgroundColor #Wheat
 skinparam Padding 1
 skinparam ParticipantPadding 1
 skinparam BoxPadding 1
+skinparam conditionStyle diamond
 
 start
 
