@@ -13,10 +13,10 @@ start
 
 :User enters reset command;
 
-if () then ([Input empty])
+if () then ([Input is empty])
     :Prompt user to specify <course> or all;
     stop
-else ([Input not empty])
+else ([Input is not empty])
 
 if () then ([Input is "all"])
     :Set [target] = "all";
@@ -24,10 +24,10 @@ if () then ([Input is "all"])
 
 else ([Input is <course>])
     :Find course in CourseManager;
-    if () then ([<course> not found])
+    if () then ([<course> is not found])
         :Alert <course> non-existent;
         stop
-    else ([<course> found])
+    else ([<course> is found])
     :Set [target] = <course>;
     :Set [safeword] = "RESET";
     endif
@@ -45,7 +45,7 @@ else ([Input is 'y'])
 if () then ([Input is not exactly <safeword>])
     :Alert cancelled reset;
     stop
-else ([Input is not exactly <safeword>])
+else ([Input is exactly <safeword>])
 
 :Clear [target] sessions;
 :Alert successful reset;
