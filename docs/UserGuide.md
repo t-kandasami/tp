@@ -453,4 +453,4 @@ rejected):
 
 ## Appendix: Supported hour range
 
-NUStudy supports hours in double format starting from 0.5 to 24 with 0.5 increment only.
+NUStudy supports hours starting from 0.5 to 24 with 0.5 increment only. 
