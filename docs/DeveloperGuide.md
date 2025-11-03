@@ -405,6 +405,31 @@ The following activity diagram illustrates the complete reset workflow:
 
 {*more aspects and alternatives to be added*}
 
+### Exception component
+
+<u>Overview</u>
+
+The exception component package defines a proper hierarchy of custom exceptions used across the NUStudy application
+to handle various error conditions gracefully. All exceptions in this package inherit from base class
+`NUStudyException`, which extends the internal Java `Exception` class.
+
+<u>Implementation details</u>
+
+| **Class Name**                                       | **Description**                                                   |
+|------------------------------------------------------|-------------------------------------------------------------------|
+| `NUStudyException(String message)`                   | Base class for all custom exceptions in NUStudy.                  |
+| `FutureDateException(String message)`                | Thrown when a provided date is in the future.                     |
+| `NUStudyCommandException(String message)`            | Handles invalid or unrecognized user commands.                    |
+| `NUStudyCourseAlreadyExistException(String message)` | Raised when trying to add a course that already exists.           |
+| `NUStudyNoSuchSessionException()`                    | Thrown when the user enters an invalid or nonexistent session ID. |
+| `WrongDateFormatException(String message)`           | Raised when a user inputs an invalid date or unsupported format.  |
+
+<u>Design Considerations</u>
+
+- **Hierarchy-based error handling**: All exceptions extend from a common parent, allowing centralised error handling.
+- **Providing better clarity**: Each exception class focuses on a specific, well-defined error condition.
+- **User Guidance**: Error messages are crafted to guide users toward valid input or actions.
+
 ## Appendix: Requirements
 
 ### Product scope
