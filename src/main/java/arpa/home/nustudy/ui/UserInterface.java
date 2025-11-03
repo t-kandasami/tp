@@ -51,7 +51,7 @@ public class UserInterface {
      * @param course The course that was added
      */
     public static void printCourseAdded(final Course course) {
-        System.out.printf("Good Job! I have added %s", course);
+        System.out.printf("Good Job! You have added %s", course);
         System.out.println();
     }
 
@@ -61,7 +61,7 @@ public class UserInterface {
      * @param course The course that was deleted
      */
     public static void printCourseDeleted(final Course course) {
-        System.out.printf("NOTE: We have deleted %s from Course Book", course);
+        System.out.printf("NOTE: You have deleted %s from Course Book", course);
         System.out.println();
     }
 

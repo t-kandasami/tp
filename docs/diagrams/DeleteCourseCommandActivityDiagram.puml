@@ -7,30 +7,36 @@ skinparam ActivityDiamondBackgroundColor #Wheat
 skinparam Padding 1
 skinparam ParticipantPadding 1
 skinparam BoxPadding 1
+skinparam conditionStyle diamond
 
 start
+:User enter delete course command;
 
-if (input is empty?) then (yes)
-    :Prompt user to "Please enter a course name that you want to delete";
+if () then ([Input empty])
+    :Prompt user to specify <course>;
     stop
-
-else (no)
-    :Find the Course from CourseManager;
-    :Store Course found into courseToDelete;
+else ([Input is not empty])
+    :Find the Course in CourseManager;
+    :Set [courseToDelete];
 endif
 
-if (courseToDelete == null?) then (yes)
-    :Prompt User that course does not exist;
+if () then ([courseToDelete does not exist])
+    :Alert [courseToDelete] non-existent;
     stop
-else (no)
-    :Delete the course;
+else ([courseToDelete exist])
+    :Prompt user for 'y' or 'n';
 endif
 
-if (Is the course deleted) then (yes)
+if () then ([Input is 'n'])
+    :Inform user that course has not been deleted;
+    stop
+else ([Input is 'y'])
+    :Delete all Sessions and the Course;
+
+if () then ([courseToDelete does not exist])
     :Developer Log INFO "Successfully deleted course";
-else (no)
-    :Prompt User that there was an error with the deletion as the
-     course still exists after deleting it from the CourseManager;
+else ([courseToDelete exist])
+    :Alert User deletion error;
     stop
 endif
 stop
