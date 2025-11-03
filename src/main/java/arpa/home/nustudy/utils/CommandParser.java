@@ -62,6 +62,9 @@ public class CommandParser {
         case "filter":
             return parseFilterCommand(arguments);
         case "help":
+            if (!arguments.isEmpty()) {
+                throw new NUStudyCommandException("Invalid help command format. Usage: help");
+            }
             return new HelpCommand();
         default:
             throw new NUStudyCommandException("Wrong command");
