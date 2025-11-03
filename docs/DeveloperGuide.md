@@ -412,8 +412,6 @@ The following activity diagram illustrates the complete reset workflow:
     - Pros: Quickest operation, minimal required user interaction
     - Cons: Reckless design, leading to unacceptable risk of data wipe
 
-{*more aspects and alternatives to be added*}
-
 ### Exception component
 
 <u>Overview</u>
@@ -484,8 +482,8 @@ Extensions: missing/invalid input → system prompts; duplicate (case-insensitiv
 
 <u>UC2 — Add study session (MSS)</u>
 
-1. User issues: `add <course> <hours> [date]`
-1. System validates course existence, hours and date
+1. User issues: `add <course>` or `add <course> <hours>` or `add <course> <hours> <date>`
+1. System validates course existence, hours, and date if specified
 1. System records session and confirms
 
 Extensions: invalid course/date/hours → system shows error
@@ -499,7 +497,7 @@ Extensions: no data → empty message
 
 <u>UC4 — Edit session (MSS)</u>
 
-1. User issues: `edit <course> <index> <hours|date>`
+1. User issues: `edit <course> <index> <hours>` or `edit <course> <index> <date>`
 1. System validates inputs and updates session
 1. System confirms update
 

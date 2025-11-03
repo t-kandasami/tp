@@ -7,7 +7,7 @@ for use via a command-line interface (CLI). It is written in Java.
 Given below are my contributions to the project.
 
 - __New Feature__: Implemented the `resetCourseHoursCommand` class:
-[#36](https://github.com/AY2526S1-CS2113-W14-2/tp/pull/28) ,[#28](https://github.com/AY2526S1-CS2113-W14-2/tp/pull/28).
+[#36](https://github.com/AY2526S1-CS2113-W14-2/tp/pull/28), [#28](https://github.com/AY2526S1-CS2113-W14-2/tp/pull/28).
   - What it does: Allows users to reset the logged study hours for a specified course or all courses.
   - Justficiation: This feature improves usability by giving users flexibility to start new every semester or clear 
     hours for a specific course without deleting the course entirely.
@@ -48,8 +48,8 @@ Given below are my contributions to the project.
     [#71](https://github.com/AY2526S1-CS2113-W14-2/tp/pull/71).
     - Added implementation details and sequence diagram for the data loading component feature:
     [#71](https://github.com/AY2526S1-CS2113-W14-2/tp/pull/71).
-      - Added list of validation checks and execution upon detection of invalid entries:
-      - [#180](https://github.com/AY2526S1-CS2113-W14-2/tp/pull/180).
+    - Added list of validation checks and execution upon detection of invalid entries:
+[#180](https://github.com/AY2526S1-CS2113-W14-2/tp/pull/180).
 - __Community__:
   - PRs reviewed (with non-trivial review comments): [#65](https://github.com/AY2526S1-CS2113-W14-2/tp/pull/65).
   - The confirmation handler feature I implemented was adopted by my teammate, Kandasami:
