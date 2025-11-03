@@ -13,6 +13,7 @@ import arpa.home.nustudy.utils.DateParser;
 import arpa.home.nustudy.exceptions.NUStudyCommandException;
 import arpa.home.nustudy.exceptions.WrongDateFormatException;
 import arpa.home.nustudy.exceptions.NUStudyException;
+import arpa.home.nustudy.utils.LoggerHandler;
 
 /**
  * Command to filter and display courses that have sessions on a specified date.
@@ -22,7 +23,7 @@ import arpa.home.nustudy.exceptions.NUStudyException;
  * their original indices in the course list.
  */
 public class FilterByDateCommand implements Command {
-    private static final Logger logger = Logger.getLogger(FilterByDateCommand.class.getName());
+    private static final Logger logger = LoggerHandler.getLogger(FilterByDateCommand.class);
 
     private final String dateString;
     private final Iterable<?> sessionSource; // optional test injection; if null, use the provided SessionManager

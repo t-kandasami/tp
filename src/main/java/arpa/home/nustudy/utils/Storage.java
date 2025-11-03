@@ -19,7 +19,7 @@ import arpa.home.nustudy.session.SessionManager;
  * Handles loading and saving tasks to a data file.
  */
 public class Storage {
-    private static final Logger logger = Logger.getLogger(Storage.class.getName());
+    private static final Logger logger = LoggerHandler.getLogger(Storage.class);
     private final File dataFile;
 
     /**

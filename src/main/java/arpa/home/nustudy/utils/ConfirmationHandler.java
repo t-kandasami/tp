@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import arpa.home.nustudy.ui.UserInterface;
 
 public class ConfirmationHandler {
-    private static final Logger logger = Logger.getLogger(ConfirmationHandler.class.getName());
+    private static final Logger logger = LoggerHandler.getLogger(ConfirmationHandler.class);
 
     /**
      * Handles user first confirmation prompts by persistently asking for a single 'y' or 'n' input. Handles lower (y/n)

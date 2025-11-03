@@ -11,12 +11,13 @@ import arpa.home.nustudy.exceptions.NUStudyException;
 import arpa.home.nustudy.exceptions.NUStudyNoSuchCourseException;
 import arpa.home.nustudy.session.SessionManager;
 import arpa.home.nustudy.ui.UserInterface;
+import arpa.home.nustudy.utils.LoggerHandler;
 
 /**
  * Edits (renames) an existing course. Command format: edit oldCourseName newCourseName
  */
 public class EditCourseNameCommand implements Command {
-    private static final Logger logger = Logger.getLogger(EditCourseNameCommand.class.getName());
+    private static final Logger logger = LoggerHandler.getLogger(EditCourseNameCommand.class);
 
     private static final Pattern PATTERN = Pattern.compile("\\s+");
     private String oldCourseName;
