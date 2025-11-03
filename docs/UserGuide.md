@@ -81,6 +81,10 @@ Add a course to the course book.
 
 Format: `add <course code>`
 
+> **Note:**
+> - Course codes are **case-insensitive**.
+> - Uniqueness is enforced by course code (ignoring case).
+
 Example: `add CS2113`
 
 Expected output:
