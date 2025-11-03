@@ -28,6 +28,8 @@ public class App {
         storage.load(courseManager, sessionManager);
 
         do {
+            System.out.println();
+
             final String userInput = UserInterface.readInput();
 
             if (userInput == null) {
